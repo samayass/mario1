@@ -1,0 +1,105 @@
+<table>
+    <tr>
+        <td><a href="/mario1">Home</a></td>
+        <td><a href="/mario1/mario1">Mario 1</a></td>
+        <td><a href="/mario1/mario2">Mario 2</a></td>
+        <td><a href="/mario1/mario3">Mario 3</a></td>
+        <td><a href="/mario1/levels/mario4">Mario 4</a></td>
+    </tr>
+</table>
+
+
+<!-- # layout: default
+# permalink: /cars/
+# title: 
+# search_exclude: false
+# toc: false
+# categories: [] -->
+
+<html>
+<head>
+    <style>
+    {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        }
+        /* :root{
+        --color-car-body:#f06043;
+        --color-bg-1:#e4ffff;
+        } */
+        html{
+        height: 100%;
+        }
+        body{
+        background-image: linear-gradient(to top,#88d6e7 30%,#e4ffff 20%);
+        overflow: hidden;
+        }
+        #animate {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        background-color: red;
+        }
+        .cloud{
+        position: absolute;
+        top: var(--top);
+        left: 0;
+        width: 20vmin;
+        height: 13vmin;
+        border-radius: 10vmin 10vmin 0 6vmin;
+        background-color: #b5edf9;
+        -webkit-animation: cloud 5s var(--delay) linear infinite backwards;
+        animation: cloud 5s var(--delay) linear infinite backwards;
+        }
+        .cloud::after {
+        content: "";
+        position: absolute;
+        width: 20vmin;
+        height: 12vmin;
+        bottom: 0;
+        border-radius: 6rem 10rem 1rem 0;
+        -webkit-transform: translateX(9vmin);
+        transform: translateX(9vmin);
+        background-color: #b5edf9;
+        }
+        .cloud::before {
+        content: "";
+        position: absolute;
+        width: 15vmin;
+        height: 8vmin;
+        bottom: 8vmin;
+        border-radius: 20vmin 20vmin 0 0;
+        -webkit-transform: translateX(6vmin);
+        transform: translateX(6vmin);
+        background-color: #b5edf9;
+        }
+        @keyframes cloud {
+        0%{
+        transform: translateX(100vw);
+        }
+        100%{
+        transform: translateX(-100vw);
+        }
+        }
+        @keyframes run {
+        0%{
+        transform: rotate(0deg);
+        }
+        100%{
+        transform: rotate(360deg);
+        }
+        }
+    
+    </style>
+</head>
+<body>
+        <div class="cloud" style="--delay:3s;--top:10vmin"></div>
+        <div class="cloud" style="--delay:5s;--top:20vmin"></div>
+        <div class="cloud" style="--delay:5.5s;--top:10vmin"></div>
+    </body>
+</html>
+
+<footer>
+
+</footer>
