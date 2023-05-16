@@ -3,7 +3,7 @@ title: Mario Sprite Sheet
 comments: true
 layout: base
 description: Use JavaScript without external libararies to display all the animations in a sprite sheet.
-permalink: /frontend/mario
+permalink: /mario/2022-07-19-PBL-mario-sprite.md
 image: /images/mario_animation.png
 categories: []
 tags: [javascript]
