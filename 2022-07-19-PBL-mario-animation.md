@@ -1,7 +1,7 @@
 ---
 title: Mario in Motion
 comments: true
-layout: base
+layout: default
 description: Use JavaScript without external libararies to animate Mario moving across screen.
 permalink: /mario2
 image: /images/mario_animation.png
