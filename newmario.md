@@ -106,6 +106,26 @@ tags: [javascript]
       }, this.interval);
     }
 
+    animateU(obj, speed) {
+      let frame = 0;
+      const row = obj.row * this.pixels;
+      this.currentSpeed = speed;
+
+      this.tID = setInterval(() => {
+        const col = (frame + obj.col) * this.pixels;
+        this.marioElement.style.backgroundPosition = `-${col}px -${row}px`;
+        this.marioElement.style.left = `${this.positionX}px`;
+
+        this.positionX -= speed;
+        frame = (frame + 1) % obj.frames;
+
+        const viewportWidth = window.innerWidth;
+        if (this.positionX > viewportWidth - this.pixels) {
+          document.documentElement.scrollLeft = this.positionX - viewportWidth + this.pixels;
+        }
+      }, this.interval);
+    }
+
     startWalkingRight() {
       this.stopAnimate();
       this.animateRight(this.obj["Walk"], 3);
@@ -222,15 +242,50 @@ tags: [javascript]
   window.addEventListener("touchstart", (event) => {
     event.preventDefault(); // prevent default browser action
     if (event.touches[0].clientX > window.innerWidth / 2) {
-      // move right
-      if (currentSpeed === 0) { // if at rest, go to walking
-        mario.startWalkingRight();
-      } else if (currentSpeed === 3) { // if walking, go to running
-        mario.startRunningRight();
+      event.preventDefault();
+      direction = "right";
+      if (event.repeat) {
+        mario.startCheering();
+      } else {
+        if (mario.currentSpeed === 0 && leftspd == 0) {
+          mario.startWalkingRight();
+          leftspd = 0;
+          rightspd = 1;
+        } else if (mario.currentSpeed === 3 && rightspd == 1) {
+          mario.startRunningRight();
+          rightspd = 0;
+        }
       }
-    } else {
-      // move left
-      mario.startWalkingLeft();
+    }
+    
+    if (event.touches[0].clientX < window.innerWidth / 2) {
+      event.preventDefault();
+      direction = "left";
+      if (event.repeat) {
+        mario.startCheering();
+      } else {
+        if (mario.currentSpeed === 0 && rightspd == 0) {
+          mario.startWalkingLeft();
+          rightspd = 0;
+          leftspd = 1;
+        } else if (mario.currentSpeed === 3 && leftspd == 1) {
+          mario.startRunningLeft();
+          leftspd = 0;
+        }
+      }
+    }
+
+    if (event.touches[0].clientY < window.innerHeight / 2) {
+      event.preventDefault();
+      rightspd = 0;
+      leftspd = 0;
+      if (event.repeat) {
+        mario.stopAnimate();
+      } else if (direction == "right"){
+        mario.startPuffing();
+      } else if (direction == "left"){
+        mario.startPuffingLeft();
+      }
     }
   });
 
