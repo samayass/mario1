@@ -3,7 +3,7 @@ title: Mario in Motion
 comments: true
 layout: base
 description: Use JavaScript without external libararies to animate Mario moving across screen.
-permalink: /mario1
+permalink: /mario2
 image: /images/mario_animation.png
 categories: []
 tags: [javascript]
