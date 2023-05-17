@@ -71,14 +71,19 @@ tags: [javascript]
       const row = obj.row * this.pixels;
       this.currentSpeed = speed;
 
-      
       this.tID = setInterval(() => {
         const col = (frame + obj.col) * this.pixels;
         this.marioElement.style.backgroundPosition = `-${col}px -${row}px`;
         this.marioElement.style.left = `${this.positionX}px`;
 
-        this.positionX += speed;
-        frame = (frame + 1) % obj.frames;
+        if(this.positionX >= 0){
+            this.positionX += speed;
+            frame = (frame + 1) % obj.frames;
+        }
+        else {
+            frame = (frame + 1) % obj.frames;
+            this.positionX = 0;
+        }
 
         const viewportWidth = window.innerWidth;
         if (this.positionX > viewportWidth - this.pixels) {
@@ -97,8 +102,14 @@ tags: [javascript]
         this.marioElement.style.backgroundPosition = `-${col}px -${row}px`;
         this.marioElement.style.left = `${this.positionX}px`;
 
-        this.positionX -= speed;
-        frame = (frame + 1) % obj.frames;
+        if(this.positionX >= 0){
+            this.positionX -= speed;
+            frame = (frame + 1) % obj.frames;
+        }
+        else {
+            frame = (frame + 1) % obj.frames;
+            this.positionX = 0;
+        }
 
         const viewportWidth = window.innerWidth;
         if (this.positionX > viewportWidth - this.pixels) {
