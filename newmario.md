@@ -106,7 +106,7 @@ tags: [javascript]
       }, this.interval);
     }
 
-    animateU(obj, speed) {
+    animateUp(obj, speed) {
       let frame = 0;
       const row = obj.row * this.pixels;
       this.currentSpeed = speed;
