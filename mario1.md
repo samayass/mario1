@@ -71,6 +71,7 @@ tags: [javascript]
       const row = obj.row * this.pixels;
       this.currentSpeed = speed;
 
+      
       this.tID = setInterval(() => {
         const col = (frame + obj.col) * this.pixels;
         this.marioElement.style.backgroundPosition = `-${col}px -${row}px`;
