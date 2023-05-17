@@ -359,6 +359,23 @@
 
     if (event.key === "d") {
       event.preventDefault();
+      direction = "right";
+      if (event.repeat) {
+        mario.startCheering();
+      } else {
+        if (mario.currentSpeed === 0 && rightspd == 0) {
+          mario.startWalkingRight();
+          rightspd = 1;
+          leftspd = 0;
+        } else if (mario.currentSpeed === 1 && leftspd == 3) {
+          mario.startRunningRight();
+          rightspd = 0;
+        }
+      }
+    } 
+
+    if (event.key === "s") {
+      event.preventDefault();
       rightspd = 0;
       leftspd = 0;
       if (event.repeat) {
