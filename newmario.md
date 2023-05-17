@@ -190,7 +190,7 @@ tags: [javascript]
   var direction = "none";
 
   window.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight") {
+    if (event.key === "d") {
       event.preventDefault();
       direction = "right";
       if (event.repeat) {
@@ -207,7 +207,7 @@ tags: [javascript]
       }
     } 
     
-    if (event.key === "ArrowLeft") {
+    if (event.key === "a") {
       event.preventDefault();
       direction = "left";
       if (event.repeat) {
@@ -224,7 +224,7 @@ tags: [javascript]
       }
     } 
 
-    if (event.key === "ArrowDown") {
+    if (event.key === "d") {
       event.preventDefault();
       rightspd = 0;
       leftspd = 0;

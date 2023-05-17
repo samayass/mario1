@@ -289,7 +289,7 @@
 
   //key events that enable animations
   window.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight") {
+    if (event.key === "d") {
       event.preventDefault(); // prevent default browser action
       if (event.repeat) { //on hold key
         stopAnimate();
@@ -303,7 +303,7 @@
           startAnimate(obj["Run1"],6);  //running animation
         }
       }
-    } else if (event.key === "ArrowLeft") {
+    } else if (event.key === "a") {
       event.preventDefault(); // prevent default browser action
       if (event.repeat) { //on hold key
         // stop animation 
