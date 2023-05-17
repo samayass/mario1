@@ -161,6 +161,33 @@ tags: [javascript]
     }
   });
 
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "d") {
+      event.preventDefault(); // prevent default browser action
+      if (event.repeat) { //on hold key
+        stopAnimate();
+        startAnimate(obj["Cheer"],0);  //rest animation 
+      } else { //on tap key
+        if (currentSpeed === 0) { // if at rest, go to walking
+          stopAnimate();
+          startAnimate(obj["Walk"],3);  //walking animation
+        } else if (currentSpeed === 3) { // if walking, go to running
+          stopAnimate();
+          startAnimate(obj["Run1"],6);  //running animation
+        }
+      }
+    } else if (event.key === "a") {
+      event.preventDefault(); // prevent default browser action
+      if (event.repeat) { //on hold key
+        // stop animation 
+        stopAnimate();
+      } else { //on tap key
+        stopAnimate();
+        startAnimate(obj["Puff"],0); //resting animation
+      }
+    }
+  });
+
   //touch events that enable animations
   window.addEventListener("touchstart", (event) => {
     event.preventDefault(); // prevent default browser action
