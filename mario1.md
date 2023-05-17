@@ -84,6 +84,7 @@ tags: [javascript]
             frame = (frame + 1) % obj.frames;
             this.positionX = 0;
         }
+        
 
         const viewportWidth = window.innerWidth;
         if (this.positionX > viewportWidth - this.pixels) {
