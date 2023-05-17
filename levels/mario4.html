@@ -374,6 +374,23 @@
       }
     } 
 
+    // if ( event.key === "w") {
+    //   event.preventDefault();
+    //   mario.startCheering();
+    // }
+    if (event.key === "w") {
+      event.preventDefault();
+      rightspd = 0;
+      leftspd = 0;
+      if (event.repeat) {
+        mario.stopAnimate();
+      } else if (direction == "right"){
+        mario.startCheering();
+      } else if (direction == "left"){
+        mario.startCheering();
+      }
+    }
+
     if (event.key === "s") {
       event.preventDefault();
       rightspd = 0;
