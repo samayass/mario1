@@ -224,7 +224,7 @@ tags: [javascript]
       }
     } 
 
-    if (event.key === "d") {
+    if (event.key === "s") {
       event.preventDefault();
       rightspd = 0;
       leftspd = 0;
