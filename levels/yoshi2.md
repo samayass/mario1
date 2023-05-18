@@ -25,6 +25,7 @@ tags: [javascript]
     const numFrames = 5; // Total number of frames in the sprite sheet
 
     let currentFrame = 0; // Variable to track the current frame index
+    let intervalId;
 
     function updateFrame() {
         // Increment the frame index
@@ -38,8 +39,31 @@ tags: [javascript]
         spriteElement.style.backgroundPosition = `-${xPos}px 0`;
     }
 
+    function handleKeyPress(event) {
+
+    if (event.key === 'ArrowDown') {
+        clearInterval(intervalId);
+    }
+    else { 
+        let intervalTime;
+        if (event.key === 'ArrowRight') {
+            
+            intervalTime = 150; // 200ms = 5 frames per second
+        }
+        clearInterval(intervalId);
+        intervalId = setInterval(updateFrame, intervalTime);
+    }
+
+    
+  // Start the animation by calling updateFrame with the corresponding interval time
+  
+}
+
+    // Add an event listener to the document to listen for keydown events
+    document.addEventListener('keydown', handleKeyPress);
+    
     // Call the updateFrame function repeatedly at a desired frame rate
-    setInterval(updateFrame, 150); // 100ms = 10 frames per second
+    // setInterval(updateFrame, 150); // 100ms = 10 frames per second
 
     const spriteWidth2 = 25; // Width of each frame in pixels
     const spriteHeight2 = 35; // Height of each frame in pixels
@@ -142,7 +166,7 @@ tags: [javascript]
         const spriteElement6 = document.getElementById('yoshi6');
         spriteElement6.style.backgroundPosition = `-${xPos6}px -300px`;
     }
-
+        
     // Call the updateFrame function repeatedly at a desired frame rate
     setInterval(updateFrame6, 100); // 100ms = 10 frames per second
 </script>
