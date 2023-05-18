@@ -4,7 +4,7 @@ comments: true
 layout: default
 description: Use JavaScript without external libararies to animate Yoshi moving across screen, OOP style.
 permalink: /yoshi
-image: /images/yoshi_sprite.png
+image: /images/yoshi.png
 categories: []
 tags: [javascript]
 ---
