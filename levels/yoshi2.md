@@ -13,8 +13,8 @@ tags: [javascript]
 <div id="yoshi2" style="width: 27px; height: 30px; background-image: url('images/yoshi.png');"></div>
 <div id="yoshi3" style="width: 27px; height: 30px; background-image: url('images/yoshi.png');"></div>
 <div id="yoshi4" style="width: 29px; height: 30px; background-image: url('images/yoshi.png');"></div>
-<div id="yoshi5" style="width: 27px; height: 30px; background-image: url('images/yoshi.png');"></div>
-<div id="yoshi6" style="width: 27px; height: 30px; background-image: url('images/yoshi.png');"></div>
+<div id="yoshi5" style="width: 29px; height: 30px; background-image: url('images/yoshi.png');"></div>
+<div id="yoshi6" style="width: 26px; height: 30px; background-image: url('images/yoshi.png');"></div>
 <div id="yoshi7" style="width: 27px; height: 30px; background-image: url('images/yoshi.png');"></div>
 <div id="yoshi8" style="width: 27px; height: 30px; background-image: url('images/yoshi.png');"></div>
 
@@ -69,15 +69,15 @@ tags: [javascript]
     let currentFrame3 = 0; // Variable to track the current frame index
 
     function updateFrame3() {
-    // Increment the frame index
-    currentFrame3 = (currentFrame3 + 1) % numFrames3;
-  
-    // Calculate the position of the current frame in the sprite sheet
-    const xPos3 = currentFrame3 * spriteWidth3;
-  
-    // Display the frame by adjusting the background position
-    const spriteElement3 = document.getElementById('yoshi3');
-    spriteElement3.style.backgroundPosition = `-${xPos3}px -60px`;
+        // Increment the frame index
+        currentFrame3 = (currentFrame3 + 1) % numFrames3;
+    
+        // Calculate the position of the current frame in the sprite sheet
+        const xPos3 = currentFrame3 * spriteWidth3;
+    
+        // Display the frame by adjusting the background position
+        const spriteElement3 = document.getElementById('yoshi3');
+        spriteElement3.style.backgroundPosition = `-${xPos3}px -60px`;
     }
 
     // Call the updateFrame function repeatedly at a desired frame rate
@@ -90,18 +90,59 @@ tags: [javascript]
     let currentFrame4 = 0; // Variable to track the current frame index
 
     function updateFrame4() {
-    // Increment the frame index
-    currentFrame4 = (currentFrame4 + 1) % numFrames4;
-  
-    // Calculate the position of the current frame in the sprite sheet
-    const xPos4 = currentFrame4 * spriteWidth4;
-  
-    // Display the frame by adjusting the background position
-    const spriteElement4 = document.getElementById('yoshi4');
-    spriteElement4.style.backgroundPosition = `-${xPos4}px -90px`;
+        // Increment the frame index
+        currentFrame4 = (currentFrame4 + 1) % numFrames4;
+    
+        // Calculate the position of the current frame in the sprite sheet
+        const xPos4 = currentFrame4 * spriteWidth4;
+    
+        // Display the frame by adjusting the background position
+        const spriteElement4 = document.getElementById('yoshi4');
+        spriteElement4.style.backgroundPosition = `-${xPos4}px -90px`;
     }
 
     // Call the updateFrame function repeatedly at a desired frame rate
     setInterval(updateFrame4, 300); // 100ms = 10 frames per second
 
+    const spriteWidth5 = 28; // Width of each frame in pixels
+    const spriteHeight5 = 35; // Height of each frame in pixels
+    const numFrames5 = 4; // Total number of frames in the sprite sheet
+
+    let currentFrame5 = 0; // Variable to track the current frame index
+
+    function updateFrame5() {
+        // Increment the frame index
+        currentFrame5 = (currentFrame5 + 1) % numFrames5;
+    
+        // Calculate the position of the current frame in the sprite sheet
+        const xPos5 = currentFrame5 * spriteWidth5 + 29;
+
+        // Display the frame by adjusting the background position
+        const spriteElement5 = document.getElementById('yoshi5');
+        spriteElement5.style.backgroundPosition = `-${xPos5}px -120px`;
+    }
+
+    // Call the updateFrame function repeatedly at a desired frame rate
+    setInterval(updateFrame5, 200); // 100ms = 10 frames per second
+
+    const spriteWidth6 = 25; // Width of each frame in pixels
+    const spriteHeight6 = 35; // Height of each frame in pixels
+    const numFrames6 = 10; // Total number of frames in the sprite sheet
+
+    let currentFrame6 = 0; // Variable to track the current frame index
+
+    function updateFrame6() {
+        // Increment the frame index
+        currentFrame6 = (currentFrame6 + 1) % numFrames6;
+    
+        // Calculate the position of the current frame in the sprite sheet
+        const xPos6 = currentFrame6 * spriteWidth6;
+
+        // Display the frame by adjusting the background position
+        const spriteElement6 = document.getElementById('yoshi6');
+        spriteElement6.style.backgroundPosition = `-${xPos6}px -300px`;
+    }
+
+    // Call the updateFrame function repeatedly at a desired frame rate
+    setInterval(updateFrame6, 100); // 100ms = 10 frames per second
 </script>
