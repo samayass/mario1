@@ -1,0 +1,5 @@
+# Metadata to describe animations in sprite file images/mario_animations.png
+- Animate:
+  row: 0
+  col: 0
+  frames: 6

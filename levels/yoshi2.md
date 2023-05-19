@@ -9,6 +9,8 @@ categories: []
 tags: [javascript]
 ---
 
+{% include home.html %}
+
 <div id="yoshi1" style="width: 27px; height: 30px; background-image: url('images/yoshi.png');"></div>
 <div id="yoshi2" style="width: 27px; height: 30px; background-image: url('images/yoshi.png');"></div>
 <div id="yoshi3" style="width: 27px; height: 30px; background-image: url('images/yoshi.png');"></div>

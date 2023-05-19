@@ -1,10 +1,11 @@
 ---
-title: Mario in Motion OOP 
+title: Mario Game (test1)
 comments: true
 layout: default
-description: Use JavaScript without external libararies to animate Mario moving across screen, OOP style.
-permalink: /mario1
+description: Animating Mario games with starts of interacting objects
+permalink: /game
 image: /images/mario_animation.png
+image2: /images/coin.png
 categories: []
 tags: [javascript]
 ---
@@ -13,8 +14,11 @@ tags: [javascript]
 
 {% assign sprite_file = site.baseurl | append: page.image %}  <!--- Liquid concatentation --->
 {% assign hash = site.data.mario_metadata %}  <!--- Liquid list variable created from file containing mario metatdata for sprite --->
-{% assign hash1 = site.data.coin_metadata %}  <!--- Liquid list variable created from file containing mario metatdata for sprite --->
 {% assign pixels = 256 %} <!--- Liquid integer assignment --->
+
+{% assign sprite_file1 = site.baseurl | append: page.image2 %}  <!--- Liquid concatentation --->
+{% assign hash1 = site.data.coin_metadata %}  <!--- Liquid list variable created from file containing mario metatdata for sprite --->
+{% assign pixels = 215 %} <!--- Liquid integer assignment --->
 
 <!--- HTML for page contains <p> tag named "mario" and class properties for a "sprite"  -->
 <p id="mario" class="sprite"></p>
@@ -28,13 +32,19 @@ tags: [javascript]
   .sprite {
     height: {{pixels}}px;
     width: {{pixels}}px;
-    background-image: url('{{sprite_file}}');
     background-repeat: no-repeat;
   }
 
   /* background position of sprite element */
   #mario {
     background-position: calc({{animations[0].col}} * {{pixels}} * -1px) calc({{animations[0].row}} * {{pixels}} * -1px);
+    background-image: url('{{sprite_file}}');
+  }
+
+  /* background position of sprite element */
+  #coin {
+    background-position: calc( + ({{animations[0].col}} * {{pixels}} * -1px)) calc(400 + ({{animations[0].row}} * {{pixels}} * -1px));
+    background-image: url('{{sprite_file1}}');
   }
 </style>
 
@@ -55,14 +65,14 @@ tags: [javascript]
   {% endfor %}
 
   var coin_metadata = {}; //key, value object
-  {% for key in hash %}  
+  {% for key1 in hash1 %}  
   
-  var key = "{{key | first}}"  //key
+  var key1 = "{{key | first}}"  //key
   var values = {} //values object
-  values["row"] = {{key.row}}
-  values["col"] = {{key.col}}
-  values["frames"] = {{key.frames}}
-  coin_metadata[key] = values; //key with values added
+  values["row"] = {{key1.row}}
+  values["col"] = {{key1.col}}
+  values["frames"] = {{key1.frames}}
+  coin_metadata[key1] = values; //key with values added
 
   {% endfor %}
 
@@ -195,7 +205,96 @@ tags: [javascript]
     }
   }
 
+  class Coin {
+    constructor(meta_data) {
+      this.tID = null;  //capture setInterval() task ID
+      this.positionX = 400;  // current position of sprite in X direction
+      this.currentSpeed = 0;
+      this.coinElement = document.getElementById("coin"); //HTML element of sprite
+      this.pixels = {{pixels}}; //pixel offset of images in the sprite, set by liquid constant
+      this.interval = 100; //animation time interval
+      this.obj = meta_data;
+      this.coinElement.style.position = "absolute";
+    }
+
+    animate(obj, speed) {
+      let frame = 0;
+      const row = obj.row * this.pixels;
+      this.currentSpeed = speed;
+
+      this.tID = setInterval(() => {
+        const col = (frame + obj.col) * this.pixels;
+        this.coinElement.style.backgroundPosition = `-${col}px -${row}px`;
+        this.coinElement.style.left = `${this.positionX}px`;
+
+        this.positionX += speed;
+        frame = (frame + 1) % obj.frames;
+
+        const viewportWidth = window.innerWidth;
+        if (this.positionX > viewportWidth - this.pixels) {
+          document.documentElement.scrollLeft = this.positionX - viewportWidth + this.pixels;
+        }
+      }, this.interval);
+    }
+
+
+    startWalkingRight() {
+      this.stopAnimate();
+      this.animateRight(this.obj["Walk"], 3);
+    }
+
+    startWalkingLeft() {
+      this.stopAnimate();
+      this.animateLeft(this.obj["WalkL"], 3);
+    }
+
+    startRunningRight() {
+      this.stopAnimate();
+      this.animateRight(this.obj["Run1"], 6);
+    }
+
+    startRunningLeft() {
+      this.stopAnimate();
+      this.animateLeft(this.obj["Run1L"], 6);
+    }
+
+    startPuffing() {
+      this.stopAnimate();
+      this.animateRight(this.obj["Puff"], 0);
+    }
+
+    startPuffingLeft() {
+      this.stopAnimate();
+      this.animateLeft(this.obj["PuffL"], 0);
+    }
+
+    startCheering() {
+      this.stopAnimate();
+      this.animateRight(this.obj["Cheer"], 0);
+    }
+
+    startFlipping() {
+      this.stopAnimate();
+      this.animateRight(this.obj["Flip"], 0);
+    }
+
+    startResting() {
+      this.stopAnimate();
+      this.animateRight(this.obj["Rest"], 0);
+    }
+
+    startRestingLeft() {
+      this.stopAnimate();
+      this.animateRight(this.obj["RestL"], 0);
+    }
+
+    stopAnimate() {
+      clearInterval(this.tID);
+    }
+  }
+
   const mario = new Mario(mario_metadata);
+  const coin = new Coin(coin_metadata);
 
   ////////// event control /////////
 
