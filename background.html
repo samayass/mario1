@@ -1,23 +1,4 @@
----
-title: Mario in Motion
-comments: true
-layout: default
-description: Use JavaScript without external libararies to animate Mario moving across screen.
-permalink: /background
-image: /images/mario_animation.png
-categories: []
-tags: [javascript]
----
-
-{% include home.html %}
-
-{% assign sprite_file = site.baseurl | append: page.image %}  <!--- Liquid concatentation --->
-{% assign hash = site.data.mario_metadata %}  <!--- Liquid list variable created from file containing mario metatdata for sprite --->
-{% assign pixels = 256 %} <!--- Liquid integer assignment --->
-
-<!--- HTML for page contains <p> tag named "mario" and class properties for a "sprite"  -->
-
-  
+  <body>
 <div class="video-container">
   <video autoplay muted loop id="myVideo">
     <source src="images/background.mp4" type="video/mp4">
@@ -29,7 +10,7 @@ tags: [javascript]
 </div>
 <!--- Embedded Cascading Style Sheet (CSS) rules, defines how HTML elements look --->
 <style>
-  .video-container {
+    .video-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -37,7 +18,7 @@ tags: [javascript]
   height: 100%;
   overflow: hidden;
 }
-#myVideo {
+video#myVideo {
   position: absolute;
   top: 0;
   left: 0;
@@ -55,17 +36,18 @@ tags: [javascript]
   /* CSS style rules for the elements id and class above...
   */
   .sprite {
-    height: {{pixels}}px;
-    width: {{pixels}}px;
-    background-image: url('{{sprite_file}}');
+    position:relative;
+    top: 179px;
+    height: 256px;
+    width: 256px;
+    background-image: url('/images/mario_animation.png');
     background-repeat: no-repeat;
   }
+
   /* background position of sprite element */
   #mario {
-    background-position: calc({{animations[0].col}} * {{pixels}} * -1px) calc({{animations[0].row}} * {{pixels}} * -1px);
-    left:500px;
+    background-position: calc( * 256 * -1px) calc( * 256 * -1px);
   }
-
 </style>
 
 <!--- Embedded executable code--->
@@ -73,25 +55,160 @@ tags: [javascript]
   ////////// convert yml hash to javascript key value objects /////////
 
   var obj = {}; // key, value object
-  {% for key in hash %}  
+    
   
-  var key = "{{key | first}}"  // key
+  var key = "Rest"  // key
   var values = {} //values
-  values["row"] = {{key.row}}
-  values["col"] = {{key.col}}
-  values["frames"] = {{key.frames}}
+  values["row"] = 0
+  values["col"] = 0
+  values["frames"] = 15
   obj[key] = values; // key, values added
 
-  {% endfor %}
+    
+  
+  var key = "RestL"  // key
+  var values = {} //values
+  values["row"] = 1
+  values["col"] = 0
+  values["frames"] = 15
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "Walk"  // key
+  var values = {} //values
+  values["row"] = 2
+  values["col"] = 0
+  values["frames"] = 8
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "Tada"  // key
+  var values = {} //values
+  values["row"] = 2
+  values["col"] = 11
+  values["frames"] = 3
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "WalkL"  // key
+  var values = {} //values
+  values["row"] = 3
+  values["col"] = 0
+  values["frames"] = 8
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "TadaL"  // key
+  var values = {} //values
+  values["row"] = 3
+  values["col"] = 11
+  values["frames"] = 3
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "Run1"  // key
+  var values = {} //values
+  values["row"] = 4
+  values["col"] = 0
+  values["frames"] = 15
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "Run1L"  // key
+  var values = {} //values
+  values["row"] = 5
+  values["col"] = 0
+  values["frames"] = 15
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "Run2"  // key
+  var values = {} //values
+  values["row"] = 6
+  values["col"] = 0
+  values["frames"] = 15
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "Run2L"  // key
+  var values = {} //values
+  values["row"] = 7
+  values["col"] = 0
+  values["frames"] = 15
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "Puff"  // key
+  var values = {} //values
+  values["row"] = 8
+  values["col"] = 0
+  values["frames"] = 15
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "PuffL"  // key
+  var values = {} //values
+  values["row"] = 9
+  values["col"] = 0
+  values["frames"] = 15
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "Cheer"  // key
+  var values = {} //values
+  values["row"] = 10
+  values["col"] = 0
+  values["frames"] = 15
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "CheerL"  // key
+  var values = {} //values
+  values["row"] = 11
+  values["col"] = 0
+  values["frames"] = 15
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "Flip"  // key
+  var values = {} //values
+  values["row"] = 12
+  values["col"] = 0
+  values["frames"] = 15
+  obj[key] = values; // key, values added
+
+    
+  
+  var key = "FlipL"  // key
+  var values = {} //values
+  values["row"] = 13
+  values["col"] = 0
+  values["frames"] = 15
+  obj[key] = values; // key, values added
+
+  
 
 
   ////////// global variables /////////
 
   var tID; //capture setInterval() task ID
-  var positionX = 0; // current position of sprite in X direction
+  var positionX = -700; // current position of sprite in X direction
   var currentSpeed = 0;
   const mario = document.getElementById("mario"); //HTML element of sprite
-  const pixels = {{pixels}}; //pixel offset of images in the sprite, set by liquid constant
+  const pixels = 256; //pixel offset of images in the sprite, set by liquid constant
   const interval = 100; //animation time interval
 
   ////////// animation control /////////
@@ -123,6 +240,7 @@ tags: [javascript]
         document.documentElement.scrollLeft = positionX - viewportWidth + pixels;  //scroll
       }
     }, interval); //time setting of interval
+    
   }
 
   //animation ends by stopping task
@@ -134,33 +252,6 @@ tags: [javascript]
   ////////// event control /////////
 
   //key events that enable animations
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight") {
-      event.preventDefault(); // prevent default browser action
-      if (event.repeat) { //on hold key
-        stopAnimate();
-        startAnimate(obj["Cheer"],0);  //rest animation 
-      } else { //on tap key
-        if (currentSpeed === 0) { // if at rest, go to walking
-          stopAnimate();
-          startAnimate(obj["Walk"],3);  //walking animation
-        } else if (currentSpeed === 3) { // if walking, go to running
-          stopAnimate();
-          startAnimate(obj["Run1"],6);  //running animation
-        }
-      }
-    } else if (event.key === "ArrowLeft") {
-      event.preventDefault(); // prevent default browser action
-      if (event.repeat) { //on hold key
-        // stop animation 
-        stopAnimate();
-      } else { //on tap key
-        stopAnimate();
-        startAnimate(obj["Puff"],0); //resting animation
-      }
-    }
-  });
-
   window.addEventListener("keydown", (event) => {
     if (event.key === "d") {
       event.preventDefault(); // prevent default browser action
@@ -228,3 +319,4 @@ tags: [javascript]
   });
 
 </script>
+  </body>
