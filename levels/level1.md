@@ -14,7 +14,7 @@ tags: [javascript]
     #yoshi5 {
         position: absolute;
         top: 658px;
-        left: 670px;
+        left: 620px;
         width: 200px;
         height: 200px;
         z-index: 1; /* Adjust the z-index to control the stacking order */
@@ -28,6 +28,8 @@ tags: [javascript]
         height: 200px;
         z-index: 1; /* Adjust the z-index to control the stacking order */
     }
+
+    
 </style>
 
 <script>
@@ -40,8 +42,9 @@ tags: [javascript]
 
     function updateFrame() {
         // Increment the frame index
+        if (event.key === 'ArrowRight') {
         currentFrame = (currentFrame + 1) % numFrames;
-        
+        }
         // Calculate the position of the current frame in the sprite sheet
         const xPos = currentFrame * spriteWidth;
         
@@ -52,7 +55,7 @@ tags: [javascript]
 
     // Call the updateFrame function repeatedly at a desired frame rate
     setInterval(updateFrame, 10); // 100ms = 10 frames per second
-
+    
     
   // Start the animation by calling updateFrame with the corresponding interval time
   
@@ -65,7 +68,6 @@ tags: [javascript]
     function updateFrame5() {
         // Increment the frame index
         currentFrame5 = (currentFrame5 + 1) % numFrames5;
-    
         // Calculate the position of the current frame in the sprite sheet
         const xPos5 = currentFrame5 * spriteWidth5 + 29;
 
@@ -73,8 +75,30 @@ tags: [javascript]
         const spriteElement5 = document.getElementById('yoshi5');
         spriteElement5.style.backgroundPosition = `-${xPos5}px -120px`;
     }
-
     // Call the updateFrame function repeatedly at a desired frame rate
     setInterval(updateFrame5, 200); // 100ms = 10 frames per second
+    
+    const imageElement = document.getElementById('yoshi5');
+    let currentTop = 658;
+    let currentLeft = 620;
+    const stepSize = 10; // Adjust the step size according to your desired movement speed
+
+    function handleKeyPress(event) {
+    if (event.key === 'ArrowUp') {
+        currentTop -= stepSize;
+    } else if (event.key === 'ArrowDown') {
+        currentTop += stepSize;
+    } else if (event.key === 'ArrowLeft') {
+        currentLeft -= stepSize;
+    } else if (event.key === 'ArrowRight') {
+        currentLeft += stepSize;
+    }
+    
+    imageElement.style.top = currentTop + 'px';
+    imageElement.style.left = currentLeft + 'px';
+    }
+
+    document.addEventListener('keydown', handleKeyPress);
+    
 
 </script>
