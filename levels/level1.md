@@ -42,9 +42,9 @@ tags: [javascript]
 
     function updateFrame() {
         // Increment the frame index
-        if (event.key === 'ArrowRight') {
-        currentFrame = (currentFrame + 1) % numFrames;
-        }
+        
+        currentFrame = (currentFrame + 5) % numFrames;
+        
         // Calculate the position of the current frame in the sprite sheet
         const xPos = currentFrame * spriteWidth;
         
@@ -54,7 +54,8 @@ tags: [javascript]
     }
 
     // Call the updateFrame function repeatedly at a desired frame rate
-    setInterval(updateFrame, 10); // 100ms = 10 frames per second
+
+    // setInterval(updateFrame, 10); // 100ms = 10 frames per second
     
     
   // Start the animation by calling updateFrame with the corresponding interval time
@@ -81,16 +82,32 @@ tags: [javascript]
     const imageElement = document.getElementById('yoshi5');
     let currentTop = 658;
     let currentLeft = 620;
-    const stepSize = 10; // Adjust the step size according to your desired movement speed
+    const stepSize = 5; // Adjust the step size according to your desired movement speed
+
+    function jump() {
+        const jumpHeight = 75; // Adjust the jump height as desired
+        const jumpDuration = 300; // Adjust the jump duration as desired
+
+        imageElement.style.transform = `translateY(-${jumpHeight}px)`;
+    
+        setTimeout(() => {
+            imageElement.style.transform = 'translateY(0)';
+        }, jumpDuration);
+    }
 
     function handleKeyPress(event) {
-    if (event.key === 'ArrowUp') {
-        currentTop -= stepSize;
+    if (event.key === ' ') {
+        jump();
+        // currentTop -= stepSize;
+        // setTimeout(function() {
+        //     // Code to be executed after the delay
+        // }, 2000); // Delay in milliseconds (e.g., 2000ms = 2 seconds)
     } else if (event.key === 'ArrowDown') {
         currentTop += stepSize;
     } else if (event.key === 'ArrowLeft') {
-        currentLeft -= stepSize;
+        currentLeft -= stepSize + 10;
     } else if (event.key === 'ArrowRight') {
+        updateFrame();
         currentLeft += stepSize;
     }
     
