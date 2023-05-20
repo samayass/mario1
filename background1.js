@@ -47,8 +47,26 @@ class Platform {
         }
         this.image = image
 
-        this.width = 761
-        this.height = 83
+        this.width = 540
+        this.height = 160
+        
+    }
+    draw() {
+        c.drawImage(this.image, this.position.x, this.position.y)
+    }
+}
+
+class BlockObject {
+    constructor({x, y, image}) {
+        this.position = {
+            x,
+            y
+        }
+        this.image = image
+
+        this.width = 158
+        this.height = 79
+        
     }
     draw() {
         c.drawImage(this.image, this.position.x, this.position.y)
@@ -71,6 +89,7 @@ class GenericObject {
     }
 }
 
+
 const image = new Image()
 image.src = './images/platform.png'
 console.log(image)
@@ -79,17 +98,59 @@ const image1 = new Image()
 image1.src = './images/background.png'
 
 const image2 = new Image()
-image2.src = './images/hills.png'
+image2.src = './images/hills2.png'
+
+const image3 = new Image()
+image3.src = './images/box.png'
 
 
 const player = new Player()
+
+const blockObjects = [
+    new BlockObject({
+        x: 500, y: 100, image:image3
+    }),
+    new BlockObject({
+        x: 800, y: 200, image:image3
+    }),
+    new BlockObject({
+        x: 1200, y: 300, image:image3
+    }),
+    new BlockObject({
+        x: 1800, y: 100, image:image3
+    }),
+]
+
 const platforms = [
     new Platform({
-        x: 0, y: 500, image 
+        x: 0, y: 450, image 
     }), 
     new Platform({
-        x: 761, y: 500, image
+        x: 540, y: 450, image
     }),
+    new Platform({
+        x: 540*2, y: 450, image
+    }),
+    new Platform({
+        x: 540*3, y: 450, image
+    }),
+    new Platform({
+        x: 540*4, y: 450, image
+    }),
+    new Platform({
+        x: 540*5, y: 450, image
+    }),
+    new Platform({
+        x: 540*6, y: 450, image
+    }),
+    new Platform({
+        x: 540*7, y: 450, image
+    }),
+    new Platform({
+        x: 540*8, y: 450, image
+    }),
+
+
 ]
 
 const genericObjects = [
@@ -97,8 +158,20 @@ const genericObjects = [
         x:0, y:0, image: image1
     }),
     new GenericObject({
-        x:0, y:0, image: image2
-    })
+        x:0, y:180, image: image2
+    }),
+    new GenericObject({
+        x:754, y:180, image: image2
+    }),
+    new GenericObject({
+        x:754*2, y:180, image: image2
+    }),
+    new GenericObject({
+        x:754*3, y:180, image: image2
+    }),
+    new GenericObject({
+        x:754*4, y:180, image: image2
+    }),
 ]
 
 const keys = {
@@ -119,7 +192,9 @@ function animate() {
     genericObjects.forEach(genericObject => {
         genericObject.draw()
     })
-
+    blockObjects.forEach(blockObject => {
+        blockObject.draw()
+    })
     platforms.forEach(platform => {
         platform.draw()
     })
@@ -138,8 +213,13 @@ function animate() {
                 platform.position.x -= 5
             })
             genericObjects.forEach(genericObject => {
-                genericObject.position.x -=3;
+                genericObject.position.x -=2;
             })
+            blockObjects.forEach(blockObject => {
+                blockObject.position.x -=5;
+            })
+
+    
         }
             else if (keys.left.pressed && scrollOffset >0) {
                 scrollOffset -=5
@@ -147,8 +227,12 @@ function animate() {
                     platform.position.x +=5;
                 })
                 genericObjects.forEach(genericObject => {
-                    genericObject.position.x +=3;
+                    genericObject.position.x +=2;
                 })
+                blockObjects.forEach(blockObject => {
+                    blockObject.position.x +=5;
+                })
+
             }
     }
 
@@ -162,6 +246,19 @@ platforms.forEach(platform => {
         player.velocity.y = 0;
     }
 })
+
+blockObjects.forEach(blockObject => {
+    if (
+      player.position.y + player.height >= blockObject.position.y && // Check if player is below or at the same level as the block object
+      player.position.y <= blockObject.position.y + blockObject.height && // Check if player is above or at the same level as the bottom of the block object
+      player.position.x + player.width >= blockObject.position.x && // Check if player's right side is to the right or at the same level as the left side of the block object
+      player.position.x <= blockObject.position.x + blockObject.width // Check if player's left side is to the left or at the same level as the right side of the block object
+    ) {
+      player.velocity.y = 0;
+      player.position.y = blockObject.position.y - player.height; // Reset player's position to be just above the block object
+    }
+  });
+  
 
 }
 
@@ -203,7 +300,7 @@ addEventListener('keyup', ({keyCode}) => {
             break
         case 87: 
             console.log('up')
-            player.velocity.y -= 20
+            player.velocity.y -= 10
             break
     }
 }) 
