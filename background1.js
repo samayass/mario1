@@ -62,7 +62,7 @@ class GenericObject {
             y
         }
 
-        this.image = image1
+        this.image = image
         this.width = 760
         this.height = 82
     }
@@ -83,16 +83,21 @@ image2.src = './images/hills.png'
 
 
 const player = new Player()
-const platforms = [new Platform({
-    x: 0, y: 500, image 
-}), new Platform({
-    x: 761, y: 500, image
-}),
+const platforms = [
+    new Platform({
+        x: 0, y: 500, image 
+    }), 
+    new Platform({
+        x: 761, y: 500, image
+    }),
 ]
 
 const genericObjects = [
     new GenericObject({
-        x:0, y:0, image1
+        x:0, y:0, image: image1
+    }),
+    new GenericObject({
+        x:0, y:0, image: image2
     })
 ]
 
@@ -105,7 +110,7 @@ const keys = {
     }
 }
 
-
+let scrollOffset = 0
 
 function animate() {
     requestAnimationFrame(animate)
@@ -122,19 +127,27 @@ function animate() {
     if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = 5
     } 
-    else if(keys.left.pressed && player.position.x > 100) {
+    else if((keys.left.pressed && player.position.x > 100) || keys.left.pressed && scrollOffset === 0 && player.position.x>0) {
         player.velocity.x = -5;
     } 
     else  {
         player.velocity.x = 0
         if (keys.right.pressed) {
+            scrollOffset +=5
             platforms.forEach(platform => {
                 platform.position.x -= 5
             })
+            genericObjects.forEach(genericObject => {
+                genericObject.position.x -=3;
+            })
         }
-            else if (keys.left.pressed) {
+            else if (keys.left.pressed && scrollOffset >0) {
+                scrollOffset -=5
                 platforms.forEach(platform => {
                     platform.position.x +=5;
+                })
+                genericObjects.forEach(genericObject => {
+                    genericObject.position.x +=3;
                 })
             }
     }
