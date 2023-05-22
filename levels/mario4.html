@@ -27,7 +27,7 @@
     z-index: 2;
     height: 256px;
     width: 256px;
-    background-image: url('/images/mario_animation.png');
+    background-image: url('/levels/images/mario_animation.png');
     background-repeat: no-repeat;
   }
 
@@ -226,6 +226,14 @@
       }, jumpDuration);
     }
 
+    jump(obj, speed){
+      let frame = 0;
+      const row = obj.row * this.pixels;
+      this.currentSpeed = speed;
+
+      
+    }
+
     animateRight(obj, speed) {
       let frame = 0;
       const row = obj.row * this.pixels;
@@ -405,26 +413,6 @@
         }
       }
     } 
-
-    // if ( event.key === "w") {
-    //   event.preventDefault();
-    //   mario.startCheering();
-    // }
-
-    /*
-    if (event.key === "w") {
-      event.preventDefault();
-      rightspd = 0;
-      leftspd = 0;
-      if (event.repeat) {
-        mario.stopAnimate();
-      } else if (direction == "right"){
-        mario.startFlipping();
-      } else if (direction == "left"){
-        mario.startFlipping();
-      }
-    }
-    */
 
     if (event.key === "s") {
       event.preventDefault();
