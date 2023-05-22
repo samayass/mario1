@@ -186,20 +186,44 @@
   values["frames"] = 15
   mario_metadata[key] = values; //key with values added
 
-  
+  function jump() {
+      const jumpHeight = 100;  // adjust the jump height as needed
+      const jumpDuration = 1000;  // adjust the jump duration as needed
+      const groundLevel = 375;  // adjust the ground level as needed
+
+      this.marioElement.style.transform = `translateY(-${jumpHeight}px)`;
+
+      setTimeout(() => {
+       this.marioElement.style.transform = `translateY(${groundLevel}px)`;
+      }, jumpDuration);
+    }
 
   ////////// animation control object /////////
-
   class Mario {
     constructor(meta_data) {
       this.tID = null;  //capture setInterval() task ID
       this.positionX = 0;  // current position of sprite in X direction
+      this.positionY = 0;  // current position of sprite in Y direction
       this.currentSpeed = 0;
       this.marioElement = document.getElementById("mario"); //HTML element of sprite
       this.pixels = 256; //pixel offset of images in the sprite, set by liquid constant
       this.interval = 100; //animation time interval
       this.obj = meta_data;
       this.marioElement.style.position = "absolute";
+    }
+
+    jump() {
+      console.log("jump");
+      const jumpHeight = 100;
+      const jumpDuration = 1000;
+      const groundLevel = 375;
+
+      this.marioElement.style.transform = `translateY(-${jumpHeight}px)`;
+      console.log(this.marioElement);
+
+      setTimeout(() => {
+        this.marioElement.style.transform = `translateY(${groundLevel}px)`;
+      }, jumpDuration);
     }
 
     animateRight(obj, speed) {
@@ -342,6 +366,11 @@
         }
       }
     } 
+
+    if (event.key === " ") {
+      // event.preventDefault();
+      mario.jump();
+    }
     
     if (event.key === "a") {
       event.preventDefault();
@@ -381,6 +410,8 @@
     //   event.preventDefault();
     //   mario.startCheering();
     // }
+
+    /*
     if (event.key === "w") {
       event.preventDefault();
       rightspd = 0;
@@ -393,6 +424,7 @@
         mario.startFlipping();
       }
     }
+    */
 
     if (event.key === "s") {
       event.preventDefault();
@@ -426,6 +458,11 @@
           rightspd = 0;
         }
       }
+    }
+
+    if (event.touches[0].clientY < window.innerHeight / 2) {
+      event.preventDefault();
+      mario.jump();
     }
     
     if (event.touches[0].clientX < window.innerWidth / 2) {
