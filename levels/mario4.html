@@ -33,8 +33,9 @@
 
   /* background position of sprite element */
   #mario {
-    background-position: calc( * 256 * -1px) calc( * 256 * -1px);
+    background-position: -256px -256px; /* Replace with appropriate values */
   }
+
 </style>
 
 <!--- Embedded executable code--->
@@ -186,15 +187,17 @@
   values["frames"] = 15
   mario_metadata[key] = values; //key with values added
 
+
+
   function jump() {
-      const jumpHeight = 100;  // adjust the jump height as needed
+      const jumpHeight = 1;  // adjust the jump height as needed
       const jumpDuration = 1000;  // adjust the jump duration as needed
       const groundLevel = 375;  // adjust the ground level as needed
 
-      this.marioElement.style.transform = `translateY(-${jumpHeight}px)`;
+      this.marioElement.style.top = `${groundLevel-jumpHeight}px`;
 
       setTimeout(() => {
-       this.marioElement.style.transform = `translateY(${groundLevel}px)`;
+       this.marioElement.style.top = `${groundLevel}px`;
       }, jumpDuration);
     }
 
@@ -213,26 +216,18 @@
     }
 
     jump() {
-      console.log("jump");
-      const jumpHeight = 100;
-      const jumpDuration = 1000;
-      const groundLevel = 375;
+      const jumpHeight = 100;  // adjust the jump height as needed
+      const jumpDuration = 1000;  // adjust the jump duration as needed
+      const groundLevel = 375;  // adjust the ground level as needed
 
-      this.marioElement.style.transform = `translateY(-${jumpHeight}px)`;
-      console.log(this.marioElement);
+      this.marioElement.style.top = `${groundLevel-jumpHeight}px`;
 
       setTimeout(() => {
-        this.marioElement.style.transform = `translateY(${groundLevel}px)`;
+       this.marioElement.style.top = `${groundLevel}px`;
       }, jumpDuration);
     }
 
-    jump(obj, speed){
-      let frame = 0;
-      const row = obj.row * this.pixels;
-      this.currentSpeed = speed;
 
-      
-    }
 
     animateRight(obj, speed) {
       let frame = 0;
@@ -376,7 +371,7 @@
     } 
 
     if (event.key === " ") {
-      // event.preventDefault();
+      event.preventDefault();
       mario.jump();
     }
     
