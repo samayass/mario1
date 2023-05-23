@@ -43,6 +43,16 @@
 <script>
   ////////// convert yml hash to javascript key value objects /////////
 
+    // Example code to change the slider speed dynamically
+  const sliderElement = document.querySelector('.slider');
+
+  function changeSliderSpeed(speed) {
+    document.documentElement.style.setProperty('--slider-speed', speed);
+  }
+
+  // Call the changeSliderSpeed function with the desired speed value (e.g., '3s', '10s', etc.)
+  changeSliderSpeed('3s');
+
   var mario_metadata = {}; //key, value object
     
   
