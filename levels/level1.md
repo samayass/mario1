@@ -88,12 +88,17 @@ tags: [javascript]
         const jumpHeight = 75; // Adjust the jump height as desired
         const jumpDuration = 300; // Adjust the jump duration as desired
 
+        imageElement.style.transition = `transform ${jumpDuration}ms`;
         imageElement.style.transform = `translateY(-${jumpHeight}px)`;
-    
+
         setTimeout(() => {
             imageElement.style.transform = 'translateY(0)';
+            setTimeout(() => {
+                imageElement.style.transition = '';
+            }, jumpDuration);
         }, jumpDuration);
     }
+
 
     function handleKeyPress(event) {
     if (event.key === ' ') {

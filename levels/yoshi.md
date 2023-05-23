@@ -33,6 +33,7 @@ tags: [javascript]
   /* background position of sprite element */
   #yoshi {
     background-position: calc({{animations[0].col}} * {{pixels}} * -1px) calc({{animations[0].row}} * {{pixels}} * -1px);
+    transition: top 1s ease;
   }
 </style>
 
