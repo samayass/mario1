@@ -20,6 +20,7 @@ tags: [javascript]
         width: 200px;
         height: 200px;
         z-index: 1; /* Adjust the z-index to control the stacking order */
+        transition: top 1s ease;
     }
 
     #level1 {
