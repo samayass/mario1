@@ -34,6 +34,7 @@
   /* background position of sprite element */
   #mario {
     background-position: -256px -256px; /* Replace with appropriate values */
+    transition: top 1s ease;
   }
 
 </style>
@@ -215,17 +216,20 @@
       this.marioElement.style.position = "absolute";
     }
 
+
     jump() {
       const jumpHeight = 100;  // adjust the jump height as needed
       const jumpDuration = 1000;  // adjust the jump duration as needed
       const groundLevel = 375;  // adjust the ground level as needed
 
-      this.marioElement.style.top = `${groundLevel-jumpHeight}px`;
+      this.marioElement.style.transition = `top ${jumpDuration}ms ease`;
+      this.marioElement.style.top = `${groundLevel - jumpHeight}px`;
 
       setTimeout(() => {
-       this.marioElement.style.top = `${groundLevel}px`;
+        this.marioElement.style.top = `${groundLevel}px`;
       }, jumpDuration);
     }
+
 
 
 
