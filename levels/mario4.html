@@ -567,6 +567,30 @@
 <head>
     <style>
     {
+
+      :root {
+        --slider-speed: 5s; /* Default speed, adjust as needed */
+      }
+
+      .slider {
+        overflow: hidden; /* Ensures the image is contained within the slider */
+      }
+
+      .slider img {
+        width: 100%; /* Adjust the width as needed */
+        height: auto; /* Adjust the height as needed */
+        position: relative;
+        animation: slide var(--slider-speed) linear infinite; /* Use CSS variable for animation duration */
+      }
+
+      @keyframes slide {
+        0% {
+          left: 0;
+        }
+        100% {
+          left: calc(100% - 100px); /* Adjust the sliding distance as needed */
+        }
+      }
         padding: 0;
         margin: 0;
         box-sizing: border-box;
