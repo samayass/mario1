@@ -8,7 +8,9 @@ tags: [javascript]
 
 <div id="level1" style="width: 900px; height: 252px; background-image: url('images/level1.png');"></div>
 <div id="yoshi5" style="width: 29px; height: 30px; background-image: url('images/yoshi.png'); "></div>
-
+<div id="block">
+    <img src="images/mario_block.png" alt="My Image">
+</div>
 
 <style>
     #yoshi5 {
@@ -28,7 +30,20 @@ tags: [javascript]
         height: 200px;
         z-index: 1; /* Adjust the z-index to control the stacking order */
     }
+    #block {
+        position: absolute;
+        top: 650px;
+        left: 600px;
+        width: 17px;
+        height: 17px;
+        z-index: 1; /* Adjust the z-index to control the stacking order */
+    }
 
+    #block img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
     
 </style>
 
@@ -86,7 +101,7 @@ tags: [javascript]
 
     function jump() {
         const jumpHeight = 75; // Adjust the jump height as desired
-        const jumpDuration = 300; // Adjust the jump duration as desired
+        const jumpDuration = 100; // Adjust the jump duration as desired
 
         imageElement.style.transition = `transform ${jumpDuration}ms`;
         imageElement.style.transform = `translateY(-${jumpHeight}px)`;
