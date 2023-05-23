@@ -191,16 +191,16 @@
 
 
   function jump() {
-      const jumpHeight = 1;  // adjust the jump height as needed
-      const jumpDuration = 1000;  // adjust the jump duration as needed
-      const groundLevel = 375;  // adjust the ground level as needed
+    const jumpHeight = 1;  // adjust the jump height as needed
+    const jumpDuration = 1000;  // adjust the jump duration as needed
+    const groundLevel = 375;  // adjust the ground level as needed
 
-      this.marioElement.style.top = `${groundLevel-jumpHeight}px`;
+    this.marioElement.style.top = `${groundLevel-jumpHeight}px`;
 
-      setTimeout(() => {
-       this.marioElement.style.top = `${groundLevel}px`;
-      }, jumpDuration);
-    }
+    setTimeout(() => {
+      this.marioElement.style.top = `${groundLevel}px`;
+    }, jumpDuration);
+  }
 
   ////////// animation control object /////////
   class Mario {
@@ -219,8 +219,8 @@
 
     jump() {
       const jumpHeight = 100;  // adjust the jump height as needed
-      const jumpDuration = 1000;  // adjust the jump duration as needed
-      const groundLevel = 375;  // adjust the ground level as needed
+      const jumpDuration = 500;  // adjust the jump duration as needed
+      const groundLevel = 315;  // adjust the ground level as needed
 
       this.marioElement.style.transition = `top ${jumpDuration}ms ease`;
       this.marioElement.style.top = `${groundLevel - jumpHeight}px`;
@@ -229,8 +229,6 @@
         this.marioElement.style.top = `${groundLevel}px`;
       }, jumpDuration);
     }
-
-
 
 
     animateRight(obj, speed) {
