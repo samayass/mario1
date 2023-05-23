@@ -3,7 +3,7 @@ title: Mario Game (test1)
 comments: true
 layout: default
 description: Animating Mario games with starts of interacting objects
-permalink: /game
+permalink: /game1
 image: /images/mario_animation.png
 image2: /images/coin.png
 categories: []
@@ -13,16 +13,16 @@ tags: [javascript]
 {% include home.html %}
 
 {% assign sprite_file = site.baseurl | append: page.image %}  <!--- Liquid concatentation --->
-{% assign hash = site.data.mario_metadata %}  <!--- Liquid list variable created from file containing mario metatdata for sprite --->
+{% assign hash = site.data.mario_metadata %}  <!--- Liquid list variable created from file containing mario metadata for sprite --->
 {% assign pixels = 256 %} <!--- Liquid integer assignment --->
 
 {% assign sprite_file1 = site.baseurl | append: page.image2 %}  <!--- Liquid concatentation --->
-{% assign hash1 = site.data.coin_metadata %}  <!--- Liquid list variable created from file containing mario metatdata for sprite --->
-{% assign pixels = 215 %} <!--- Liquid integer assignment --->
+{% assign hash1 = site.data.coin_metadata %}  <!--- Liquid list variable created from file containing mario metadata for sprite --->
+{% assign pixels1 = 200 %} <!--- Liquid integer assignment --->
 
 <!--- HTML for page contains <p> tag named "mario" and class properties for a "sprite"  -->
 <p id="mario" class="sprite"></p>
-<p id="coin" class="sprite"></p>
+<p id="coin" class="sprite1"></p>
   
 
 <!--- Embedded Cascading Style Sheet (CSS) rules, defines how HTML elements look --->
@@ -32,6 +32,13 @@ tags: [javascript]
   .sprite {
     height: {{pixels}}px;
     width: {{pixels}}px;
+    background-repeat: no-repeat;
+    z-index: 99999;
+  }
+
+  .sprite1 {
+    height: {{pixels}}px;
+    width: {{pixels1}}px;
     background-repeat: no-repeat;
   }
 
@@ -43,8 +50,8 @@ tags: [javascript]
 
   /* background position of sprite element */
   #coin {
-    background-position: calc( + ({{animations[0].col}} * {{pixels}} * -1px)) calc(400 + ({{animations[0].row}} * {{pixels}} * -1px));
     background-image: url('{{sprite_file1}}');
+    background-position: calc({{animations[0].col}} * {{pixels1}} * -1px) calc({{animations[0].row}} * {{pixels1}} * -1px);
   }
 </style>
 
@@ -65,14 +72,14 @@ tags: [javascript]
   {% endfor %}
 
   var coin_metadata = {}; //key, value object
-  {% for key1 in hash1 %}  
+  {% for key in hash1 %}  
   
-  var key1 = "{{key | first}}"  //key
-  var values = {} //values object
-  values["row"] = {{key1.row}}
-  values["col"] = {{key1.col}}
-  values["frames"] = {{key1.frames}}
-  coin_metadata[key1] = values; //key with values added
+  var key = "{{key | first}}"  //key
+  var values1 = {} //values object
+  values1["row"] = {{key.row}}
+  values1["col"] = {{key.col}}
+  values1["frames"] = {{key.frames}}
+  coin_metadata[key] = values1; //key with values added
 
   {% endfor %}
 
@@ -102,6 +109,9 @@ tags: [javascript]
 
         this.positionX += speed;
         frame = (frame + 1) % obj.frames;
+        if (((this.positionX + (this.pixels/2) - 75) >= (coin.positionX)) && (this.positionX <= coin.positionX)){
+          coin.disappear();
+        }
 
         const viewportWidth = window.innerWidth;
         if (this.positionX > viewportWidth - this.pixels) {
@@ -122,6 +132,9 @@ tags: [javascript]
 
         this.positionX -= speed;
         frame = (frame + 1) % obj.frames;
+        if (((this.positionX + (this.pixels/2) - 75) >= (coin.positionX)) && (this.positionX <= coin.positionX)){
+          coin.disappear();
+        }
 
         const viewportWidth = window.innerWidth;
         if (this.positionX > viewportWidth - this.pixels) {
@@ -208,27 +221,29 @@ tags: [javascript]
   class Coin {
     constructor(meta_data) {
       this.tID = null;  //capture setInterval() task ID
-      this.positionX = 400;  // current position of sprite in X direction
+      this.positionX = 100;  // current position of sprite in X direction
+      this.positionY = -50;
       this.currentSpeed = 0;
       this.coinElement = document.getElementById("coin"); //HTML element of sprite
-      this.pixels = {{pixels}}; //pixel offset of images in the sprite, set by liquid constant
+      this.pixels = {{pixels1}}; //pixel offset of images in the sprite, set by liquid constant
       this.interval = 100; //animation time interval
       this.obj = meta_data;
       this.coinElement.style.position = "absolute";
+      this.beat = new Audio('/sounds/coin.mp3');
     }
 
     animate(obj, speed) {
-      let frame = 0;
+      let frame1 = 0;
       const row = obj.row * this.pixels;
       this.currentSpeed = speed;
 
       this.tID = setInterval(() => {
-        const col = (frame + obj.col) * this.pixels;
+        const col = (frame1 + obj.col) * this.pixels;
         this.coinElement.style.backgroundPosition = `-${col}px -${row}px`;
         this.coinElement.style.left = `${this.positionX}px`;
+        this.coinElement.style.bottom = `${this.positionY}px`;
 
-        this.positionX += speed;
-        frame = (frame + 1) % obj.frames;
+        frame1 = (frame1 + 1) % obj.frames;
 
         const viewportWidth = window.innerWidth;
         if (this.positionX > viewportWidth - this.pixels) {
@@ -237,59 +252,30 @@ tags: [javascript]
       }, this.interval);
     }
 
-
-    startWalkingRight() {
+    startAnimate() {
       this.stopAnimate();
-      this.animateRight(this.obj["Walk"], 3);
-    }
-
-    startWalkingLeft() {
-      this.stopAnimate();
-      this.animateLeft(this.obj["WalkL"], 3);
-    }
-
-    startRunningRight() {
-      this.stopAnimate();
-      this.animateRight(this.obj["Run1"], 6);
-    }
-
-    startRunningLeft() {
-      this.stopAnimate();
-      this.animateLeft(this.obj["Run1L"], 6);
-    }
-
-    startPuffing() {
-      this.stopAnimate();
-      this.animateRight(this.obj["Puff"], 0);
-    }
-
-    startPuffingLeft() {
-      this.stopAnimate();
-      this.animateLeft(this.obj["PuffL"], 0);
-    }
-
-    startCheering() {
-      this.stopAnimate();
-      this.animateRight(this.obj["Cheer"], 0);
-    }
-
-    startFlipping() {
-      this.stopAnimate();
-      this.animateRight(this.obj["Flip"], 0);
-    }
-
-    startResting() {
-      this.stopAnimate();
-      this.animateRight(this.obj["Rest"], 0);
-    }
-
-    startRestingLeft() {
-      this.stopAnimate();
-      this.animateRight(this.obj["RestL"], 0);
+      this.animate(this.obj["Animate"], 0);
     }
 
     stopAnimate() {
       clearInterval(this.tID);
+    }
+
+    jump(){
+      if(this.positionY <= 0){
+        // Play the beat
+        this.beat.play();
+        this.interval = 10;
+        this.positionY += 5;
+      }
+    }
+
+    disappear(){
+      setInterval(this.jump(), 10);
+      if(this.positionY >= -5){
+        this.stopAnimate();
+        document.getElementById('coin').style.display = 'none';
+      }
     }
   }
 
@@ -337,7 +323,7 @@ tags: [javascript]
       }
     } 
 
-    if (event.key === "d") {
+    if (event.key === "s") {
       event.preventDefault();
       rightspd = 0;
       leftspd = 0;
@@ -421,9 +407,13 @@ tags: [javascript]
     // adjust sprite size for high pixel density devices
     const scale = window.devicePixelRatio;
     const sprite = document.querySelector(".sprite");
+    const sprite1 = document.querySelector(".sprite1");
     sprite.style.transform = `scale(${0.2 * scale})`;
+    sprite1.style.transform = `scale(${0.1 * scale})`;
     mario.startResting();
+    coin.startAnimate();
   });
+  
 
 </script>
 
