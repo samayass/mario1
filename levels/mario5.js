@@ -130,6 +130,34 @@ class Hill {
         c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
     }
 }
+class Tube {
+    constructor( { x, y, image, width, height } ) {
+        this.position = {
+            x,
+            y
+        }
+        this.image = new Image()
+        this.image.src = image
+        this.width = width
+        this.height = height
+        this.image.onload = () => {
+            // Optional: If width and height are not provided, use the image's natural dimensions
+            if (!width) {
+                this.width = this.image.naturalWidth;
+            }
+            if (!height) {
+                this.height = this.image.naturalHeight;
+            }
+        }
+
+        // this.width = image.width
+        // this.height = image.height
+    }
+
+    draw() {
+        c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+    }
+}
 
 
 const image = new Image()
@@ -139,21 +167,29 @@ let player = new Player()
 let hills = []
 let platforms = []
 let floors = []
+let tubes = []
 
 function init() {
 
     player = new Player()
     platforms = [
         new Platform( {
-            x: 50, 
+            x: 100, 
             y: 300,
             image: 'images/BrickBlock.png',
             width: 80,
             height: 80
         } ), 
         new Platform( {
-            x: 130, 
-            y: 250,
+            x: 180, 
+            y: 220,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 260, 
+            y: 300,
             image: 'images/BrickBlock.png',
             width: 80,
             height: 80
@@ -209,6 +245,14 @@ function init() {
             width: 1024,
             height: 576
         } )]
+    tubes = [
+        new Tube( {
+            x: 650, 
+            y: 317,
+            image: 'images/tube.png',
+            width: 175,
+            height: 200
+        } )]
 
 }
 
@@ -238,8 +282,13 @@ function animate() {
         floor.draw()
     }
     )
-    
     player.update()
+
+    tubes.forEach(tube => {
+        tube.draw()
+    })
+    
+    
 
     if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = player.speed;
@@ -261,6 +310,9 @@ function animate() {
             hills.forEach(hill => {
                 hill.position.x  -= player.speed * .66
             })
+            tubes.forEach(tube => {
+                tube.position.x  -= player.speed
+            })
         }
         else if (keys.left.pressed) {
             scrollOffset -= player.speed
@@ -271,12 +323,15 @@ function animate() {
                 floor.position.x  += player.speed
             })
             hills.forEach(hill => {
-                hill.position.x  += player.speed * .66
+                hill.position.x  += player.speed
+            })
+            tubes.forEach(tube => {
+                tube.position.x  += player.speed
             })
         }
     }
 
-    console.log(scrollOffset)
+    //console.log(scrollOffset)
 
     //platform collision detection
     platforms.forEach(platform => {
@@ -322,6 +377,32 @@ function animate() {
         }
 
     })
+    //tube collision detection
+    tubes.forEach(tube => {
+        //from left
+        if (player.position.x + player.width <= tube.position.x  + 45// the '+ 10' is an arbitrary value to fix the hitbox
+            && 
+            player.position.x + player.width + player.velocity.x >= tube.position.x + 45
+            &&
+            player.position.y + player.height >= tube.position.y
+            &&
+            player.position.y <= tube.position.y + tube.height) {
+            player.velocity.x = 0
+            console.log(tube.position.x + "left")
+        }
+        //from right
+        if (player.position.x >= tube.position.x + tube.width - 45
+            && 
+            player.position.x + player.velocity.x <= tube.position.x + tube.width - 45
+            &&
+            player.position.y + player.height >= tube.position.y
+            &&
+            player.position.y <= tube.position.y + tube.height) {
+            player.velocity.x = 0
+            console.log(tube.position.x + tube.width + "right")
+        }
+
+    })
 
     // Floor collision detection
     floors.forEach(floor => {
@@ -356,18 +437,18 @@ animate()
 window.addEventListener('keydown', ({keyCode}) => {
     switch (keyCode) {
         case 65:
-            console.log('left')
+            //console.log('left')
             keys.left.pressed = true
         break
         case 83:
-            console.log('down')
+            //console.log('down')
         break 
         case 68:
-            console.log('right')
+            //console.log('right')
             keys.right.pressed = true
         break 
         case 87:
-            console.log('up')
+            //console.log('up')
             player.velocity.y -= 30
         break 
     }
@@ -377,18 +458,18 @@ window.addEventListener('keydown', ({keyCode}) => {
 window.addEventListener('keyup', ({keyCode}) => {
     switch (keyCode) {
         case 65:
-            console.log('left')
+            //console.log('left')
             keys.left.pressed = false
         break
         case 83:
-            console.log('down')
+            //console.log('down')
         break 
         case 68:
-            console.log('right')
+            //console.log('right')
             keys.right.pressed = false
         break 
         case 87:
-            console.log('up')
+            //console.log('up')
         break 
     }
 }) 
