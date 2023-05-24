@@ -4,7 +4,7 @@ comments: true
 layout: default
 description: Animating Mario games with starts of interacting objects
 permalink: /game1
-image: /images/mario_animation.png
+image: /levels/images/mario_animation.png
 image2: /images/coin.png
 categories: []
 tags: [javascript]
