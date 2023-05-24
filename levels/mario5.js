@@ -153,7 +153,7 @@ function init() {
         } ), 
         new Platform( {
             x: 130, 
-            y: 350,
+            y: 250,
             image: 'images/BrickBlock.png',
             width: 80,
             height: 80
@@ -280,6 +280,7 @@ function animate() {
 
     //platform collision detection
     platforms.forEach(platform => {
+        //from top
         if (player.position.y + player.height <= platform.position.y 
             && 
             player.position.y + player.height + player.velocity.y >= platform.position.y
@@ -289,6 +290,7 @@ function animate() {
             player.position.x <= platform.position.x + platform.width) {
             player.velocity.y = 0
         }
+        //from bottom
         if (player.position.y >= platform.position.y + platform.height 
             && 
             player.position.y + player.velocity.y <= platform.position.y + platform.height
@@ -298,15 +300,17 @@ function animate() {
             player.position.x <= platform.position.x + platform.width) {
             player.velocity.y = 0
         }
-        if (player.position.x + player.width <= platform.position.x - 10 // the '- 10' is an arbitrary value to fix the hitbox
+        //from left
+        if (player.position.x + player.width <= platform.position.x + 10 // the '+ 10' is an arbitrary value to fix the hitbox
             && 
-            player.position.x + player.width + player.velocity.x >= platform.position.x - 10
+            player.position.x + player.width + player.velocity.x >= platform.position.x + 10
             &&
             player.position.y + player.height >= platform.position.y
             &&
             player.position.y <= platform.position.y + platform.height) {
             player.velocity.x = 0
         }
+        //from right
         if (player.position.x >= platform.position.x + platform.width - 10
             && 
             player.position.x + player.velocity.x <= platform.position.x + platform.width - 10
