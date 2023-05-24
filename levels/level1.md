@@ -115,8 +115,8 @@ tags: [javascript]
         }, jumpDuration);
     }
 
-    function areElementsColliding(element1, element2) {
-        const rect1 = yoshi1.getBoundingClientRect();
+    function areElementsColliding(yoshi5, block) {
+        const rect1 = yoshi5.getBoundingClientRect();
         const rect2 = block.getBoundingClientRect();
 
         return (
@@ -127,16 +127,16 @@ tags: [javascript]
         );
     }
 
-    const yoshi1 = document.getElementById('yoshi1');
+    const yoshi5 = document.getElementById('yoshi5');
     const block = document.getElementById('block');
 
     function handleCollision() {
         // Code to be executed when elements collide
-        yoshi1.style.top = '650px';
+        yoshi5.style.top = '625px';
     }
 
     function checkCollision() {
-            if (areElementsColliding(yoshi1, block)) {
+            if (areElementsColliding(yoshi5, block)) {
                 handleCollision();
             }
     }
