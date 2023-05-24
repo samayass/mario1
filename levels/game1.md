@@ -92,7 +92,7 @@ tags: [javascript]
       this.currentSpeed = 0;
       this.marioElement = document.getElementById("mario"); //HTML element of sprite
       this.pixels = {{pixels}}; //pixel offset of images in the sprite, set by liquid constant
-      this.interval = 100; //animation time interval
+      this.interval = 40; //animation time interval
       this.obj = meta_data;
       this.marioElement.style.position = "absolute";
     }
@@ -293,15 +293,15 @@ tags: [javascript]
       event.preventDefault();
       direction = "right";
       if (event.repeat) {
-        mario.startCheering();
+        if (mario.currentSpeed === 3 && rightspd == 1) {
+          mario.startRunningRight();
+          rightspd = 0;
+        }
       } else {
         if (mario.currentSpeed === 0 && leftspd == 0) {
           mario.startWalkingRight();
           leftspd = 0;
           rightspd = 1;
-        } else if (mario.currentSpeed === 3 && rightspd == 1) {
-          mario.startRunningRight();
-          rightspd = 0;
         }
       }
     } 
@@ -310,15 +310,15 @@ tags: [javascript]
       event.preventDefault();
       direction = "left";
       if (event.repeat) {
-        mario.startCheering();
+        if (mario.currentSpeed === 3 && leftspd == 1) {
+          mario.startRunningLeft();
+          leftspd = 0;
+        }
       } else {
         if (mario.currentSpeed === 0 && rightspd == 0) {
           mario.startWalkingLeft();
           rightspd = 0;
           leftspd = 1;
-        } else if (mario.currentSpeed === 3 && leftspd == 1) {
-          mario.startRunningLeft();
-          leftspd = 0;
         }
       }
     } 
@@ -328,7 +328,7 @@ tags: [javascript]
       rightspd = 0;
       leftspd = 0;
       if (event.repeat) {
-        mario.stopAnimate();
+        mario.startFlipping();
       } else if (direction == "right"){
         mario.startPuffing();
       } else if (direction == "left"){
@@ -399,7 +399,6 @@ tags: [javascript]
      rightspd = 0;
      leftspd = 0;
      direction = "none";
-     mario.startFlipping();
   });
 
   //start animation on page load or page refresh
