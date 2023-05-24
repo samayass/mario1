@@ -85,11 +85,20 @@ image2.src = './images/hills.png'
 const player = new Player()
 const platforms = [
     new Platform({
-        x: 0, y: 500, image 
+        x: -1, 
+        y: 500,
+        image: image 
     }), 
     new Platform({
-        x: 761, y: 500, image
+        x: 758 ,
+        y: 500, 
+        image: image
     }),
+    new Platform({
+        x: 1622,
+        y: 500, 
+        image: image
+    })
 ]
 
 const genericObjects = [
