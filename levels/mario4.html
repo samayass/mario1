@@ -34,7 +34,7 @@
   /* background position of sprite element */
   #mario {
     background-position: -256px -256px; /* Replace with appropriate values */
-    transition: top 1s ease;
+    transition: top 1.5s ease;
   }
 
 </style>
@@ -216,9 +216,10 @@
 
 
     jump() {
-      const jumpHeight = 100;  // adjust the jump height as needed
-      const jumpDuration = 500;  // adjust the jump duration as needed
+      const jumpHeight = 130;  // adjust the jump height as needed
+      const jumpDuration = 400;  // adjust the jump duration as needed
       const groundLevel = 315;  // adjust the ground level as needed
+      const gravity = 9.8;  // adjust the gravity as needed
 
       this.marioElement.style.transition = `top ${jumpDuration}ms ease`;
       this.marioElement.style.top = `${groundLevel - jumpHeight}px`;
