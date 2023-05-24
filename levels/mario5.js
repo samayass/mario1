@@ -102,11 +102,41 @@ class Floor {
     }
 }
 
+class Hill {
+    constructor( { x, y, image, width, height } ) {
+        this.position = {
+            x,
+            y
+        }
+        this.image = new Image()
+        this.image.src = image
+        this.width = width
+        this.height = height
+        this.image.onload = () => {
+            // Optional: If width and height are not provided, use the image's natural dimensions
+            if (!width) {
+                this.width = this.image.naturalWidth;
+            }
+            if (!height) {
+                this.height = this.image.naturalHeight;
+            }
+        }
+
+        // this.width = image.width
+        // this.height = image.height
+    }
+
+    draw() {
+        c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+    }
+}
+
 
 const image = new Image()
 //image.src = 'images/BrickBlock.png'
 
 let player = new Player()
+let hills = []
 let platforms = []
 let floors = []
 
@@ -115,22 +145,22 @@ function init() {
     player = new Player()
     platforms = [
         new Platform( {
-            x: 0, 
-            y: 450,
+            x: 50, 
+            y: 300,
             image: 'images/BrickBlock.png',
             width: 80,
             height: 80
         } ), 
         new Platform( {
-            x: 80, 
-            y: 400,
+            x: 130, 
+            y: 350,
             image: 'images/BrickBlock.png',
             width: 80,
             height: 80
         } ),
         new Platform( {
-            x: 400, 
-            y: 400,
+            x: 880, 
+            y: 300,
             image: 'images/BrickBlock.png',
             width: 80,
             height: 80
@@ -157,6 +187,28 @@ function init() {
             width: 1050,
             height: 80
         } )]
+    hills = [
+        new Hill( {
+            x: 0, 
+            y: 0,
+            image: 'images/hills.png',
+            width: 1024,
+            height: 576
+        } ),
+        new Hill( {
+            x: 1024, 
+            y: 0,
+            image: 'images/hills.png',
+            width: 1024,
+            height: 576
+        } ),
+        new Hill( {
+            x: 2048, 
+            y: 0,
+            image: 'images/hills.png',
+            width: 1024,
+            height: 576
+        } )]
 
 }
 
@@ -175,6 +227,9 @@ function animate() {
     requestAnimationFrame(animate)
     c.fillStyle = 'cornflowerblue'
     c.fillRect(0, 0, canvas.width, canvas.height)
+    hills.forEach(hill => {
+        hill.draw()
+    })
     platforms.forEach(platform => {
         platform.draw()
     }
@@ -183,6 +238,7 @@ function animate() {
         floor.draw()
     }
     )
+    
     player.update()
 
     if (keys.right.pressed && player.position.x < 400) {
@@ -202,6 +258,9 @@ function animate() {
             floors.forEach(floor => {
                 floor.position.x  -= player.speed
             })
+            hills.forEach(hill => {
+                hill.position.x  -= player.speed * .66
+            })
         }
         else if (keys.left.pressed) {
             scrollOffset -= player.speed
@@ -210,6 +269,9 @@ function animate() {
             })
             floors.forEach(floor => {
                 floor.position.x  += player.speed
+            })
+            hills.forEach(hill => {
+                hill.position.x  += player.speed * .66
             })
         }
     }
@@ -227,6 +289,34 @@ function animate() {
             player.position.x <= platform.position.x + platform.width) {
             player.velocity.y = 0
         }
+        if (player.position.y >= platform.position.y + platform.height 
+            && 
+            player.position.y + player.velocity.y <= platform.position.y + platform.height
+            &&
+            player.position.x + player.width >= platform.position.x
+            &&
+            player.position.x <= platform.position.x + platform.width) {
+            player.velocity.y = 0
+        }
+        if (player.position.x + player.width <= platform.position.x - 10 // the '- 10' is an arbitrary value to fix the hitbox
+            && 
+            player.position.x + player.width + player.velocity.x >= platform.position.x - 10
+            &&
+            player.position.y + player.height >= platform.position.y
+            &&
+            player.position.y <= platform.position.y + platform.height) {
+            player.velocity.x = 0
+        }
+        if (player.position.x >= platform.position.x + platform.width - 10
+            && 
+            player.position.x + player.velocity.x <= platform.position.x + platform.width - 10
+            &&
+            player.position.y + player.height >= platform.position.y
+            &&
+            player.position.y <= platform.position.y + platform.height) {
+            player.velocity.x = 0
+        }
+
     })
 
     // Floor collision detection
