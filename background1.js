@@ -102,6 +102,11 @@ image2.src = './images/hills2.png'
 let image3 = new Image()
 image3.src = './images/box.png'
 
+let image4 = new Image()
+image3.src = './images/mariopipe.png'
+
+
+
 
 
 let player = new Player()
@@ -201,6 +206,9 @@ function init()
     
     image3 = new Image()
     image3.src = './images/box.png'
+    
+    image4 = new Image()
+    image3.src = './images/mariopipe.png'
 
 
     player = new Player()
