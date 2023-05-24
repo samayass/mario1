@@ -33,7 +33,7 @@ class Player {
         this.position.x += this.velocity.x
         if (this.position.y + this.height + this.velocity.y <= canvas.height)
         this.velocity.y += gravity
-        else this.velocity.y = 0
+        
     }
 }
 
@@ -71,19 +71,19 @@ class GenericObject {
     }
 }
 
-const image = new Image()
+let image = new Image()
 image.src = './images/platform.png'
 console.log(image)
 
-const image1 = new Image()
+let image1 = new Image()
 image1.src = './images/background.png'
 
-const image2 = new Image()
+let image2 = new Image()
 image2.src = './images/hills.png'
 
 
-const player = new Player()
-const platforms = [
+let player = new Player()
+let platforms = [
     new Platform({
         x: -1, 
         y: 500,
@@ -101,15 +101,15 @@ const platforms = [
     })
 ]
 
-const genericObjects = [
+let genericObjects = [
     new GenericObject({
         x:0, y:0, image: image1
     }),
     new GenericObject({
         x:0, y:0, image: image2
     })
-]
 
+]
 const keys = {
     right: {
         pressed:false
@@ -120,6 +120,8 @@ const keys = {
 }
 
 let scrollOffset = 0
+
+
 
 function animate() {
     requestAnimationFrame(animate)
@@ -171,6 +173,15 @@ platforms.forEach(platform => {
         player.velocity.y = 0;
     }
 })
+
+if (scrollOffset >2000){
+    console.log('You win!')
+}
+
+if(player.position.y > canvas.height) {
+    init()
+
+}
 
 }
 
