@@ -121,6 +121,51 @@ const keys = {
 
 let scrollOffset = 0
 
+function init()
+{
+    image = new Image()
+    image.src = './images/platform.png'
+    console.log(image)
+    
+    image1 = new Image()
+    image1.src = './images/background.png'
+    
+    image2 = new Image()
+    image2.src = './images/hills.png'
+    
+    
+    player = new Player()
+    platforms = [
+        new Platform({
+            x: -1, 
+            y: 500,
+            image: image 
+        }), 
+        new Platform({
+            x: 758 ,
+            y: 500, 
+            image: image
+        }),
+        new Platform({
+            x: 1622,
+            y: 500, 
+            image: image
+        })
+    ]
+    
+    genericObjects = [
+        new GenericObject({
+            x:0, y:0, image: image1
+        }),
+        new GenericObject({
+            x:0, y:0, image: image2
+        })
+    ]
+
+    
+    scrollOffset = 0
+}
+
 
 
 function animate() {
