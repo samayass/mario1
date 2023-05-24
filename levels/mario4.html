@@ -27,7 +27,7 @@
     z-index: 2;
     height: 256px;
     width: 256px;
-    background-image: url('/levels/images/mario_animation.png');
+    background-image: url('images/mario_animation.png');
     background-repeat: no-repeat;
   }
 
@@ -199,18 +199,6 @@
   mario_metadata[key] = values; //key with values added
 
 
-
-  function jump() {
-    const jumpHeight = 1;  // adjust the jump height as needed
-    const jumpDuration = 1000;  // adjust the jump duration as needed
-    const groundLevel = 375;  // adjust the ground level as needed
-
-    this.marioElement.style.top = `${groundLevel-jumpHeight}px`;
-
-    setTimeout(() => {
-      this.marioElement.style.top = `${groundLevel}px`;
-    }, jumpDuration);
-  }
 
   ////////// animation control object /////////
   class Mario {
@@ -386,6 +374,19 @@
       event.preventDefault();
       mario.jump();
     }
+
+    if (event.key === "w") {
+      event.preventDefault();
+      rightspd = 0;
+      leftspd = 0;
+      if (event.repeat) {
+        mario.stopAnimate();
+      } else if (direction == "right"){
+        mario.startFlipping();
+      } else if (direction == "left"){
+        mario.startFlipping();
+      }
+    }
     
     if (event.key === "a") {
       event.preventDefault();
@@ -497,6 +498,7 @@
   });
 
   //start animation on window focus
+  /*
   window.addEventListener("focus", () => {
      mario.stopAnimate();
      rightspd = 0;
@@ -504,6 +506,7 @@
      direction = "none";
      mario.startFlipping();
   });
+  */
 
   //start animation on page load or page refresh
   document.addEventListener("DOMContentLoaded", () => {
