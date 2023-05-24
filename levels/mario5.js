@@ -8,6 +8,7 @@ canvas.height = 576
 const gravity = 2
 class Player {
     constructor() {
+        this.speed = 15
         this.position = {
             x: 100, 
             y: 100
@@ -106,43 +107,8 @@ const image = new Image()
 //image.src = 'images/BrickBlock.png'
 
 let player = new Player()
-let platforms = [
-    new Platform( {
-        x: 0, 
-        y: 450,
-        image: 'images/BrickBlock.png',
-        width: 80,
-        height: 80
-    } ), 
-    new Platform( {
-        x: 80, 
-        y: 400,
-        image: 'images/BrickBlock.png',
-        width: 80,
-        height: 80
-    } ),
-    new Platform( {
-        x: 400, 
-        y: 400,
-        image: 'images/BrickBlock.png',
-        width: 80,
-        height: 80
-    } )]
-let floors = [
-    new Floor( {
-        x: 0, 
-        y: 500,
-        image: 'images/flooring2.png',
-        width: 1050,
-        height: 80
-    } ),
-    new Floor( {
-        x: 1150, 
-        y: 500,
-        image: 'images/flooring2.png',
-        width: 1050,
-        height: 80
-    } )]
+let platforms = []
+let floors = []
 
 function init() {
 
@@ -178,7 +144,14 @@ function init() {
             height: 80
         } ),
         new Floor( {
-            x: 1150, 
+            x: 1250, 
+            y: 500,
+            image: 'images/flooring2.png',
+            width: 1050,
+            height: 80
+        } ), 
+        new Floor( {
+            x: 2500, 
             y: 500,
             image: 'images/flooring2.png',
             width: 1050,
@@ -200,7 +173,7 @@ let scrollOffset = 0
 
 function animate() {
     requestAnimationFrame(animate)
-    c.fillStyle = 'white'
+    c.fillStyle = 'cornflowerblue'
     c.fillRect(0, 0, canvas.width, canvas.height)
     platforms.forEach(platform => {
         platform.draw()
@@ -213,30 +186,30 @@ function animate() {
     player.update()
 
     if (keys.right.pressed && player.position.x < 400) {
-        player.velocity.x = 5;
+        player.velocity.x = player.speed;
     }
     else if (keys.left.pressed && player.position.x > 100) {
-        player.velocity.x = -5
+        player.velocity.x = -player.speed
     }
     else {
         player.velocity.x = 0
 
         if (keys.right.pressed) {
-            scrollOffset += 5
+            scrollOffset += player.speed
             platforms.forEach(platform => {
-                platform.position.x  -= 5
+                platform.position.x  -= player.speed
             })
             floors.forEach(floor => {
-                floor.position.x  -= 5
+                floor.position.x  -= player.speed
             })
         }
         else if (keys.left.pressed) {
-            scrollOffset -= 5
+            scrollOffset -= player.speed
             platforms.forEach(platform => {
-                platform.position.x  += 5
+                platform.position.x  += player.speed
             })
             floors.forEach(floor => {
-                floor.position.x  += 5
+                floor.position.x  += player.speed
             })
         }
     }
@@ -283,6 +256,7 @@ function animate() {
 
 }
 
+init()
 animate()
 
 window.addEventListener('keydown', ({keyCode}) => {
