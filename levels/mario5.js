@@ -42,23 +42,54 @@ class Player {
 }
 
 class Platform {
-    constructor( { x, y } ) {
+    constructor( { x, y, image, width, height } ) {
         this.position = {
             x,
             y
         }
-        this.width = 200
-        this.height = 20
+        this.image = new Image()
+        this.image.src = 'images/BrickBlock.png'
+        this.width = width
+        this.height = height
+        this.image.onload = () => {
+            // Optional: If width and height are not provided, use the image's natural dimensions
+            if (!width) {
+                this.width = this.image.naturalWidth;
+            }
+            if (!height) {
+                this.height = this.image.naturalHeight;
+            }
+        }
+
+        // this.width = image.width
+        // this.height = image.height
     }
 
     draw() {
-        c.fillStyle = 'blue'
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        c.drawImage(this.image, this.position.x, this.position.y,  this.width, this.height)
     }
 }
 
+const image = new Image()
+image.src = 'images/BrickBlock.png'
+console.log(image)
+
 const player = new Player()
-const platforms = [new Platform( {x: 200, y: 400} ), new Platform( {x: 300, y: 600} )]
+const platforms = [
+    new Platform( {
+        x: 200, 
+        y: 500,
+        image, 
+        width: 80,
+        height: 80
+    } ), 
+    new Platform( {
+        x: 400, 
+        y: 600,
+        image,
+        width: 80,
+        height: 80
+    } )]
 
 const keys = {
     right: {
