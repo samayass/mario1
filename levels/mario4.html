@@ -34,7 +34,7 @@
   /* background position of sprite element */
   #mario {
     background-position: -256px -256px; /* Replace with appropriate values */
-    transition: top 1s ease;
+    transition: top 1.5s ease;
   }
 
 </style>
@@ -216,8 +216,8 @@
 
 
     jump() {
-      const jumpHeight = 100;  // adjust the jump height as needed
-      const jumpDuration = 500;  // adjust the jump duration as needed
+      const jumpHeight = 130;  // adjust the jump height as needed
+      const jumpDuration = 350;  // adjust the jump duration as needed
       const groundLevel = 315;  // adjust the ground level as needed
 
       this.marioElement.style.transition = `top ${jumpDuration}ms ease`;
@@ -291,22 +291,22 @@
 
     startWalkingRight() {
       this.stopAnimate();
-      this.animateRight(this.obj["Walk"], 3);
+      this.animateRight(this.obj["Walk"], 5);
     }
 
     startWalkingLeft() {
       this.stopAnimate();
-      this.animateLeft(this.obj["WalkL"], 3);
+      this.animateLeft(this.obj["WalkL"], 5);
     }
 
     startRunningRight() {
       this.stopAnimate();
-      this.animateRight(this.obj["Run1"], 6);
+      this.animateRight(this.obj["Run1"], 10);
     }
 
     startRunningLeft() {
       this.stopAnimate();
-      this.animateLeft(this.obj["Run1L"], 6);
+      this.animateLeft(this.obj["Run1L"], 10);
     }
 
     startPuffing() {
@@ -363,7 +363,7 @@
           mario.startWalkingRight();
           leftspd = 0;
           rightspd = 1;
-        } else if (mario.currentSpeed === 3 && rightspd == 1) {
+        } else if (mario.currentSpeed === 5 && rightspd == 1) {
           mario.startRunningRight();
           rightspd = 0;
         }
@@ -398,7 +398,7 @@
           mario.startWalkingLeft();
           rightspd = 0;
           leftspd = 1;
-        } else if (mario.currentSpeed === 3 && leftspd == 1) {
+        } else if (mario.currentSpeed === 5 && leftspd == 1) {
           mario.startRunningLeft();
           leftspd = 0;
         }
@@ -415,7 +415,7 @@
           mario.startWalkingRight();
           rightspd = 1;
           leftspd = 0;
-        } else if (mario.currentSpeed === 1 && leftspd == 3) {
+        } else if (mario.currentSpeed === 1 && leftspd == 5) {
           mario.startRunningRight();
           rightspd = 0;
         }
@@ -449,7 +449,7 @@
           mario.startWalkingRight();
           leftspd = 0;
           rightspd = 1;
-        } else if (mario.currentSpeed === 3 && rightspd == 1) {
+        } else if (mario.currentSpeed === 5 && rightspd == 1) {
           mario.startRunningRight();
           rightspd = 0;
         }
@@ -471,7 +471,7 @@
           mario.startWalkingLeft();
           rightspd = 0;
           leftspd = 1;
-        } else if (mario.currentSpeed === 3 && leftspd == 1) {
+        } else if (mario.currentSpeed === 5 && leftspd == 1) {
           mario.startRunningLeft();
           leftspd = 0;
         }

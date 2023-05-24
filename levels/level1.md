@@ -115,8 +115,8 @@ tags: [javascript]
         }, jumpDuration);
     }
 
-    function areElementsColliding(element1, element2) {
-        const rect1 = yoshi1.getBoundingClientRect();
+    function areElementsColliding(yoshi5, block) {
+        const rect1 = yoshi5.getBoundingClientRect();
         const rect2 = block.getBoundingClientRect();
 
         return (
@@ -126,6 +126,29 @@ tags: [javascript]
             rect1.bottom > rect2.top
         );
     }
+
+    const yoshi5 = document.getElementById('yoshi5');
+    const block = document.getElementById('block');
+
+    function handleCollision() {
+        // Code to be executed when elements collide
+        yoshi5.style.top = '625px';
+    }
+
+    function checkCollision() {
+            if (areElementsColliding(yoshi5, block)) {
+                // Start the timeout and store the timeout ID
+                const timeoutId = setTimeout(jump, 0); // Replace `myFunction` with your actual function and adjust the timeout duration as needed
+
+                // Stop the function midway by clearing the timeout
+                clearTimeout(timeoutId);
+
+                handleCollision();
+            }
+    }
+
+    // Call the checkCollision function repeatedly to detect collisions
+    setInterval(checkCollision, 100); // Adjust the interval as needed
 
     function handleKeyPress(event) {
     if (event.key === ' ') {
