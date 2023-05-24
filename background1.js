@@ -103,6 +103,7 @@ let image3 = new Image()
 image3.src = './images/box.png'
 
 
+
 let player = new Player()
 
 let blockObjects = [
@@ -152,6 +153,7 @@ let platforms = [
 
 ]
 
+
 let genericObjects = [
     new GenericObject({
         x:0, y:0, image: image1
@@ -199,8 +201,8 @@ function init()
     
     image3 = new Image()
     image3.src = './images/box.png'
-    
-    
+
+
     player = new Player()
     
     blockObjects = [
@@ -249,6 +251,7 @@ function init()
     
     
     ]
+
     
     genericObjects = [
         new GenericObject({
@@ -370,6 +373,7 @@ blockObjects.forEach(blockObject => {
   
 
 }
+
 
 animate()
 
