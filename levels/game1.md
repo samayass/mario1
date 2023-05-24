@@ -261,7 +261,7 @@ tags: [javascript]
       clearInterval(this.tID);
     }
 
-    jump(){
+    coinJump(){
       if(this.positionY <= 0){
         // Play the beat
         this.beat.play();
@@ -271,7 +271,7 @@ tags: [javascript]
     }
 
     disappear(){
-      setInterval(this.jump(), 10);
+      setInterval(this.coinJump(), 10);
       if(this.positionY >= -5){
         this.stopAnimate();
         document.getElementById('coin').style.display = 'none';
