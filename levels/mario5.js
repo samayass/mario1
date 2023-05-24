@@ -77,12 +77,19 @@ console.log(image)
 const player = new Player()
 const platforms = [
     new Platform( {
-        x: 200, 
+        x: 0, 
         y: 500,
         image, 
         width: 80,
         height: 80
     } ), 
+    new Platform( {
+        x: 80, 
+        y: 500,
+        image, 
+        width: 80,
+        height: 80
+    } ),
     new Platform( {
         x: 400, 
         y: 450,
