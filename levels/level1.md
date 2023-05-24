@@ -127,6 +127,23 @@ tags: [javascript]
         );
     }
 
+    const yoshi1 = document.getElementById('yoshi1');
+    const block = document.getElementById('block');
+
+    function handleCollision() {
+        // Code to be executed when elements collide
+        yoshi1.style.top = '650px';
+    }
+
+    function checkCollision() {
+            if (areElementsColliding(yoshi1, block)) {
+                handleCollision();
+            }
+    }
+
+    // Call the checkCollision function repeatedly to detect collisions
+    setInterval(checkCollision, 100); // Adjust the interval as needed
+
     function handleKeyPress(event) {
     if (event.key === ' ') {
         jump();
