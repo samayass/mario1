@@ -137,6 +137,12 @@ tags: [javascript]
 
     function checkCollision() {
             if (areElementsColliding(yoshi5, block)) {
+                // Start the timeout and store the timeout ID
+                const timeoutId = setTimeout(jump, 0); // Replace `myFunction` with your actual function and adjust the timeout duration as needed
+
+                // Stop the function midway by clearing the timeout
+                clearTimeout(timeoutId);
+
                 handleCollision();
             }
     }
