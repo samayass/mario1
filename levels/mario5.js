@@ -2,8 +2,8 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
+canvas.width = 1024
+canvas.height = 576
 
 const gravity = 2
 class Player {
@@ -85,7 +85,7 @@ const platforms = [
     } ), 
     new Platform( {
         x: 400, 
-        y: 600,
+        y: 450,
         image,
         width: 80,
         height: 80
@@ -104,12 +104,13 @@ let scrollOffset = 0
 
 function animate() {
     requestAnimationFrame(animate)
-    c.clearRect(0, 0, canvas.width, canvas.height)
-    player.update()
+    c.fillStyle = 'white'
+    c.fillRect(0, 0, canvas.width, canvas.height)
     platforms.forEach(platform => {
         platform.draw()
-    })
-    
+    }
+    )
+    player.update()
 
     if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = 5;
