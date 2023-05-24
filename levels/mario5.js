@@ -31,11 +31,13 @@ class Player {
         this.position.y += this.velocity.y
         this.position.x += this.velocity.x
         
-        if (this.position.y + this.height >= canvas.height) {
-            this.position.y = canvas.height - this.height; // Set the position exactly on the ground
-            this.velocity.y = 0; // Reset the vertical velocity to zero
-        } else {
+        if (this.position.y + this.height <= canvas.height) {
             this.velocity.y += gravity; // Apply gravity if the block is not on the ground
+            // this.position.y = canvas.height - this.height; // Set the position exactly on the ground
+            
+        } 
+        else {
+            // this.velocity.y = 0; // Reset the vertical velocity to zero
         }
         
     }
@@ -103,37 +105,87 @@ class Floor {
 const image = new Image()
 //image.src = 'images/BrickBlock.png'
 
-const player = new Player()
-const platforms = [
+let player = new Player()
+let platforms = [
     new Platform( {
         x: 0, 
-        y: 500,
+        y: 450,
         image: 'images/BrickBlock.png',
         width: 80,
         height: 80
     } ), 
     new Platform( {
         x: 80, 
-        y: 500,
+        y: 400,
         image: 'images/BrickBlock.png',
         width: 80,
         height: 80
     } ),
     new Platform( {
         x: 400, 
-        y: 450,
+        y: 400,
         image: 'images/BrickBlock.png',
         width: 80,
         height: 80
     } )]
-const floors = [
+let floors = [
     new Floor( {
-        x: 200, 
-        y: 150,
-        image: 'images/flooring.png',
-        width: 2000,
-        height: 400
+        x: 0, 
+        y: 500,
+        image: 'images/flooring2.png',
+        width: 1050,
+        height: 80
+    } ),
+    new Floor( {
+        x: 1150, 
+        y: 500,
+        image: 'images/flooring2.png',
+        width: 1050,
+        height: 80
     } )]
+
+function init() {
+
+    player = new Player()
+    platforms = [
+        new Platform( {
+            x: 0, 
+            y: 450,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ), 
+        new Platform( {
+            x: 80, 
+            y: 400,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 400, 
+            y: 400,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } )]
+    floors = [
+        new Floor( {
+            x: 0, 
+            y: 500,
+            image: 'images/flooring2.png',
+            width: 1050,
+            height: 80
+        } ),
+        new Floor( {
+            x: 1150, 
+            y: 500,
+            image: 'images/flooring2.png',
+            width: 1050,
+            height: 80
+        } )]
+
+}
 
 const keys = {
     right: {
@@ -174,11 +226,17 @@ function animate() {
             platforms.forEach(platform => {
                 platform.position.x  -= 5
             })
+            floors.forEach(floor => {
+                floor.position.x  -= 5
+            })
         }
         else if (keys.left.pressed) {
             scrollOffset -= 5
             platforms.forEach(platform => {
                 platform.position.x  += 5
+            })
+            floors.forEach(floor => {
+                floor.position.x  += 5
             })
         }
     }
@@ -198,9 +256,31 @@ function animate() {
         }
     })
 
-    if (scrollOffset >= 200) {
+    // Floor collision detection
+    floors.forEach(floor => {
+        if (player.position.y + player.height <= floor.position.y 
+            && 
+            player.position.y + player.height + player.velocity.y >= floor.position.y
+            &&
+            player.position.x + player.width >= floor.position.x
+            &&
+            player.position.x <= floor.position.x + floor.width) {
+            player.velocity.y = 0
+            player.position.y = floor.position.y - player.height;
+        }
+    })
+
+    // win condition
+    if (scrollOffset >= 2000) {
         console.log('you win')
     }
+
+    // lose condition
+    if (player.position.y > canvas.height) {
+        console.log("you lose");
+        init()
+    }
+
 }
 
 animate()
