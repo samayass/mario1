@@ -98,6 +98,16 @@ let platforms = [
         x: 1622,
         y: 500, 
         image: image
+    }),
+    new Platform({
+        x: 2483,
+        y: 500, 
+        image: image
+    }),
+    new Platform({
+        x: 4783,
+        y: 500, 
+        image: image
     })
 ]
 
