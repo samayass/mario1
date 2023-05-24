@@ -48,7 +48,7 @@ class Platform {
             y
         }
         this.image = new Image()
-        this.image.src = 'images/BrickBlock.png'
+        this.image.src = image
         this.width = width
         this.height = height
         this.image.onload = () => {
@@ -66,36 +66,73 @@ class Platform {
     }
 
     draw() {
-        c.drawImage(this.image, this.position.x, this.position.y,  this.width, this.height)
+        c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
     }
 }
 
+class Floor {
+    constructor( { x, y, image, width, height } ) {
+        this.position = {
+            x,
+            y
+        }
+        this.image = new Image()
+        this.image.src = image
+        this.width = width
+        this.height = height
+        this.image.onload = () => {
+            // Optional: If width and height are not provided, use the image's natural dimensions
+            if (!width) {
+                this.width = this.image.naturalWidth;
+            }
+            if (!height) {
+                this.height = this.image.naturalHeight;
+            }
+        }
+
+        // this.width = image.width
+        // this.height = image.height
+    }
+
+    draw() {
+        c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+    }
+}
+
+
 const image = new Image()
-image.src = 'images/BrickBlock.png'
-console.log(image)
+//image.src = 'images/BrickBlock.png'
 
 const player = new Player()
 const platforms = [
     new Platform( {
         x: 0, 
         y: 500,
-        image, 
+        image: 'images/BrickBlock.png',
         width: 80,
         height: 80
     } ), 
     new Platform( {
         x: 80, 
         y: 500,
-        image, 
+        image: 'images/BrickBlock.png',
         width: 80,
         height: 80
     } ),
     new Platform( {
         x: 400, 
         y: 450,
-        image,
+        image: 'images/BrickBlock.png',
         width: 80,
         height: 80
+    } )]
+const floors = [
+    new Floor( {
+        x: 200, 
+        y: 150,
+        image: 'images/flooring.png',
+        width: 2000,
+        height: 400
     } )]
 
 const keys = {
@@ -115,6 +152,10 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height)
     platforms.forEach(platform => {
         platform.draw()
+    }
+    )
+    floors.forEach(floor => {
+        floor.draw()
     }
     )
     player.update()
