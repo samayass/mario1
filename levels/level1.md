@@ -20,7 +20,7 @@ tags: [javascript]
         width: 200px;
         height: 200px;
         z-index: 1; /* Adjust the z-index to control the stacking order */
-        transition: top 1s ease;
+        transition: top 1.5s ease;
     }
 
     #level1 {
@@ -102,7 +102,7 @@ tags: [javascript]
 
     function jump() {
         const jumpHeight = 75; // Adjust the jump height as desired
-        const jumpDuration = 100; // Adjust the jump duration as desired
+        const jumpDuration = 400; // Adjust the jump duration as desired
 
         imageElement.style.transition = `transform ${jumpDuration}ms`;
         imageElement.style.transform = `translateY(-${jumpHeight}px)`;
