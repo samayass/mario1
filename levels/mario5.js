@@ -5,7 +5,7 @@ const c = canvas.getContext('2d')
 canvas.width = 1024
 canvas.height = 576
 
-const gravity = 2
+let gravity = 2
 class Player {
     constructor() {
         this.speed = 15
@@ -400,6 +400,53 @@ function animate() {
             player.position.y <= tube.position.y + tube.height) {
             player.velocity.x = 0
             console.log(tube.position.x + tube.width + "right")
+        }
+       //from top
+        if (player.position.y + player.height <= tube.position.y + 18
+            && 
+            player.position.y + player.height + player.velocity.y >= tube.position.y + 18
+            &&
+            player.position.x + player.width >= tube.position.x + 45
+            &&
+            player.position.x <= tube.position.x + tube.width - 45) {
+            player.velocity.y = 0
+            if (player.position.x >= tube.position.x + 45
+                &&
+                player.position.x + player.width <= tube.position.x + tube.width - 45) {
+                    gravity = 0.01;
+                    player.velocity.y = 0.0001; // Set a small positive velocity to make the player fall slowly
+                    player.position.y = tube.position.y + 18 - player.height; // Adjust the player's position to be exactly on top of the tube
+                }
+        } 
+        // Check if player has fallen down far enough
+        if (player.position.y >= tube.position.y + 18
+            ||
+            player.position.x + player.width <= tube.position.x
+            ||
+            player.position.x >= tube.position.x + tube.width
+            ||
+            player.position.y + player.height <= tube.position.y) {
+            gravity = 2; // Reset gravity to 2
+        }
+        //from inside left
+        if (player.position.x >= tube.position.x + 35
+            && 
+            player.position.x + player.velocity.x <= tube.position.x + 35
+            &&
+            player.position.y + player.height >= tube.position.y
+            &&
+            player.position.y <= tube.position.y + tube.height) {
+            player.velocity.x = 0
+        }
+        //from inside right
+        if (player.position.x + player.width <= tube.position.x + tube.width - 35
+            && 
+            player.position.x + player.width + player.velocity.x >= tube.position.x + tube.width - 35
+            &&
+            player.position.y + player.height >= tube.position.y
+            &&
+            player.position.y <= tube.position.y + tube.height) {
+            player.velocity.x = 0
         }
 
     })
