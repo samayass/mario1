@@ -233,9 +233,9 @@
 
 
     jump() {
-      const jumpHeight = 130;  // adjust the jump height as needed
-      const jumpDuration = 350;  // adjust the jump duration as needed
-      const groundLevel = 315;  // adjust the ground level as needed
+      const jumpHeight = 130;  
+      const jumpDuration = 350;  
+      const groundLevel = 315; 
 
       this.marioElement.style.transition = `top ${jumpDuration}ms ease`;
       this.marioElement.style.top = `${groundLevel - jumpHeight}px`;
