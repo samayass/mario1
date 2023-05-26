@@ -103,6 +103,7 @@ tags: [javascript]
     let currentTop = 658;
     let currentLeft = 620;
     const stepSize = 5; // Adjust the step size according to your desired movement speed
+    
 
     function jump() {
         const jumpHeight = 75; // Adjust the jump height as desired
