@@ -28,9 +28,10 @@ class Player {
     }
 
     update() {
-        this.draw()
         this.position.y += this.velocity.y
         this.position.x += this.velocity.x
+        this.draw()
+       
         
         if (this.position.y + this.height <= canvas.height) {
             this.velocity.y += gravity; // Apply gravity if the block is not on the ground
@@ -288,7 +289,12 @@ function animate() {
         tube.draw()
     })
     
+    console.log('Tube');
+    console.log(tubes[0].position.x + 45);
     
+    console.log('Player');
+    console.log(player.position.x + player.width);
+    console.log(player.velocity.x);
 
     if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = player.speed;
@@ -379,8 +385,9 @@ function animate() {
     })
     //tube collision detection
     tubes.forEach(tube => {
+        
         //from left
-        if (player.position.x + player.width <= tube.position.x  + 45// the '+ 10' is an arbitrary value to fix the hitbox
+        if (player.position.x + player.width <= tube.position.x + 45// the '+ 10' is an arbitrary value to fix the hitbox
             && 
             player.position.x + player.width + player.velocity.x >= tube.position.x + 45
             &&
@@ -388,6 +395,7 @@ function animate() {
             &&
             player.position.y <= tube.position.y + tube.height) {
             player.velocity.x = 0
+            
             console.log(tube.position.x + "left")
         }
         //from right
@@ -480,6 +488,7 @@ function animate() {
 
 init()
 animate()
+console.log("im ANIMATING HERE")
 
 window.addEventListener('keydown', ({keyCode}) => {
     switch (keyCode) {
