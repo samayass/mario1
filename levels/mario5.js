@@ -55,6 +55,9 @@ class Platform {
         this.image.src = image
         this.width = width
         this.height = height
+        this.velocity = {
+            x: 0
+        }
         this.image.onload = () => {
             // Optional: If width and height are not provided, use the image's natural dimensions
             if (!width) {
@@ -71,6 +74,10 @@ class Platform {
 
     draw() {
         c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+    }
+    update() {
+        this.position.x += this.velocity.x
+        this.draw()
     }
 }
 
@@ -283,7 +290,7 @@ function animate() {
         hill.draw()
     })
     platforms.forEach(platform => {
-        platform.draw()
+        platform.update()
     }
     )
     floors.forEach(floor => {
@@ -305,12 +312,18 @@ function animate() {
 
     if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = player.speed;
+        platforms.forEach(platform => {
+            platform.velocity.x = 0
+        })
         tubes.forEach(tube => {
             tube.velocity.x = 0
         })
     }
     else if (keys.left.pressed && player.position.x > 100) {
         player.velocity.x = -player.speed
+        platforms.forEach(platform => {
+            platform.velocity.x = 0
+        })
         tubes.forEach(tube => {
             tube.velocity.x = 0
         })
@@ -320,11 +333,14 @@ function animate() {
         tubes.forEach(tube => {
             tube.velocity.x = 0
         })
+        platforms.forEach(platform => {
+            platform.velocity.x = 0
+        })
 
         if (keys.right.pressed && !keys.left.pressed) {
             scrollOffset += player.speed
             platforms.forEach(platform => {
-                platform.position.x  -= player.speed
+                platform.velocity.x = -player.speed
             })
             floors.forEach(floor => {
                 floor.position.x  -= player.speed
@@ -340,7 +356,7 @@ function animate() {
         else if (keys.left.pressed && !keys.right.pressed) {
             scrollOffset -= player.speed
             platforms.forEach(platform => {
-                platform.position.x  += player.speed
+                platform.velocity.x = player.speed
             })
             floors.forEach(floor => {
                 floor.position.x  += player.speed
@@ -381,22 +397,24 @@ function animate() {
         //from left
         if (player.position.x + player.width <= platform.position.x + 10 // the '+ 10' is an arbitrary value to fix the hitbox
             && 
-            player.position.x + player.width + player.velocity.x >= platform.position.x + 10
+            player.position.x + player.width + player.velocity.x >= platform.position.x + platform.velocity.x + 10
             &&
             player.position.y + player.height >= platform.position.y
             &&
             player.position.y <= platform.position.y + platform.height) {
             player.velocity.x = 0
+            player.position.x = platform.position.x - 5 - player.width
         }
         //from right
         if (player.position.x >= platform.position.x + platform.width - 10
             && 
-            player.position.x + player.velocity.x <= platform.position.x + platform.width - 10
+            player.position.x + player.velocity.x <= platform.position.x + platform.width + platform.velocity.x - 10
             &&
             player.position.y + player.height >= platform.position.y
             &&
             player.position.y <= platform.position.y + platform.height) {
             player.velocity.x = 0
+            player.position.x = platform.position.x + platform.width + 5
         }
 
     })
