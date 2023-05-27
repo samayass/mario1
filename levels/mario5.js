@@ -141,6 +141,9 @@ class Tube {
         this.image.src = image
         this.width = width
         this.height = height
+        this.velocity = {
+            x: 0
+        }
         this.image.onload = () => {
             // Optional: If width and height are not provided, use the image's natural dimensions
             if (!width) {
@@ -157,6 +160,10 @@ class Tube {
 
     draw() {
         c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+    }
+    update() {
+        this.position.x += this.velocity.x
+        this.draw()
     }
 }
 
@@ -286,26 +293,35 @@ function animate() {
     player.update()
 
     tubes.forEach(tube => {
-        tube.draw()
+        tube.update()
     })
     
-    console.log('Tube');
-    console.log(tubes[0].position.x + 45);
+    // console.log('Tube');
+    // console.log(tubes[0].position.x + 45);
     
-    console.log('Player');
-    console.log(player.position.x + player.width);
-    console.log(player.velocity.x);
+    // console.log('Player');
+    // console.log(player.position.x + player.width);
+    // console.log(player.velocity.x);
 
     if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = player.speed;
+        tubes.forEach(tube => {
+            tube.velocity.x = 0
+        })
     }
     else if (keys.left.pressed && player.position.x > 100) {
         player.velocity.x = -player.speed
+        tubes.forEach(tube => {
+            tube.velocity.x = 0
+        })
     }
     else {
         player.velocity.x = 0
+        tubes.forEach(tube => {
+            tube.velocity.x = 0
+        })
 
-        if (keys.right.pressed) {
+        if (keys.right.pressed && !keys.left.pressed) {
             scrollOffset += player.speed
             platforms.forEach(platform => {
                 platform.position.x  -= player.speed
@@ -317,10 +333,11 @@ function animate() {
                 hill.position.x  -= player.speed * .66
             })
             tubes.forEach(tube => {
-                tube.position.x  -= player.speed
+                //tube.position.x  -= player.speed
+                tube.velocity.x = -player.speed
             })
         }
-        else if (keys.left.pressed) {
+        else if (keys.left.pressed && !keys.right.pressed) {
             scrollOffset -= player.speed
             platforms.forEach(platform => {
                 platform.position.x  += player.speed
@@ -332,7 +349,7 @@ function animate() {
                 hill.position.x  += player.speed
             })
             tubes.forEach(tube => {
-                tube.position.x  += player.speed
+                tube.velocity.x = player.speed
             })
         }
     }
