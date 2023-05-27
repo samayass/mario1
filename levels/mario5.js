@@ -406,24 +406,25 @@ function animate() {
         //from left
         if (player.position.x + player.width <= tube.position.x + 45// the '+ 10' is an arbitrary value to fix the hitbox
             && 
-            player.position.x + player.width + player.velocity.x >= tube.position.x + 45
+            player.position.x + player.width + player.velocity.x >= tube.position.x + tube.velocity.x + 45
             &&
             player.position.y + player.height >= tube.position.y
             &&
             player.position.y <= tube.position.y + tube.height) {
             player.velocity.x = 0
-            
+            player.position.x = tube.position.x + 30 - player.width
             console.log(tube.position.x + "left")
         }
         //from right
         if (player.position.x >= tube.position.x + tube.width - 45
             && 
-            player.position.x + player.velocity.x <= tube.position.x + tube.width - 45
+            player.position.x + player.velocity.x <= tube.position.x + tube.width + tube.velocity.x - 45
             &&
             player.position.y + player.height >= tube.position.y
             &&
             player.position.y <= tube.position.y + tube.height) {
             player.velocity.x = 0
+            player.position.x = tube.position.x + tube.width - 30
             console.log(tube.position.x + tube.width + "right")
         }
        //from top
