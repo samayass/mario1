@@ -473,24 +473,26 @@ function animate() {
             gravity = 2; // Reset gravity to 2
         }
         //from inside left
-        if (player.position.x >= tube.position.x + 35
+        if (player.position.x >= tube.position.x + 45
             && 
-            player.position.x + player.velocity.x <= tube.position.x + 35
+            player.position.x + player.velocity.x <= tube.position.x + tube.velocity.x + 45
             &&
             player.position.y + player.height >= tube.position.y
             &&
             player.position.y <= tube.position.y + tube.height) {
             player.velocity.x = 0
+            player.position.x = tube.position.x + tube.velocity.x + 45
         }
         //from inside right
-        if (player.position.x + player.width <= tube.position.x + tube.width - 35
+        if (player.position.x + player.width <= tube.position.x + tube.width - 45
             && 
-            player.position.x + player.width + player.velocity.x >= tube.position.x + tube.width - 35
+            player.position.x + player.width + player.velocity.x >= tube.position.x + tube.width + tube.velocity.x - 45
             &&
             player.position.y + player.height >= tube.position.y
             &&
             player.position.y <= tube.position.y + tube.height) {
             player.velocity.x = 0
+            player.position.x = tube.position.x + tube.width + tube.velocity.x - 45 - player.width
         }
 
     })
