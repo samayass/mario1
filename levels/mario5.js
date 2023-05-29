@@ -6,6 +6,7 @@ canvas.width = 1024
 canvas.height = 576
 
 let gravity = 2
+let hasJumped = true
 class Player {
     constructor() {
         this.speed = 15
@@ -345,6 +346,11 @@ function animate() {
         tube.update()
     })
     
+    // if (player.velocity.y == 0) {
+    //     hasJumped = true
+    // }
+
+
     // console.log('Tube');
     // console.log(tubes[0].position.x + 45);
     
@@ -592,8 +598,12 @@ window.addEventListener('keydown', ({keyCode}) => {
             keys.right.pressed = true
         break 
         case 87:
-            //console.log('up')
-            player.velocity.y -= 30
+            if (hasJumped) {
+                //console.log('up')
+                player.velocity.y -= 30
+                hasJumped = false
+                setTimeout("hasJumped = true", 500);
+            }
         break 
     }
 
