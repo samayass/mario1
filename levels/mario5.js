@@ -189,29 +189,71 @@ function init() {
     player = new Player()
     platforms = [
         new Platform( {
-            x: 100, 
+            x: 560, 
             y: 300,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 640, 
+            y: 300,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 720, 
+            y: 300,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 1400, 
+            y: 340,
             image: 'images/BrickBlock.png',
             width: 80,
             height: 80
         } ), 
         new Platform( {
-            x: 180, 
+            x: 1570, 
             y: 220,
             image: 'images/BrickBlock.png',
             width: 80,
             height: 80
         } ),
         new Platform( {
-            x: 260, 
-            y: 300,
+            x: 1780, 
+            y: 140,
             image: 'images/BrickBlock.png',
             width: 80,
             height: 80
         } ),
         new Platform( {
-            x: 880, 
-            y: 300,
+            x: 1780, 
+            y: 200,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 1780, 
+            y: 280,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 1780, 
+            y: 340,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 1780, 
+            y: 420,
             image: 'images/BrickBlock.png',
             width: 80,
             height: 80
@@ -262,7 +304,7 @@ function init() {
         } )]
     tubes = [
         new Tube( {
-            x: 650, 
+            x: 3350, 
             y: 317,
             image: 'images/tube.png',
             width: 175,
@@ -525,7 +567,7 @@ function animate() {
         ) { 
             console.log("you've won")
             window.alert("you've won")
-            tube.position.y += .1
+            tube.position.y += .01
         }
     })
     
