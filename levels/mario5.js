@@ -511,16 +511,24 @@ function animate() {
         }
     })
 
-    // win condition
-    if (scrollOffset >= 2000) {
-        console.log('you win')
-    }
-
     // lose condition
     if (player.position.y > canvas.height) {
         console.log("you lose");
         init()
     }
+    //win condition
+    tubes.forEach(tube => {
+        if (
+        player.position.x >= tube.position.x + 45 &&
+        player.position.x + player.width <= tube.position.x + tube.width - 45 &&
+        player.position.y + player.height == (tube.position.y + tube.height - 17)
+        ) { 
+            console.log("you've won")
+            window.alert("you've won")
+            tube.position.y += .1
+        }
+    })
+    
 
 }
 
