@@ -610,7 +610,12 @@ function animate() {
             tube.position.y += .01
             console.log("you've won!")
             //window.alert("you've won!")
-            window.location.href = "http://127.0.0.1:4000/background1"
+            if (window.location.href == "http://127.0.0.1:4000/levels/mario5") {
+                window.location.href = "http://127.0.0.1:4000/background1"
+            }
+            if (window.location.href == "https://samayass.github.io/mario1/levels/mario5") {
+                window.location.href = "https://samayass.github.io/mario1/background1"
+            }
             
         }
     })
