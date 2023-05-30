@@ -97,6 +97,19 @@ tags: [javascript]
       this.marioElement.style.position = "absolute";
     }
 
+    jump() {
+      const jumpHeight = 130;  
+      const jumpDuration = 350;  
+      const groundLevel = 315; 
+
+      this.marioElement.style.transition = `top ${jumpDuration}ms ease`;
+      this.marioElement.style.top = `${groundLevel - jumpHeight}px`;
+
+      setTimeout(() => {
+        this.marioElement.style.top = `${groundLevel}px`;
+      }, jumpDuration);
+    }
+
     animateRight(obj, speed) {
       let frame = 0;
       const row = obj.row * this.pixels;
@@ -323,6 +336,11 @@ tags: [javascript]
       }
     } 
 
+    if (event.key === " ") {
+      event.preventDefault();
+      mario.jump();
+    }
+
     if (event.key === "s") {
       event.preventDefault();
       rightspd = 0;
@@ -356,6 +374,7 @@ tags: [javascript]
         }
       }
     }
+    
     
     if (event.touches[0].clientX < window.innerWidth / 2) {
       event.preventDefault();
