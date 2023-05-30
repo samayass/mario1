@@ -45,6 +45,19 @@ class Player {
         
     }
 }
+class Barrier {
+    constructor() {
+        this.position = {
+            x: 0
+        }
+        this.velocity = {
+            x: 0
+        }
+    }
+    update() {
+        this.position.x += this.velocity.x
+    }
+}
 
 class Platform {
     constructor( { x, y, image, width, height } ) {
@@ -184,10 +197,12 @@ let hills = []
 let platforms = []
 let floors = []
 let tubes = []
+let barrier = new Barrier()
 
 function init() {
 
     player = new Player()
+    barrier = new Barrier()
     platforms = [
         new Platform( {
             x: 560, 
@@ -283,6 +298,13 @@ function init() {
         } )]
     hills = [
         new Hill( {
+            x: -1024, 
+            y: 0,
+            image: 'images/hills.png',
+            width: 1024,
+            height: 576
+        } ),
+        new Hill( {
             x: 0, 
             y: 0,
             image: 'images/hills.png',
@@ -345,6 +367,7 @@ function animate() {
     tubes.forEach(tube => {
         tube.update()
     })
+    barrier.update()
     
     // if (player.velocity.y == 0) {
     //     hasJumped = true
@@ -366,6 +389,7 @@ function animate() {
         tubes.forEach(tube => {
             tube.velocity.x = 0
         })
+        barrier.velocity.x = -player.speed
     }
     else if (keys.left.pressed && player.position.x > 100) {
         player.velocity.x = -player.speed
@@ -375,6 +399,7 @@ function animate() {
         tubes.forEach(tube => {
             tube.velocity.x = 0
         })
+        barrier.velocity.x = player.speed
     }
     else {
         player.velocity.x = 0
@@ -384,6 +409,7 @@ function animate() {
         platforms.forEach(platform => {
             platform.velocity.x = 0
         })
+        barrier.velocity.x = 0
 
         if (keys.right.pressed && !keys.left.pressed) {
             scrollOffset += player.speed
@@ -400,6 +426,7 @@ function animate() {
                 //tube.position.x  -= player.speed
                 tube.velocity.x = -player.speed
             })
+            barrier.velocity.x = -player.speed
         }
         else if (keys.left.pressed && !keys.right.pressed) {
             scrollOffset -= player.speed
@@ -415,6 +442,7 @@ function animate() {
             tubes.forEach(tube => {
                 tube.velocity.x = player.speed
             })
+            barrier.velocity.x = player.speed
         }
     }
 
@@ -559,6 +587,14 @@ function animate() {
         }
     })
 
+    //stop player from going off screen to the left 
+    if (player.position.x >= barrier.position.x &&
+        player.position.x + player.velocity.x < barrier.position.x) {
+            player.velocity.x = 0;
+        }
+        console.log(barrier.position.x)
+        console.log(player.position.x)
+
     // lose condition
     if (player.position.y > canvas.height) {
         console.log("you lose");
@@ -571,9 +607,11 @@ function animate() {
         player.position.x + player.width <= tube.position.x + tube.width - 45 &&
         player.position.y + player.height == (tube.position.y + tube.height - 17)
         ) { 
-            console.log("you've won!")
-            window.alert("you've won!")
             tube.position.y += .01
+            console.log("you've won!")
+            //window.alert("you've won!")
+            window.location.href = "http://127.0.0.1:4000/background1"
+            
         }
     })
     
