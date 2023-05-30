@@ -299,9 +299,7 @@ function init()
         new GenericObject({
             x:754*4, y:180, image: image2
         }),
-        new GenericObject({
-            x: 540*3 + 100, y: 450, image: image4
-        })
+    
     ]
 
     
