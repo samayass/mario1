@@ -103,7 +103,7 @@ let image3 = new Image()
 image3.src = './images/box.png'
 
 let image4 = new Image()
-image3.src = './images/mariopipe.png'
+image4.src = './images/mariopipe.png'
 
 
 
@@ -126,6 +126,8 @@ let blockObjects = [
     }),
 ]
 
+
+
 let platforms = [
     new Platform({
         x: 0, y: 450, image 
@@ -143,7 +145,7 @@ let platforms = [
         x: 540*4, y: 450, image
     }),
     new Platform({
-        x: 540*5, y: 450, image
+        x: 540*5+200, y: 450, image
     }),
     new Platform({
         x: 540*6 + 200, y: 450, image
@@ -154,6 +156,13 @@ let platforms = [
     new Platform({
         x: 540*8, y: 450, image
     }),
+    new Platform({
+        x: 540*9 +100, y: 450, image
+    }),
+    new Platform({
+        x: 540*10 +100, y: 450, image
+    }),
+    
 
 
 ]
@@ -178,6 +187,7 @@ let genericObjects = [
     new GenericObject({
         x:754*4, y:180, image: image2
     }),
+
 ]
 
 
@@ -208,7 +218,7 @@ function init()
     image3.src = './images/box.png'
     
     image4 = new Image()
-    image3.src = './images/mariopipe.png'
+    image4.src = './images/mariopipe.png'
 
 
     player = new Player()
@@ -227,6 +237,7 @@ function init()
             x: 1800, y: 100, image:image3
         }),
     ]
+
     
     platforms = [
         new Platform({
@@ -239,13 +250,13 @@ function init()
             x: 540*2, y: 450, image
         }),
         new Platform({
-            x: 540*3 +100 , y: 450, image
+            x: 540*3 + 100, y: 450, image
         }),
         new Platform({
             x: 540*4, y: 450, image
         }),
         new Platform({
-            x: 540*5, y: 450, image
+            x: 540*5+200, y: 450, image
         }),
         new Platform({
             x: 540*6 + 200, y: 450, image
@@ -256,6 +267,14 @@ function init()
         new Platform({
             x: 540*8, y: 450, image
         }),
+        new Platform({
+            x: 540*9 +100, y: 450, image
+        }),
+        new Platform({
+            x: 540*10 +100, y: 450, image
+        }),
+        
+    
     
     
     ]
@@ -280,7 +299,11 @@ function init()
         new GenericObject({
             x:754*4, y:180, image: image2
         }),
+        new GenericObject({
+            x: 540*3 + 100, y: 450, image: image4
+        })
     ]
+
     
     
     keys = {
@@ -330,6 +353,8 @@ function animate() {
             blockObjects.forEach(blockObject => {
                 blockObject.position.x -=5;
             })
+            
+
 
     
         }
@@ -358,6 +383,7 @@ platforms.forEach(platform => {
         player.velocity.y = 0;
     }
 })
+
 
 if (scrollOffset >2000){
     console.log('You win!')
