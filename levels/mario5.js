@@ -571,8 +571,8 @@ function animate() {
         player.position.x + player.width <= tube.position.x + tube.width - 45 &&
         player.position.y + player.height == (tube.position.y + tube.height - 17)
         ) { 
-            console.log("you've won")
-            window.alert("you've won")
+            console.log("you've won!")
+            window.alert("you've won!")
             tube.position.y += .01
         }
     })
