@@ -34,7 +34,7 @@ tags: [javascript]
     #block {
         position: absolute;
         top: 650px;
-        left: 600px;
+        left: 900px;
         width: 17px;
         height: 17px;
         z-index: 1; /* Adjust the z-index to control the stacking order */
@@ -80,6 +80,10 @@ tags: [javascript]
     const spriteHeight5 = 35; // Height of each frame in pixels
     const numFrames5 = 4; // Total number of frames in the sprite sheet
 
+    const blockElement = document.getElementById('block');
+    let blockLeft = 900;
+    const blockStepSize = 5;
+
     let currentFrame5 = 0; // Variable to track the current frame index
 
     function updateFrame5() {
@@ -99,6 +103,7 @@ tags: [javascript]
     let currentTop = 658;
     let currentLeft = 620;
     const stepSize = 5; // Adjust the step size according to your desired movement speed
+    
 
     function jump() {
         const jumpHeight = 75; // Adjust the jump height as desired
@@ -137,6 +142,12 @@ tags: [javascript]
 
     function checkCollision() {
             if (areElementsColliding(yoshi5, block)) {
+                // Start the timeout and store the timeout ID
+                const timeoutId = setTimeout(jump, 0); // Replace `myFunction` with your actual function and adjust the timeout duration as needed
+
+                // Stop the function midway by clearing the timeout
+                clearTimeout(timeoutId);
+
                 handleCollision();
             }
     }
@@ -147,19 +158,21 @@ tags: [javascript]
     function handleKeyPress(event) {
     if (event.key === ' ') {
         jump();
-        // currentTop -= stepSize;
-        // setTimeout(function() {
-        //     // Code to be executed after the delay
-        // }, 2000); // Delay in milliseconds (e.g., 2000ms = 2 seconds)
     } else if (event.key === 'ArrowDown') {
         currentTop += stepSize;
     } else if (event.key === 'ArrowLeft') {
-        currentLeft -= stepSize + 10;
+        blockLeft += blockStepSize;
+        currentLeft -= stepSize;
     } else if (event.key === 'ArrowRight') {
         updateFrame();
+        blockLeft -= blockStepSize;
+        
         currentLeft += stepSize;
     }
-    
+
+    blockElement.style.transition = 'left 0.3s';
+    blockElement.style.left = blockLeft + 'px';
+    imageElement.style.transition = 'left 0.1s'; // Set the transition duration and properties
     imageElement.style.top = currentTop + 'px';
     imageElement.style.left = currentLeft + 'px';
     }

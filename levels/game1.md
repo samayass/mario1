@@ -4,7 +4,7 @@ comments: true
 layout: default
 description: Animating Mario games with starts of interacting objects
 permalink: /game1
-image: /images/mario_animation.png
+image: /levels/images/mario_animation.png
 image2: /images/coin.png
 categories: []
 tags: [javascript]
@@ -95,6 +95,19 @@ tags: [javascript]
       this.interval = 40; //animation time interval
       this.obj = meta_data;
       this.marioElement.style.position = "absolute";
+    }
+
+    jump() {
+      const jumpHeight = 130;  
+      const jumpDuration = 350;  
+      const groundLevel = 315; 
+
+      this.marioElement.style.transition = `top ${jumpDuration}ms ease`;
+      this.marioElement.style.top = `${groundLevel - jumpHeight}px`;
+
+      setTimeout(() => {
+        this.marioElement.style.top = `${groundLevel}px`;
+      }, jumpDuration);
     }
 
     animateRight(obj, speed) {
@@ -323,6 +336,11 @@ tags: [javascript]
       }
     } 
 
+    if (event.key === " ") {
+      event.preventDefault();
+      mario.jump();
+    }
+
     if (event.key === "s") {
       event.preventDefault();
       rightspd = 0;
@@ -356,6 +374,7 @@ tags: [javascript]
         }
       }
     }
+    
     
     if (event.touches[0].clientX < window.innerWidth / 2) {
       event.preventDefault();
