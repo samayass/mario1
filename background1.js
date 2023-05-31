@@ -4,7 +4,7 @@ const c = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 576;
 
-const gravity = 1.5;
+let gravity = 1.5;
 
 class Player {
     constructor() {
@@ -87,6 +87,42 @@ class BlockObject {
   draw() {
     c.drawImage(this.image, this.position.x, this.position.y);
   }
+}
+
+class Tube {
+    constructor( { x, y, image, width, height } ) {
+        this.position = {
+            x,
+            y
+        }
+        this.image = new Image()
+        this.image.src = image
+        this.width = width
+        this.height = height
+        this.velocity = {
+            x: 0
+        }
+        this.image.onload = () => {
+            // Optional: If width and height are not provided, use the image's natural dimensions
+            if (!width) {
+                this.width = this.image.naturalWidth;
+            }
+            if (!height) {
+                this.height = this.image.naturalHeight;
+            }
+        }
+
+        // this.width = image.width
+        // this.height = image.height
+    }
+
+    draw() {
+        c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+    }
+    update() {
+        this.position.x += this.velocity.x
+        this.draw()
+    }
 }
 
 class GenericObject {
@@ -197,6 +233,7 @@ let platforms = [
 
 ]
 
+
 let genericObjects = [
     new GenericObject({
         x:0, y:0, image: image1
@@ -219,6 +256,14 @@ let genericObjects = [
 
 ]
 
+let tubes = [
+    new Tube( {
+        x: 200, 
+        y: 267,
+        image: 'images/tubeM.png',
+        width: 175,
+        height: 200
+    } )]
 
 const keys = {
     right: {
@@ -313,8 +358,7 @@ function init()
     
     ]
 
-    
-    
+
     genericObjects = [
         new GenericObject({
             x:0, y:0, image: image1
@@ -336,6 +380,15 @@ function init()
         }),
     
     ]
+
+    tubes = [
+        new Tube( {
+            x: 100, 
+            y: 300,
+            image: 'images/tube.png',
+            width: 175,
+            height: 200
+        } )]
 
     
     
@@ -367,14 +420,27 @@ function animate() {
         platform.draw()
     })
     player.update()
+    tubes.forEach(tube => {
+        tube.update()
+    })
     if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = 5
+        tubes.forEach(tube => {
+            tube.velocity.x = 0
+        })
     } 
     else if((keys.left.pressed && player.position.x > 100) || keys.left.pressed && scrollOffset === 0 && player.position.x>0) {
         player.velocity.x = -5;
+        tubes.forEach(tube => {
+            tube.velocity.x = 0
+        })
     } 
     else  {
         player.velocity.x = 0
+        tubes.forEach(tube => {
+            tube.velocity.x = 0
+        })
+
         if (keys.right.pressed) {
             scrollOffset +=5
             platforms.forEach(platform => {
@@ -385,6 +451,10 @@ function animate() {
             })
             blockObjects.forEach(blockObject => {
                 blockObject.position.x -=5;
+            })
+            tubes.forEach(tube => {
+                //tube.position.x  -= player.speed
+                tube.velocity.x = -player.speed
             })
         
             
@@ -403,6 +473,9 @@ function animate() {
                 blockObjects.forEach(blockObject => {
                     blockObject.position.x +=5;
                 })
+                tubes.forEach(tube => {
+                    tube.velocity.x = player.speed
+                })
           
 
             }
@@ -418,6 +491,85 @@ platforms.forEach(platform => {
         {
         player.velocity.y = 0;
     }
+})
+
+//tube collision detection
+tubes.forEach(tube => {
+        
+    //from left
+    if (player.position.x + player.width <= tube.position.x + 45// the '+ 10' is an arbitrary value to fix the hitbox
+        && 
+        player.position.x + player.width + player.velocity.x >= tube.position.x + tube.velocity.x + 45
+        &&
+        player.position.y + player.height >= tube.position.y
+        &&
+        player.position.y <= tube.position.y + tube.height) {
+        player.velocity.x = 0
+        player.position.x = tube.position.x + 30 - player.width
+        console.log(tube.position.x + "left")
+    }
+    //from right
+    if (player.position.x >= tube.position.x + tube.width - 45
+        && 
+        player.position.x + player.velocity.x <= tube.position.x + tube.width + tube.velocity.x - 45
+        &&
+        player.position.y + player.height >= tube.position.y
+        &&
+        player.position.y <= tube.position.y + tube.height) {
+        player.velocity.x = 0
+        player.position.x = tube.position.x + tube.width - 30
+        console.log(tube.position.x + tube.width + "right")
+    }
+   //from top
+    if (player.position.y + player.height <= tube.position.y + 18
+        && 
+        player.position.y + player.height + player.velocity.y >= tube.position.y + 18
+        &&
+        player.position.x + player.width >= tube.position.x + 45
+        &&
+        player.position.x <= tube.position.x + tube.width - 45) {
+        player.velocity.y = 0
+        if (player.position.x >= tube.position.x + 45
+            &&
+            player.position.x + player.width <= tube.position.x + tube.width - 45) {
+                gravity = 0.01;
+                player.velocity.y = 0.0001; // Set a small positive velocity to make the player fall slowly
+                player.position.y = tube.position.y + 18 - player.height; // Adjust the player's position to be exactly on top of the tube
+            }
+    } 
+    // Check if player has fallen down far enough
+    if (player.position.y >= tube.position.y + 18
+        ||
+        player.position.x + player.width <= tube.position.x
+        ||
+        player.position.x >= tube.position.x + tube.width
+        ||
+        player.position.y + player.height <= tube.position.y) {
+        gravity = 2; // Reset gravity to 2
+    }
+    //from inside left
+    if (player.position.x >= tube.position.x + 45
+        && 
+        player.position.x + player.velocity.x <= tube.position.x + tube.velocity.x + 45
+        &&
+        player.position.y + player.height >= tube.position.y
+        &&
+        player.position.y <= tube.position.y + tube.height) {
+        player.velocity.x = 0
+        player.position.x = tube.position.x + tube.velocity.x + 45
+    }
+    //from inside right
+    if (player.position.x + player.width <= tube.position.x + tube.width - 45
+        && 
+        player.position.x + player.width + player.velocity.x >= tube.position.x + tube.width + tube.velocity.x - 45
+        &&
+        player.position.y + player.height >= tube.position.y
+        &&
+        player.position.y <= tube.position.y + tube.height) {
+        player.velocity.x = 0
+        player.position.x = tube.position.x + tube.width + tube.velocity.x - 45 - player.width
+    }
+
 })
 
 
@@ -446,6 +598,28 @@ blockObjects.forEach(blockObject => {
 
 
 animate()
+
+//win condition
+tubes.forEach(tube => {
+    if (
+    player.position.x >= tube.position.x + 45 &&
+    player.position.x + player.width <= tube.position.x + tube.width - 45 &&
+    player.position.y + player.height == (tube.position.y + tube.height - 17)
+    ) { 
+        tube.position.y += .01
+        console.log("you've won!")
+        console.log(window.location.href)
+        //window.alert("you've won!")
+        if (window.location.href == "http://127.0.0.1:4000/background1") {
+            window.location.href = "http://127.0.0.1:4000/levels/mario5"
+        }
+        if (window.location.href == "https://samayass.github.io/mario1/background1") {
+            window.location.href = "https://samayass.github.io/mario1/levels/mario5"
+        }
+        console.log(window.location.href)
+        
+    }
+})
 
 addEventListener('keydown', ({keyCode}) => {
     switch (keyCode) {
