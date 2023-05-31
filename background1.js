@@ -4,7 +4,7 @@ const c = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 576;
 
-const gravity = 1.5;
+let gravity = 2;
 
 class Player {
     constructor() {
@@ -21,6 +21,7 @@ class Player {
 
         this.image = image8
         this.frames = 0;
+<<<<<<< HEAD
         // this.sprites = {
         //     stand: {
         //         right: image8
@@ -31,6 +32,20 @@ class Player {
         // }
 
         // this.currentSprite = this.sprites.stand.right
+=======
+        this.sprites = {
+            stand: {
+                right: image8
+            },
+            run: {
+                right: image6
+            }
+        }
+
+        this.speed = 15
+
+        this.currentSprite = this.sprites.stand.right
+>>>>>>> 47e2351aa98d22a7384b22ed26efc0a162a13d76
     }
     draw() {
         c.drawImage(this.image, 
@@ -44,6 +59,7 @@ class Player {
             this.height)
     }
     update() {
+<<<<<<< HEAD
         // this.frames ++
         // if (this.frames > 8) this.frames =0;
        
@@ -53,6 +69,11 @@ class Player {
         //     this.draw();
         // }
 
+=======
+        this.frames ++
+        if (this.frames > 8) 
+        this.frames = 0;
+>>>>>>> 47e2351aa98d22a7384b22ed26efc0a162a13d76
         this.draw()
         this.position.y += this.velocity.y
         this.position.x += this.velocity.x
@@ -62,6 +83,10 @@ class Player {
     }
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 47e2351aa98d22a7384b22ed26efc0a162a13d76
 class Platform {
   constructor({ x, y, image }) {
     this.position = {
@@ -92,6 +117,42 @@ class BlockObject {
   draw() {
     c.drawImage(this.image, this.position.x, this.position.y);
   }
+}
+
+class Tube {
+    constructor( { x, y, image, width, height } ) {
+        this.position = {
+            x,
+            y
+        }
+        this.image = new Image()
+        this.image.src = image
+        this.width = width
+        this.height = height
+        this.velocity = {
+            x: 0
+        }
+        this.image.onload = () => {
+            // Optional: If width and height are not provided, use the image's natural dimensions
+            if (!width) {
+                this.width = this.image.naturalWidth;
+            }
+            if (!height) {
+                this.height = this.image.naturalHeight;
+            }
+        }
+
+        // this.width = image.width
+        // this.height = image.height
+    }
+
+    draw() {
+        c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+    }
+    update() {
+        this.position.x += this.velocity.x
+        this.draw()
+    }
 }
 
 class GenericObject {
@@ -126,19 +187,19 @@ image3.src = './images/box.png';
 let image4 = new Image();
 image4.src = './images/mariopipe.png';
 
-let image5 = new Image()
-image5.src = './images/spriteRunLeft.png'
+let image5 = new Image();
+image5.src = './images/spriteRunLeft.png';
 
-let image6 = new Image()
-image6.src = './images/spriteRunRight.png'
+let image6 = new Image();
+image6.src = './images/spriteRunRight.png';
 
-let image7 = new Image()
-image7.src = './images/spriteStandLeft.png'
+let image7 = new Image();
+image7.src = './images/spriteStandLeft.png';
 
-let image8 = new Image()
-image8.src = './images/spriteStandRight.png'
+let image8 = new Image();
+image8.src = './images/spriteStandRight.png';
 
-let player = new Player()
+let player = new Player();
 
 let blockObjects = [
   new BlockObject({
@@ -220,8 +281,11 @@ let platforms = [
     
 
 
+<<<<<<< HEAD
 ]
 
+=======
+>>>>>>> 47e2351aa98d22a7384b22ed26efc0a162a13d76
 
 let genericObjects = [
     new GenericObject({
@@ -245,8 +309,16 @@ let genericObjects = [
 
 ]
 
+let tubes = [
+    new Tube( {
+        x: 5500, 
+        y: 265,
+        image: 'images/tubeM.png',
+        width: 175,
+        height: 200
+    } )]
 
-const keys = {
+let keys = {
     right: {
         pressed:false
     },
@@ -295,6 +367,7 @@ function init()
         }),
     ]
 
+
     
     platforms = [
         new Platform({
@@ -332,9 +405,13 @@ function init()
         }),
         
 
+<<<<<<< HEAD
     ]
 
     
+=======
+
+>>>>>>> 47e2351aa98d22a7384b22ed26efc0a162a13d76
     genericObjects = [
         new GenericObject({
             x:0, y:0, image: image1
@@ -357,6 +434,14 @@ function init()
     
     ]
 
+    tubes = [
+        new Tube( {
+            x: 5500, 
+            y: 265,
+            image: 'images/tubeM.png',
+            width: 175,
+            height: 200
+        } )]
     
     
     keys = {
@@ -387,26 +472,60 @@ function animate() {
         platform.draw()
     })
     player.update()
+    tubes.forEach(tube => {
+        tube.update()
+    })
     if (keys.right.pressed && player.position.x < 400) {
+<<<<<<< HEAD
         player.velocity.x = 10
     } 
     else if((keys.left.pressed && player.position.x > 100) || keys.left.pressed && scrollOffset === 0 && player.position.x>0) {
         player.velocity.x = -10;
+=======
+        player.velocity.x = player.speed
+        tubes.forEach(tube => {
+            tube.velocity.x = 0
+        })
+    } 
+    else if((keys.left.pressed && player.position.x > 100) || keys.left.pressed && scrollOffset === 0 && player.position.x>0) {
+        player.velocity.x = -player.speed
+        tubes.forEach(tube => {
+            tube.velocity.x = 0
+        })
+>>>>>>> 47e2351aa98d22a7384b22ed26efc0a162a13d76
     } 
     else  {
         player.velocity.x = 0
+        tubes.forEach(tube => {
+            tube.velocity.x = 0
+        })
+
         if (keys.right.pressed) {
-            scrollOffset +=5
+            scrollOffset += player.speed
             platforms.forEach(platform => {
+<<<<<<< HEAD
                 platform.position.x -= 7
+=======
+                platform.position.x -= player.speed
+>>>>>>> 47e2351aa98d22a7384b22ed26efc0a162a13d76
             })
             genericObjects.forEach(genericObject => {
                 genericObject.position.x -=4;
             })
             blockObjects.forEach(blockObject => {
+<<<<<<< HEAD
                 blockObject.position.x -=7;
             })
 
+=======
+                blockObject.position.x -=player.speed;
+            })
+            tubes.forEach(tube => {
+                //tube.position.x  -= player.speed
+                tube.velocity.x -=player.speed
+            })
+        
+>>>>>>> 47e2351aa98d22a7384b22ed26efc0a162a13d76
             
 
 
@@ -423,10 +542,17 @@ function animate() {
                 blockObjects.forEach(blockObject => {
                     blockObject.position.x +=5;
                 })
+<<<<<<< HEAD
         
+=======
+                tubes.forEach(tube => {
+                    tube.velocity.x += player.speed
+                })
+          
+
+>>>>>>> 47e2351aa98d22a7384b22ed26efc0a162a13d76
             }
     }
-
 
 //platform collisions
 platforms.forEach(platform => {
@@ -437,6 +563,85 @@ platforms.forEach(platform => {
         {
         player.velocity.y = 0;
     }
+})
+
+//tube collision detection
+tubes.forEach(tube => {
+        
+    //from left
+    if (player.position.x + player.width <= tube.position.x + 45// the '+ 10' is an arbitrary value to fix the hitbox
+        && 
+        player.position.x + player.width + player.velocity.x >= tube.position.x + tube.velocity.x + 45
+        &&
+        player.position.y + player.height >= tube.position.y
+        &&
+        player.position.y <= tube.position.y + tube.height) {
+        player.velocity.x = 0
+        player.position.x = tube.position.x + 30 - player.width
+        console.log(tube.position.x + "left")
+    }
+    //from right
+    if (player.position.x >= tube.position.x + tube.width - 45
+        && 
+        player.position.x + player.velocity.x <= tube.position.x + tube.width + tube.velocity.x - 45
+        &&
+        player.position.y + player.height >= tube.position.y
+        &&
+        player.position.y <= tube.position.y + tube.height) {
+        player.velocity.x = 0
+        player.position.x = tube.position.x + tube.width - 30
+        console.log(tube.position.x + tube.width + "right")
+    }
+   //from top
+    if (player.position.y + player.height <= tube.position.y + 18
+        && 
+        player.position.y + player.height + player.velocity.y >= tube.position.y + 18
+        &&
+        player.position.x + player.width >= tube.position.x + 45
+        &&
+        player.position.x <= tube.position.x + tube.width - 45) {
+        player.velocity.y = 0
+        if (player.position.x >= tube.position.x + 45
+            &&
+            player.position.x + player.width <= tube.position.x + tube.width - 45) {
+                gravity = 0.01;
+                player.velocity.y = 0.0001; // Set a small positive velocity to make the player fall slowly
+                player.position.y = tube.position.y + 18 - player.height; // Adjust the player's position to be exactly on top of the tube
+            }
+    } 
+    // Check if player has fallen down far enough
+    if (player.position.y >= tube.position.y + 18
+        ||
+        player.position.x + player.width <= tube.position.x
+        ||
+        player.position.x >= tube.position.x + tube.width
+        ||
+        player.position.y + player.height <= tube.position.y) {
+        gravity = 2; // Reset gravity to 2
+    }
+    //from inside left
+    if (player.position.x >= tube.position.x + 45
+        && 
+        player.position.x + player.velocity.x <= tube.position.x + tube.velocity.x + 45
+        &&
+        player.position.y + player.height >= tube.position.y
+        &&
+        player.position.y <= tube.position.y + tube.height) {
+        player.velocity.x = 0
+        player.position.x = tube.position.x + tube.velocity.x + 45
+    }
+    //from inside right
+    if (player.position.x + player.width <= tube.position.x + tube.width - 45
+        && 
+        player.position.x + player.width + player.velocity.x >= tube.position.x + tube.width + tube.velocity.x - 45
+        &&
+        player.position.y + player.height >= tube.position.y
+        &&
+        player.position.y <= tube.position.y + tube.height) {
+        player.velocity.x = 0
+        player.position.x = tube.position.x + tube.width + tube.velocity.x - 45 - player.width
+    }
+
 })
 
 
@@ -460,12 +665,31 @@ blockObjects.forEach(blockObject => {
     }
   });
   
+  //change level condition
+tubes.forEach(tube => {
+    if (
+    player.position.x >= tube.position.x + 45 &&
+    player.position.x + player.width <= tube.position.x + tube.width - 45 &&
+    player.position.y + player.height >= tube.position.y + tube.height - 17
+    ) { 
+        tube.position.y += 2
+        if (window.location.href == "http://127.0.0.1:4000/background1") {
+            window.location.href = "http://127.0.0.1:4000/levels/mario5"
+        }
+        if (window.location.href == "https://samayass.github.io/mario1/background1") {
+            window.location.href = "https://samayass.github.io/mario1/levels/mario5"
+        }
+        console.log("i'm outta here!!")
+        
+    }
+})
  
  
 }
 
 
 animate()
+
 
 addEventListener('keydown', ({keyCode}) => {
     switch (keyCode) {

@@ -9,309 +9,7 @@ let gravity = 2
 let hasJumped = true
 
 const marioImage = new Image()
-marioImage.src = 'images/mario_animation.png'
-
-
-  ////////// convert yml hash to javascript key value objects /////////
-
-    // Example code to change the slider speed dynamically
-    const sliderElement = document.querySelector('.slider');
-
-    function changeSliderSpeed(speed) {
-      document.documentElement.style.setProperty('--slider-speed', speed);
-    }
-  
-    // Call the changeSliderSpeed function with the desired speed value (e.g., '3s', '10s', etc.)
-    changeSliderSpeed('3s');
-  
-    var mario_metadata = {}; //key, value object
-      
-    
-    var key = "Rest"  //key
-    var values = {} //values object
-    values["row"] = 0
-    values["col"] = 0
-    values["frames"] = 15
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "RestL"  //key
-    var values = {} //values object
-    values["row"] = 1
-    values["col"] = 0
-    values["frames"] = 15
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "Walk"  //key
-    var values = {} //values object
-    values["row"] = 2
-    values["col"] = 0
-    values["frames"] = 8
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "Tada"  //key
-    var values = {} //values object
-    values["row"] = 2
-    values["col"] = 11
-    values["frames"] = 3
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "WalkL"  //key
-    var values = {} //values object
-    values["row"] = 3
-    values["col"] = 0
-    values["frames"] = 8
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "TadaL"  //key
-    var values = {} //values object
-    values["row"] = 3
-    values["col"] = 11
-    values["frames"] = 3
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "Run1"  //key
-    var values = {} //values object
-    values["row"] = 4
-    values["col"] = 0
-    values["frames"] = 15
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "Run1L"  //key
-    var values = {} //values object
-    values["row"] = 5
-    values["col"] = 0
-    values["frames"] = 15
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "Run2"  //key
-    var values = {} //values object
-    values["row"] = 6
-    values["col"] = 0
-    values["frames"] = 15
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "Run2L"  //key
-    var values = {} //values object
-    values["row"] = 7
-    values["col"] = 0
-    values["frames"] = 15
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "Puff"  //key
-    var values = {} //values object
-    values["row"] = 8
-    values["col"] = 0
-    values["frames"] = 15
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "PuffL"  //key
-    var values = {} //values object
-    values["row"] = 9
-    values["col"] = 0
-    values["frames"] = 15
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "Cheer"  //key
-    var values = {} //values object
-    values["row"] = 10
-    values["col"] = 0
-    values["frames"] = 15
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "CheerL"  //key
-    var values = {} //values object
-    values["row"] = 11
-    values["col"] = 0
-    values["frames"] = 15
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "Flip"  //key
-    var values = {} //values object
-    values["row"] = 12
-    values["col"] = 0
-    values["frames"] = 15
-    mario_metadata[key] = values; //key with values added
-  
-      
-    
-    var key = "FlipL"  //key
-    var values = {} //values object
-    values["row"] = 13
-    values["col"] = 0
-    values["frames"] = 15
-    mario_metadata[key] = values; //key with values added
-  
-    class Mario {
-        constructor(meta_data) {
-          this.tID = null;  //capture setInterval() task ID
-          this.positionX = 0;  // current position of sprite in X direction
-          this.positionY = 0;  // current position of sprite in Y direction
-          this.currentSpeed = 0;
-          this.marioElement = document.getElementById("mario"); //HTML element of sprite
-          this.pixels = 256; //pixel offset of images in the sprite, set by liquid constant
-          this.interval = 100; //animation time interval
-          this.obj = meta_data;
-          this.marioElement.style.position = "absolute";
-        }
-    
-    
-        jump() {
-          const jumpHeight = 130;  
-          const jumpDuration = 350;  
-          const groundLevel = 315; 
-    
-          this.marioElement.style.transition = `top ${jumpDuration}ms ease`;
-          this.marioElement.style.top = `${groundLevel - jumpHeight}px`;
-    
-          setTimeout(() => {
-            this.marioElement.style.top = `${groundLevel}px`;
-          }, jumpDuration);
-        }
-    
-    
-        animateRight(obj, speed) {
-          let frame = 0;
-          const row = obj.row * this.pixels;
-          this.currentSpeed = speed;
-    
-          this.tID = setInterval(() => {
-            const col = (frame + obj.col) * this.pixels;
-            this.marioElement.style.backgroundPosition = `-${col}px -${row}px`;
-            this.marioElement.style.left = `${this.positionX}px`;
-    
-            this.positionX += speed;
-            frame = (frame + 1) % obj.frames;
-    
-            const viewportWidth = window.innerWidth;
-            if (this.positionX > viewportWidth - this.pixels) {
-              document.documentElement.scrollLeft = this.positionX - viewportWidth + this.pixels;
-            }
-          }, this.interval);
-        }
-    
-        animateLeft(obj, speed) {
-          let frame = 0;
-          const row = obj.row * this.pixels;
-          this.currentSpeed = speed;
-    
-          this.tID = setInterval(() => {
-            const col = (frame + obj.col) * this.pixels;
-            this.marioElement.style.backgroundPosition = `-${col}px -${row}px`;
-            this.marioElement.style.left = `${this.positionX}px`;
-    
-            this.positionX -= speed;
-            frame = (frame + 1) % obj.frames;
-    
-            const viewportWidth = window.innerWidth;
-            if (this.positionX > viewportWidth - this.pixels) {
-              document.documentElement.scrollLeft = this.positionX - viewportWidth + this.pixels;
-            }
-          }, this.interval);
-        }
-    
-        animateU(obj, speed) {
-          let frame = 0;
-          const row = obj.row * this.pixels;
-          this.currentSpeed = speed;
-    
-          this.tID = setInterval(() => {
-            const col = (frame + obj.col) * this.pixels;
-            this.marioElement.style.backgroundPosition = `-${col}px -${row}px`;
-            this.marioElement.style.left = `${this.positionX}px`;
-    
-            this.positionX -= speed;
-            frame = (frame + 1) % obj.frames;
-    
-            const viewportWidth = window.innerWidth;
-            if (this.positionX > viewportWidth - this.pixels) {
-              document.documentElement.scrollLeft = this.positionX - viewportWidth + this.pixels;
-            }
-          }, this.interval);
-        }
-    
-        startWalkingRight() {
-          this.stopAnimate();
-          this.animateRight(this.obj["Walk"], 5);
-        }
-    
-        startWalkingLeft() {
-          this.stopAnimate();
-          this.animateLeft(this.obj["WalkL"], 5);
-        }
-    
-        startRunningRight() {
-          this.stopAnimate();
-          this.animateRight(this.obj["Run1"], 10);
-        }
-    
-        startRunningLeft() {
-          this.stopAnimate();
-          this.animateLeft(this.obj["Run1L"], 10);
-        }
-    
-        startPuffing() {
-          this.stopAnimate();
-          this.animateRight(this.obj["Puff"], 0);
-        }
-    
-        startPuffingLeft() {
-          this.stopAnimate();
-          this.animateLeft(this.obj["PuffL"], 0);
-        }
-    
-        startCheering() {
-          this.stopAnimate();
-          this.animateRight(this.obj["Cheer"], 0);
-        }
-    
-        startFlipping() {
-          this.stopAnimate();
-          this.animateRight(this.obj["Flip"], 0);
-        }
-    
-        startResting() {
-          this.stopAnimate();
-          this.animateRight(this.obj["Rest"], 0);
-        }
-    
-        startRestingLeft() {
-          this.stopAnimate();
-          this.animateRight(this.obj["RestL"], 0);
-        }
-    
-        stopAnimate() {
-          clearInterval(this.tID);
-        }
-    }  
-
+marioImage.src = 'images/mario_animationTEMP2.png'
 
 class Player {
     constructor() {
@@ -324,16 +22,14 @@ class Player {
             x: 0,
             y: 1
         }
-        this.width = 70
-        this.height = 80
+        this.width = 35
+        this.height = 50
          
     }
 
-
-
     draw() {
-        const frameWidth = 165;  // Width of each frame in the sprite sheet
-        const frameHeight = 250; // Height of each frame in the sprite sheet
+        const frameWidth = 80;  // Width of each frame in the sprite sheet
+        const frameHeight = 180; // Height of each frame in the sprite sheet
         const frameX = 5;  // X-coordinate of the desired frame in the sprite sheet
         const frameY = 5; // Y-coordinate of the desired frame in the sprite sheet
 
@@ -348,7 +44,6 @@ class Player {
             this.width, 
             this.height);
     }
-
     update() {
         this.position.y += this.velocity.y
         this.position.x += this.velocity.x
@@ -366,6 +61,33 @@ class Player {
         
     }
 }
+class Goomba {
+    constructor({ x, y, image, width = 80, height = 80 }) {
+        this.speed = -1
+        this.position = {
+            x,
+            y
+        };
+        this.velocity = {
+            x: -1,
+            y: 0
+        };
+        this.image = new Image();
+        this.image.src = image;
+        this.width = width;
+        this.height = height;
+    }
+
+    draw() {
+        c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+    }
+
+    update() {
+        this.position.x += this.velocity.x;
+        this.draw();
+    }
+}
+
 class Barrier {
     constructor() {
         this.position = {
@@ -485,6 +207,26 @@ class Floor {
     }
 }
 
+class Lava {
+    constructor ( { x, y, image, width, height }){
+        this.position = {
+            x,
+            y
+        }
+        this.image = new Image()
+        this.image.src = image
+        this.width = width
+        this.height = height
+    }
+    draw() {
+        c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+    }
+    update() {
+        //this.position.x += this.velocity.x
+        this.draw()
+    }
+}
+
 class Hill {
     constructor( { x, y, image, width, height } ) {
         this.position = {
@@ -560,6 +302,8 @@ let coins = []
 let floors = []
 let tubes = []
 let barrier = new Barrier()
+let goombas = []
+let lavas = []
 
 function init() {
 
@@ -704,6 +448,51 @@ function init() {
             width: 175,
             height: 200
         } )]
+    goombas = [
+        new Goomba( {
+            x: 800,
+            y: 420,
+            image: 'images/goomba2.png',
+            width: 80,
+            height: 80
+        } ),
+        new Goomba( {
+            x: 900,
+            y: 420,
+            image: 'images/goomba2.png',
+            width: 80,
+            height: 80
+        } ),
+        new Goomba( {
+            x: 3300,
+            y: 420,
+            image: 'images/goomba2.png',
+            width: 80,
+            height: 80
+        } )]
+    lavas = [
+        new Lava( {
+            x: 1050,
+            y: 460,
+            image: 'images/lava.gif',
+            width: 200,
+            height: 120
+        }),
+        new Lava( {
+            x: 2300,
+            y: 460,
+            image: 'images/lava.gif',
+            width: 200,
+            height: 120
+        }),
+        new Lava( {
+            x: 3550,
+            y: 460,
+            image: 'images/lava.gif',
+            width: 1000,
+            height: 120
+        })  
+    ]
 
 }
 
@@ -742,18 +531,23 @@ function animate() {
         tube.update()
     })
     barrier.update()
+    goombas.forEach(goomba => {
+        goomba.update()
+    })
+    lavas.forEach(lava => {
+        lava.update()
+    })
     
-    // if (player.velocity.y == 0) {
-    //     hasJumped = true
-    // }
+    if (player.velocity.y == 0) {
+        hasJumped = true
+    }
 
-
-    // console.log('Tube');
-    // console.log(tubes[0].position.x + 45);
+    // goomba movement
     
-    // console.log('Player');
-    // console.log(player.position.x + player.width);
-    // console.log(player.velocity.x);
+        // goombas.forEach(goomba => {
+        //     goomba.velocity.x = -1;
+        //   });
+    
 
     if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = player.speed;
@@ -764,6 +558,14 @@ function animate() {
             tube.velocity.x = 0
         })
         barrier.velocity.x = -player.speed
+        goombas.forEach(goomba => {
+            if (goomba.speed == 1) {
+                goomba.velocity.x = 1
+            }
+            else if (goomba.speed == -1) {
+                goomba.velocity.x = -1
+            }
+        })
     }
     else if (keys.left.pressed && player.position.x > 100) {
         player.velocity.x = -player.speed
@@ -774,6 +576,14 @@ function animate() {
             tube.velocity.x = 0
         })
         barrier.velocity.x = player.speed
+        goombas.forEach(goomba => {
+            if (goomba.speed == 1) {
+                goomba.velocity.x = 1
+            }
+            else if (goomba.speed == -1) {
+                goomba.velocity.x = -1
+            }
+        })
     }
     else {
         player.velocity.x = 0
@@ -784,6 +594,14 @@ function animate() {
             platform.velocity.x = 0
         })
         barrier.velocity.x = 0
+        goombas.forEach(goomba => {
+            if (goomba.speed == 1) {
+                goomba.velocity.x = 1
+            }
+            else if (goomba.speed == -1) {
+                goomba.velocity.x = -1
+            }
+        })
 
         if (keys.right.pressed && !keys.left.pressed) {
             scrollOffset += player.speed
@@ -801,6 +619,12 @@ function animate() {
                 tube.velocity.x = -player.speed
             })
             barrier.velocity.x = -player.speed
+            goombas.forEach(goomba => {
+                goomba.velocity.x = -player.speed + goomba.speed
+            })
+            lavas.forEach(lava => {
+                lava.position.x  -= player.speed
+            })
         }
         else if (keys.left.pressed && !keys.right.pressed) {
             scrollOffset -= player.speed
@@ -817,6 +641,12 @@ function animate() {
                 tube.velocity.x = player.speed
             })
             barrier.velocity.x = player.speed
+            goombas.forEach(goomba => {
+                goomba.velocity.x = player.speed + goomba.speed
+            })
+            lavas.forEach(lava => {
+                lava.position.x += player.speed
+            })
         }
     }
 
@@ -866,13 +696,41 @@ function animate() {
             player.velocity.x = 0
             player.position.x = platform.position.x + platform.width + 5
         }
+        //goomba from right
+        goombas.forEach(goomba => {
+            if (goomba.position.x >= platform.position.x + platform.width - 10
+                && 
+                goomba.position.x + goomba.velocity.x <= platform.position.x + platform.width + platform.velocity.x - 10
+                &&
+                goomba.position.y + goomba.height >= platform.position.y
+                &&
+                goomba.position.y <= platform.position.y + platform.height) {
+                goomba.velocity.x = 1
+                goomba.speed = 1
+                //player.position.x = platform.position.x + platform.width + 5
+            }
+        })
+        //goomba from left
+        goombas.forEach(goomba => {
+            if (goomba.position.x + goomba.width <= platform.position.x + 10 // the '+ 10' is an arbitrary value to fix the hitbox
+                && 
+                goomba.position.x + goomba.width + goomba.velocity.x >= platform.position.x + platform.velocity.x + 10
+                &&
+                goomba.position.y + goomba.height >= platform.position.y
+                &&
+                goomba.position.y <= platform.position.y + platform.height) {
+                goomba.velocity.x = -1
+                goomba.speed = -1
+                //player.position.x = platform.position.x - 5 - player.width
+            }
+        })
 
     })
     //tube collision detection
     tubes.forEach(tube => {
         
         //from left
-        if (player.position.x + player.width <= tube.position.x + 45// the '+ 10' is an arbitrary value to fix the hitbox
+        if (player.position.x + player.width <= tube.position.x + 45// the '+ 45' is an arbitrary value to fix the hitbox
             && 
             player.position.x + player.width + player.velocity.x >= tube.position.x + tube.velocity.x + 45
             &&
@@ -883,6 +741,21 @@ function animate() {
             player.position.x = tube.position.x + 30 - player.width
             console.log(tube.position.x + "left")
         }
+        //goomba from left 
+        goombas.forEach(goomba => {
+            if (goomba.position.x + goomba.width <= tube.position.x + 45
+            && 
+            goomba.position.x + goomba.width + goomba.velocity.x >= tube.position.x + tube.velocity.x + 45
+            &&
+            goomba.position.y + goomba.height >= tube.position.y
+            &&
+            goomba.position.y <= tube.position.y + tube.height) {
+            goomba.velocity.x = -1
+            goomba.speed = -1
+            // player.position.x = tube.position.x + 30 - player.width
+            // console.log(tube.position.x + "left")
+        }
+        })
         //from right
         if (player.position.x >= tube.position.x + tube.width - 45
             && 
@@ -946,6 +819,45 @@ function animate() {
         }
 
     })
+    
+    // Goomba collision detection
+
+    //from left
+    goombas.forEach(goomba => {
+        if (player.position.x + player.width <= goomba.position.x &&
+            player.position.x + player.width + player.velocity.x > goomba.position.x + goomba.velocity.x &&
+            player.position.y <= goomba.position.y + goomba.height &&
+            player.position.y + player.height >= goomba.position.y) {
+                init()
+                console.log("you lose!")
+            }
+    
+
+    //from right
+    
+        if (player.position.x >= goomba.position.x + goomba.width &&
+            player.position.x + player.velocity.x < goomba.position.x + goomba.width + goomba.velocity.x &&
+            player.position.y <= goomba.position.y + goomba.height &&
+            player.position.y + player.height >= goomba.position.y) {
+                init()
+                console.log("you lose!")
+            }
+    
+        })
+    //from top
+        for (i = 0; i < goombas.length; i++) {
+            if (player.position.y + player.height <= goombas[i].position.y
+                && 
+                player.position.y + player.height + player.velocity.y >= goombas[i].position.y
+                &&
+                player.position.x + player.width >= goombas[i].position.x
+                &&
+                player.position.x <= goombas[i].position.x + goombas[i].width) {
+                player.velocity.y = -30
+                goombas[i].position.y += 1000
+            } 
+        }
+       
 
     // Floor collision detection
     floors.forEach(floor => {
@@ -966,8 +878,8 @@ function animate() {
         player.position.x + player.velocity.x < barrier.position.x) {
             player.velocity.x = 0;
         }
-        console.log(barrier.position.x)
-        console.log(player.position.x)
+        //console.log(barrier.position.x)
+        //console.log(player.position.x)
 
     // lose condition
     if (player.position.y > canvas.height) {
@@ -1021,7 +933,7 @@ window.addEventListener('keydown', ({keyCode}) => {
                 //console.log('up')
                 player.velocity.y -= 30
                 hasJumped = false
-                setTimeout("hasJumped = true", 500);
+                setTimeout("hasJumped = true", 1000);
             }
         break 
     }
