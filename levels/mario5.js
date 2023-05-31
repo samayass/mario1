@@ -7,13 +7,9 @@ canvas.height = 576
 
 let gravity = 2
 let hasJumped = true
-
-const marioImage = new Image()
-marioImage.src = '/levels/images/mario_animation.png'
-
 class Player {
     constructor() {
-        this.speed = 12
+        this.speed = 15
         this.position = {
             x: 100, 
             y: 100
@@ -22,20 +18,15 @@ class Player {
             x: 0,
             y: 1
         }
-        this.width = 70
-        this.height = 80
+        this.width = 30
+        this.height = 30
          
     }
 
     draw() {
-        const frameWidth = 165;  // Width of each frame in the sprite sheet
-        const frameHeight = 250; // Height of each frame in the sprite sheet
-        const frameX = 5;  // X-coordinate of the desired frame in the sprite sheet
-        const frameY = 5; // Y-coordinate of the desired frame in the sprite sheet
-
-        c.drawImage(marioImage, frameX, frameY, frameWidth, frameHeight, this.position.x, this.position.y, this.width, this.height);
+        c.fillStyle = 'red'
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
-
 
     update() {
         this.position.y += this.velocity.y
@@ -618,6 +609,7 @@ function animate() {
         ) { 
             tube.position.y += .01
             console.log("you've won!")
+            console.log(window.location.href)
             //window.alert("you've won!")
             if (window.location.href == "http://127.0.0.1:4000/levels/mario5") {
                 window.location.href = "http://127.0.0.1:4000/background1"
@@ -625,7 +617,7 @@ function animate() {
             if (window.location.href == "https://samayass.github.io/mario1/levels/mario5") {
                 window.location.href = "https://samayass.github.io/mario1/background1"
             }
-            
+            console.log(window.location.href)
             
         }
     })
