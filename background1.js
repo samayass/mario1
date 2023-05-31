@@ -258,14 +258,14 @@ let genericObjects = [
 
 let tubes = [
     new Tube( {
-        x: 200, 
+        x: 5500, 
         y: 265,
         image: 'images/tubeM.png',
         width: 175,
         height: 200
     } )]
 
-const keys = {
+let keys = {
     right: {
         pressed:false
     },
@@ -383,13 +383,12 @@ function init()
 
     tubes = [
         new Tube( {
-            x: 100, 
-            y: 300,
-            image: 'images/tube.png',
+            x: 5500, 
+            y: 265,
+            image: 'images/tubeM.png',
             width: 175,
             height: 200
         } )]
-
     
     
     keys = {
@@ -454,7 +453,7 @@ function animate() {
             })
             tubes.forEach(tube => {
                 //tube.position.x  -= player.speed
-                tube.velocity.x = -player.speed
+                tube.velocity.x -=5
             })
         
             
@@ -474,18 +473,12 @@ function animate() {
                     blockObject.position.x +=5;
                 })
                 tubes.forEach(tube => {
-                    tube.velocity.x = player.speed
+                    tube.velocity.x +=5
                 })
           
 
             }
     }
-
-    console.log(player.position.y + player.height + " luigi")
-    tubes.forEach(tube => {
-        console.log(tube.position.y + tube.height - 17 + " tube")
-    })
-
 
 //platform collisions
 platforms.forEach(platform => {
