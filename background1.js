@@ -222,7 +222,7 @@ function init()
 
 
     player = new Player()
-    
+   
     blockObjects = [
         new BlockObject({
             x: 500, y: 100, image:image3
