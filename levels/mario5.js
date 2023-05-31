@@ -1,69 +1,15 @@
-const canvas = document.querySelector('canvas');
-const c = canvas.getContext('2d');
 
-canvas.width = 1024;
-canvas.height = 576;
+const canvas = document.querySelector('canvas')
+const c = canvas.getContext('2d')
 
-let gravity = 2;
-let hasJumped = true;
+canvas.width = 1024
+canvas.height = 576
 
-const marioImage = new Image();
-marioImage.src = '/levels/images/mario_animation.png';
+let gravity = 2
+let hasJumped = true
 
-// Wait for the image to load before rendering the sprite
-marioImage.onload = () => {
-  const marioSprite = new Mario(mario_metadata);
-
-  // Event listeners for controlling Mario's movements
-  window.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowRight') {
-      marioSprite.startWalkingRight();
-    } else if (event.key === 'ArrowLeft') {
-      marioSprite.startWalkingLeft();
-    } else if (event.key === 'ArrowUp' && !hasJumped) {
-      marioSprite.jump();
-      hasJumped = true;
-    }
-  });
-
-  window.addEventListener('keyup', (event) => {
-    if (event.key === 'ArrowRight') {
-      marioSprite.stopAnimate();
-      marioSprite.startResting();
-    } else if (event.key === 'ArrowLeft') {
-      marioSprite.stopAnimate();
-      marioSprite.startRestingLeft();
-    }
-  });
-
-  // Animation loop
-  function animate() {
-    c.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Render Mario sprite on the canvas
-    c.drawImage(
-      marioImage,
-      marioSprite.positionX,
-      marioSprite.positionY,
-      marioSprite.pixels,
-      marioSprite.pixels
-    );
-
-    // Apply gravity to Mario's position
-    marioSprite.positionY += gravity;
-
-    // Stop Mario from falling below the ground level
-    const groundLevel = canvas.height - marioSprite.pixels;
-    if (marioSprite.positionY > groundLevel) {
-      marioSprite.positionY = groundLevel;
-      hasJumped = false;
-    }
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-};
+const marioImage = new Image()
+marioImage.src = '/levels/images/mario_animation.png'
 
 
   ////////// convert yml hash to javascript key value objects /////////
@@ -382,6 +328,7 @@ class Player {
         this.height = 80
          
     }
+
 
 
     draw() {
