@@ -45,7 +45,8 @@ class Player {
     }
     update() {
         this.frames ++
-        if (this.frames > 8) this.frames =0;
+        if (this.frames > 8) 
+        this.frames = 0;
         this.draw()
         this.position.y += this.velocity.y
         this.position.x += this.velocity.x
@@ -136,19 +137,19 @@ image3.src = './images/box.png';
 let image4 = new Image();
 image4.src = './images/mariopipe.png';
 
-let image5 = new Image()
-image5.src = './images/spriteRunLeft.png'
+let image5 = new Image();
+image5.src = './images/spriteRunLeft.png';
 
-let image6 = new Image()
-image6.src = './images/spriteRunRight.png'
+let image6 = new Image();
+image6.src = './images/spriteRunRight.png';
 
-let image7 = new Image()
-image7.src = './images/spriteStandLeft.png'
+let image7 = new Image();
+image7.src = './images/spriteStandLeft.png';
 
-let image8 = new Image()
-image8.src = './images/spriteStandRight.png'
+let image8 = new Image();
+image8.src = './images/spriteStandRight.png';
 
-let player = new Player()
+let player = new Player();
 
 let blockObjects = [
   new BlockObject({
