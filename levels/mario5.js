@@ -22,8 +22,8 @@ class Player {
             x: 0,
             y: 1
         }
-        this.width = 70
-        this.height = 80
+        this.width = 35
+        this.height = 50
          
     }
 
