@@ -686,6 +686,42 @@ function animate() {
         }
 
     })
+    
+    // Goomba collision detection
+
+    //from left
+    goombas.forEach(goomba => {
+        if (player.position.x + player.width <= goomba.position.x &&
+            player.position.x + player.width + player.velocity.x > goomba.position.x + goomba.velocity.x &&
+            player.position.y <= goomba.position.y + goomba.height &&
+            player.position.y + player.height >= goomba.position.y) {
+                init()
+                console.log("you lose!")
+            }
+    
+
+    //from right
+    
+        if (player.position.x >= goomba.position.x + goomba.width &&
+            player.position.x + player.velocity.x < goomba.position.x + goomba.width + goomba.velocity.x &&
+            player.position.y <= goomba.position.y + goomba.height &&
+            player.position.y + player.height >= goomba.position.y) {
+                init()
+                console.log("you lose!")
+            }
+    
+
+    //from top
+        if (player.position.y + player.height <= goomba.position.y
+            && 
+            player.position.y + player.height + player.velocity.y >= goomba.position.y
+            &&
+            player.position.x + player.width >= goomba.position.x
+            &&
+            player.position.x <= goomba.position.x + goomba.width) {
+            player.velocity.y = -30
+        } 
+    })
 
     // Floor collision detection
     floors.forEach(floor => {
@@ -706,8 +742,8 @@ function animate() {
         player.position.x + player.velocity.x < barrier.position.x) {
             player.velocity.x = 0;
         }
-        console.log(barrier.position.x)
-        console.log(player.position.x)
+        //console.log(barrier.position.x)
+        //console.log(player.position.x)
 
     // lose condition
     if (player.position.y > canvas.height) {
