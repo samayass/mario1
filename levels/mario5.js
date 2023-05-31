@@ -337,7 +337,15 @@ class Player {
         const frameX = 5;  // X-coordinate of the desired frame in the sprite sheet
         const frameY = 5; // Y-coordinate of the desired frame in the sprite sheet
 
-        c.drawImage(marioImage, frameX, frameY, frameWidth, frameHeight, this.position.x, this.position.y, this.width, this.height);
+        c.drawImage(marioImage, 
+            frameX, 
+            frameY, 
+            frameWidth, 
+            frameHeight, 
+            this.position.x, 
+            this.position.y, 
+            this.width, 
+            this.height);
     }
 
     update() {
