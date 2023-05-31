@@ -82,6 +82,46 @@ class Platform {
     }
 }
 
+class Coin {
+    constructor( { x, y, image, width, height } ) {
+        this.position = {
+            x,
+            y
+        }
+        this.image = new Image()
+        this.image.src = image
+        this.width = width
+        this.height = height
+        this.frames = 0
+        this.beat = new Audio('/sounds/coin.mp3');
+        this.velocity = {
+            x: 0
+        }
+        this.image.onload = () => {
+            // Optional: If width and height are not provided, use the image's natural dimensions
+            if (!width) {
+                this.width = this.image.naturalWidth;
+            }
+            if (!height) {
+                this.height = this.image.naturalHeight;
+            }
+        }
+
+        // this.width = image.width
+        // this.height = image.height
+    }
+
+    draw() {
+        c.drawImage(this.image, 25*this.frames, 0, 25, 42, this.position.x, this.position.y, this.width, this.height)
+        
+    }
+    update() {
+        this.position.x += this.velocity.x
+        this.draw()
+    }
+}
+
+
 class Floor {
     constructor( { x, y, image, width, height } ) {
         this.position = {
@@ -182,6 +222,7 @@ const image = new Image()
 let player = new Player()
 let hills = []
 let platforms = []
+let coins = []
 let floors = []
 let tubes = []
 
@@ -259,6 +300,15 @@ function init() {
             width: 80,
             height: 80
         } )]
+    coins = [
+        new Coin({
+            x: 50, 
+            y: 50,
+            image: 'images/coin.png',
+            width: 300,
+            height: 150
+        }),
+    ]
     floors = [
         new Floor( {
             x: 0, 
@@ -334,6 +384,9 @@ function animate() {
     })
     platforms.forEach(platform => {
         platform.update()
+    })
+    coins.forEach(coin => {
+        coin.update()
     }
     )
     floors.forEach(floor => {

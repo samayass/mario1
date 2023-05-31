@@ -100,7 +100,7 @@ tags: [javascript]
     jump() {
       const jumpHeight = 130;  
       const jumpDuration = 350;  
-      const groundLevel = 315; 
+      const groundLevel = 500; 
 
       this.marioElement.style.transition = `top ${jumpDuration}ms ease`;
       this.marioElement.style.top = `${groundLevel - jumpHeight}px`;
