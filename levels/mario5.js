@@ -9,7 +9,7 @@ let gravity = 2
 let hasJumped = true
 
 const marioImage = new Image()
-marioImage.src = '/levels/images/mario_animation.png'
+marioImage.src = 'images/mario_animation.png'
 
 
   ////////// convert yml hash to javascript key value objects /////////
