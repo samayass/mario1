@@ -259,7 +259,7 @@ let genericObjects = [
 let tubes = [
     new Tube( {
         x: 200, 
-        y: 267,
+        y: 265,
         image: 'images/tubeM.png',
         width: 175,
         height: 200
@@ -481,6 +481,11 @@ function animate() {
             }
     }
 
+    console.log(player.position.y + player.height + " luigi")
+    tubes.forEach(tube => {
+        console.log(tube.position.y + tube.height - 17 + " tube")
+    })
+
 
 //platform collisions
 platforms.forEach(platform => {
@@ -593,33 +598,30 @@ blockObjects.forEach(blockObject => {
     }
   });
   
- 
-}
-
-
-animate()
-
-//win condition
+  //change level condition
 tubes.forEach(tube => {
     if (
     player.position.x >= tube.position.x + 45 &&
     player.position.x + player.width <= tube.position.x + tube.width - 45 &&
-    player.position.y + player.height == (tube.position.y + tube.height - 17)
+    player.position.y + player.height >= tube.position.y + tube.height - 17
     ) { 
-        tube.position.y += .01
-        console.log("you've won!")
-        console.log(window.location.href)
-        //window.alert("you've won!")
+        tube.position.y += 2
         if (window.location.href == "http://127.0.0.1:4000/background1") {
             window.location.href = "http://127.0.0.1:4000/levels/mario5"
         }
         if (window.location.href == "https://samayass.github.io/mario1/background1") {
             window.location.href = "https://samayass.github.io/mario1/levels/mario5"
         }
-        console.log(window.location.href)
+        console.log("i'm outta here!!")
         
     }
 })
+ 
+}
+
+
+animate()
+
 
 addEventListener('keydown', ({keyCode}) => {
     switch (keyCode) {
