@@ -214,6 +214,26 @@ class Floor {
     }
 }
 
+class Lava {
+    constructor ( { x, y, image }){
+        this.position = {
+            x,
+            y
+        }
+        this.image = new Image()
+        this.image.src = image
+        this.width = 200
+        this.height = 120
+    }
+    draw() {
+        c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+    }
+    update() {
+        //this.position.x += this.velocity.x
+        this.draw()
+    }
+}
+
 class Hill {
     constructor( { x, y, image, width, height } ) {
         this.position = {
@@ -290,6 +310,7 @@ let floors = []
 let tubes = []
 let barrier = new Barrier()
 let goombas = []
+let lavas = []
 
 function init() {
 
@@ -442,6 +463,18 @@ function init() {
             width: 80,
             height: 80
         } )]
+    lavas = [
+        new Lava( {
+            x: 1050,
+            y: 460,
+            image: 'images/lava.gif'
+        }),
+        new Lava( {
+            x: 2300,
+            y: 460,
+            image: 'images/lava.gif'
+        })  
+    ]
 
 }
 
@@ -482,6 +515,9 @@ function animate() {
     barrier.update()
     goombas.forEach(goomba => {
         goomba.update()
+    })
+    lavas.forEach(lava => {
+        lava.update()
     })
     
     if (player.velocity.y == 0) {
@@ -554,6 +590,9 @@ function animate() {
             goombas.forEach(goomba => {
                 goomba.velocity.x = -player.speed
             })
+            lavas.forEach(lava => {
+                lava.position.x  -= player.speed
+            })
         }
         else if (keys.left.pressed && !keys.right.pressed) {
             scrollOffset -= player.speed
@@ -572,6 +611,9 @@ function animate() {
             barrier.velocity.x = player.speed
             goombas.forEach(goomba => {
                 goomba.velocity.x = player.speed
+            })
+            lavas.forEach(lava => {
+                lava.position.x += player.speed
             })
         }
     }
