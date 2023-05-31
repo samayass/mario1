@@ -9,7 +9,7 @@ let gravity = 2
 let hasJumped = true
 
 const marioImage = new Image()
-marioImage.src = 'images/mario_animation.png'
+marioImage.src = 'images/mario_animationTEMP2.png'
 
 class Player {
     constructor() {
@@ -28,8 +28,8 @@ class Player {
     }
 
     draw() {
-        const frameWidth = 165;  // Width of each frame in the sprite sheet
-        const frameHeight = 250; // Height of each frame in the sprite sheet
+        const frameWidth = 80;  // Width of each frame in the sprite sheet
+        const frameHeight = 180; // Height of each frame in the sprite sheet
         const frameX = 5;  // X-coordinate of the desired frame in the sprite sheet
         const frameY = 5; // Y-coordinate of the desired frame in the sprite sheet
 
@@ -816,7 +816,7 @@ window.addEventListener('keydown', ({keyCode}) => {
                 //console.log('up')
                 player.velocity.y -= 30
                 hasJumped = false
-                setTimeout("hasJumped = true", 500);
+                setTimeout("hasJumped = true", 1000);
             }
         break 
     }
