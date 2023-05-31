@@ -1,128 +1,142 @@
-const canvas = document.querySelector('canvas')
-const c = canvas.getContext('2d')
+const canvas = document.querySelector('canvas');
+const c = canvas.getContext('2d');
 
-// canvas.width =  document.body.clientWidth;
-// canvas.height = document.body.clientHeight;
-
-canvas.width =  1024
-canvas.height = 576
+canvas.width = 1024;
+canvas.height = 576;
 
 const gravity = 1.5;
 
 class Player {
-    constructor() {
-        this.position = {
-            x:100,
-            y:100
-        }
-        this.velocity = {
-            x:0,
-            y:0
-        }
-        this.width = 30
-        this.height = 30
-    }
-    draw() {
-        c.fillStyle = 'red'
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
-         
-    }
-    update() {
-        this.draw()
-        this.position.y += this.velocity.y
-        this.position.x += this.velocity.x
-        if (this.position.y + this.height + this.velocity.y <= canvas.height)
-        this.velocity.y += gravity
-        
-    }
+  constructor() {
+    this.position = {
+      x: 100,
+      y: 100
+    };
+    this.velocity = {
+      x: 0,
+      y: 0
+    };
+    this.width = 30;
+    this.height = 30;
+  }
+  draw() {
+    c.fillStyle = 'red';
+    c.fillRect(this.position.x, this.position.y, this.width, this.height);
+  }
+  update() {
+    this.draw();
+    this.position.y += this.velocity.y;
+    this.position.x += this.velocity.x;
+    if (this.position.y + this.height + this.velocity.y <= canvas.height)
+      this.velocity.y += gravity;
+  }
 }
 
+class Goomba {
+  constructor({ x, y, image}) {
+    this.position = {
+      x,
+      y
+    };
+    this.image = image;
 
+   
+  }
+
+  draw() {
+    c.drawImage(this.image, this.position.x, this.position.y);
+  }
+ 
+}
 
 class Platform {
-    constructor({x, y, image}) {
-        this.position = {
-            x,
-            y
-        }
-        this.image = image
+  constructor({ x, y, image }) {
+    this.position = {
+      x,
+      y
+    };
+    this.image = image;
 
-        this.width = 540
-        this.height = 160
-        
-    }
-    draw() {
-        c.drawImage(this.image, this.position.x, this.position.y)
-    }
+    this.width = 540;
+    this.height = 160;
+  }
+  draw() {
+    c.drawImage(this.image, this.position.x, this.position.y);
+  }
 }
 
 class BlockObject {
-    constructor({x, y, image}) {
-        this.position = {
-            x,
-            y
-        }
-        this.image = image
+  constructor({ x, y, image }) {
+    this.position = {
+      x,
+      y
+    };
+    this.image = image;
 
-        this.width = 158
-        this.height = 79
-        
-    }
-    draw() {
-        c.drawImage(this.image, this.position.x, this.position.y)
-    }
+    this.width = 158;
+    this.height = 79;
+  }
+  draw() {
+    c.drawImage(this.image, this.position.x, this.position.y);
+  }
 }
 
 class GenericObject {
-    constructor({x, y, image}) {
-        this.position = {
-            x,
-            y
-        }
+  constructor({ x, y, image }) {
+    this.position = {
+      x,
+      y
+    };
 
-        this.image = image
-        this.width = 760
-        this.height = 82
-    }
-    draw() {
-        c.drawImage(this.image, this.position.x, this.position.y)
-    }
+    this.image = image;
+    this.width = 760;
+    this.height = 82;
+  }
+  draw() {
+    c.drawImage(this.image, this.position.x, this.position.y);
+  }
 }
 
-let image = new Image()
-image.src = './images/platform.png'
-console.log(image)
+let image = new Image();
+image.src = './images/platform.png';
+console.log(image);
 
-let image1 = new Image()
-image1.src = './images/background.png'
+let image1 = new Image();
+image1.src = './images/background.png';
 
-let image2 = new Image()
-image2.src = './images/hills2.png'
+let image2 = new Image();
+image2.src = './images/hills2.png';
 
-let image3 = new Image()
-image3.src = './images/box.png'
+let image3 = new Image();
+image3.src = './images/box.png';
 
-let image4 = new Image()
-image4.src = './images/mariopipe.png'
+let image4 = new Image();
+image4.src = './images/mariopipe.png';
 
+let image5 = new Image();
+image5.src = './images/goomba.png';
 
-
-
-
-let player = new Player()
+let player = new Player();
+let goombas = []; 
 
 let blockObjects = [
-    new BlockObject({
-        x: 500, y: 100, image:image3
-    }),
-    new BlockObject({
-        x: 800, y: 200, image:image3
-    }),
-    new BlockObject({
-        x: 1200, y: 300, image:image3
-    }),
-    new BlockObject({
-        x: 1800, y: 100, image:image3
+  new BlockObject({
+    x: 500,
+    y: 100,
+    image: image3
+  }),
+  new BlockObject({
+    x: 800,
+    y: 200,
+    image: image3
+  }),
+  new BlockObject({
+    x: 1200,
+    y: 300,
+    image: image3
+  }),
+  new BlockObject({
+    x: 1800, y: 100, image:image3
     }),
 ]
 
@@ -165,6 +179,12 @@ let platforms = [
     
 
 
+]
+
+let goomba = [
+    new Goomba({
+       x:5, y:450, image: image5 
+    })
 ]
 
 
@@ -220,9 +240,13 @@ function init()
     image4 = new Image()
     image4.src = './images/mariopipe.png'
 
+    let image5 = new Image();
+    image5.src = './images/goomba.png';
+    
 
     player = new Player()
-   
+  
+ 
     blockObjects = [
         new BlockObject({
             x: 500, y: 100, image:image3
@@ -280,6 +304,12 @@ function init()
     ]
 
     
+    goomba = [
+        new Goomba({
+           x:5, y:450, image: image5 
+        })
+    ]
+    
     genericObjects = [
         new GenericObject({
             x:0, y:0, image: image1
@@ -331,25 +361,31 @@ function animate() {
     platforms.forEach(platform => {
         platform.draw()
     })
+    goomba.forEach(goomba => {
+        goomba.draw()
+    })
     player.update()
     if (keys.right.pressed && player.position.x < 400) {
-        player.velocity.x = 15
+        player.velocity.x = 5
     } 
     else if((keys.left.pressed && player.position.x > 100) || keys.left.pressed && scrollOffset === 0 && player.position.x>0) {
-        player.velocity.x = -15;
+        player.velocity.x = -5;
     } 
     else  {
         player.velocity.x = 0
         if (keys.right.pressed) {
-            scrollOffset +=15
+            scrollOffset +=5
             platforms.forEach(platform => {
-                platform.position.x -= 15
+                platform.position.x -= 5
             })
             genericObjects.forEach(genericObject => {
                 genericObject.position.x -=2;
             })
             blockObjects.forEach(blockObject => {
-                blockObject.position.x -=15;
+                blockObject.position.x -=5;
+            })
+            goomba.forEach(goomba => {
+                goomba.position.x -=5();
             })
             
 
@@ -357,19 +393,23 @@ function animate() {
     
         }
             else if (keys.left.pressed && scrollOffset >0) {
-                scrollOffset -=15
+                scrollOffset -=5
                 platforms.forEach(platform => {
-                    platform.position.x +=15;
+                    platform.position.x +=5;
                 })
                 genericObjects.forEach(genericObject => {
                     genericObject.position.x +=2;
                 })
                 blockObjects.forEach(blockObject => {
-                    blockObject.position.x +=15;
+                    blockObject.position.x +=5;
+                })
+                goomba.forEach(goomba => {
+                    goomba.position.x +=5();
                 })
 
             }
     }
+
 
 //platform collisions
 platforms.forEach(platform => {
@@ -403,7 +443,7 @@ blockObjects.forEach(blockObject => {
     }
   });
   
-
+ 
 }
 
 
