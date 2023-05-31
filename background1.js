@@ -56,22 +56,6 @@ class Player {
     }
 }
 
-class Goomba {
-  constructor({ x, y, image}) {
-    this.position = {
-      x,
-      y
-    };
-    this.image = image;
-
-   
-  }
-
-  draw() {
-    c.drawImage(this.image, this.position.x, this.position.y);
-  }
- 
-}
 
 class Platform {
   constructor({ x, y, image }) {
@@ -213,13 +197,6 @@ let platforms = [
 
 ]
 
-let goomba = [
-    new Goomba({
-       x:5, y:450, image: image5 
-    })
-]
-
-
 let genericObjects = [
     new GenericObject({
         x:0, y:0, image: image1
@@ -294,6 +271,7 @@ function init()
         }),
     ]
 
+
     
     platforms = [
         new Platform({
@@ -336,11 +314,6 @@ function init()
     ]
 
     
-    goomba = [
-        new Goomba({
-           x:5, y:450, image: image5 
-        })
-    ]
     
     genericObjects = [
         new GenericObject({
@@ -393,9 +366,6 @@ function animate() {
     platforms.forEach(platform => {
         platform.draw()
     })
-    goomba.forEach(goomba => {
-        goomba.draw()
-    })
     player.update()
     if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = 5
@@ -416,9 +386,7 @@ function animate() {
             blockObjects.forEach(blockObject => {
                 blockObject.position.x -=5;
             })
-            goomba.forEach(goomba => {
-                goomba.position.x -=5();
-            })
+        
             
 
 
@@ -435,9 +403,7 @@ function animate() {
                 blockObjects.forEach(blockObject => {
                     blockObject.position.x +=5;
                 })
-                goomba.forEach(goomba => {
-                    goomba.position.x +=5();
-                })
+          
 
             }
     }
