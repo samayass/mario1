@@ -710,18 +710,21 @@ function animate() {
                 console.log("you lose!")
             }
     
-
+        })
     //from top
-        if (player.position.y + player.height <= goomba.position.y
-            && 
-            player.position.y + player.height + player.velocity.y >= goomba.position.y
-            &&
-            player.position.x + player.width >= goomba.position.x
-            &&
-            player.position.x <= goomba.position.x + goomba.width) {
-            player.velocity.y = -30
-        } 
-    })
+        for (i = 0; i < goombas.length; i++) {
+            if (player.position.y + player.height <= goombas[i].position.y
+                && 
+                player.position.y + player.height + player.velocity.y >= goombas[i].position.y
+                &&
+                player.position.x + player.width >= goombas[i].position.x
+                &&
+                player.position.x <= goombas[i].position.x + goombas[i].width) {
+                player.velocity.y = -30
+                goombas[i].position.y += 1000
+            } 
+        }
+       
 
     // Floor collision detection
     floors.forEach(floor => {
