@@ -19,15 +19,36 @@ class Player {
             x:0,
             y:0
         }
-        this.width = 30
-        this.height = 30
+        this.width = 40
+        this.height = 60
+
+        this.image = image8
+        this.frames = 0;
+        this.sprites = {
+            stand: {
+                right: image8
+            },
+            run: {
+                right: image6
+            }
+        }
+
+        this.currentSprite = this.sprites.stand.right
     }
     draw() {
-        c.fillStyle = 'red'
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
-         
+        c.drawImage(this.currentSprite, 
+            25*this.frames, 
+            0,
+            24, 
+            42,
+            this.position.x, 
+            this.position.y, 
+            this.width, 
+            this.height)
     }
     update() {
+        this.frames ++
+        if (this.frames > 8) this.frames =0;
         this.draw()
         this.position.y += this.velocity.y
         this.position.x += this.velocity.x
@@ -105,9 +126,17 @@ image3.src = './images/box.png'
 let image4 = new Image()
 image4.src = './images/mariopipe.png'
 
+let image5 = new Image()
+image5.src = './images/spriteRunLeft.png'
 
+let image6 = new Image()
+image6.src = './images/spriteRunRight.png'
 
+let image7 = new Image()
+image7.src = './images/spriteStandLeft.png'
 
+let image8 = new Image()
+image8.src = './images/spriteStandRight.png'
 
 let player = new Player()
 
@@ -421,6 +450,8 @@ addEventListener('keydown', ({keyCode}) => {
         case 68: 
             console.log('right')
             keys.right.pressed = true
+            player.currentSprite = player.sprites.run.right
+
             break
         case 87: 
             console.log('up')
