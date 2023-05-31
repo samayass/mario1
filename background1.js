@@ -21,20 +21,20 @@ class Player {
 
         this.image = image8
         this.frames = 0;
-        this.sprites = {
-            stand: {
-                right: image8
-            },
-            run: {
-                right: image6
-            }
-        }
+        // this.sprites = {
+        //     stand: {
+        //         right: image8
+        //     },
+        //     run: {
+        //         right: image6
+        //     }
+        // }
 
-        this.currentSprite = this.sprites.stand.right
+        // this.currentSprite = this.sprites.stand.right
     }
     draw() {
-        c.drawImage(this.currentSprite, 
-            25*this.frames, 
+        c.drawImage(this.image, 
+            25, 
             0,
             24, 
             42,
@@ -44,8 +44,15 @@ class Player {
             this.height)
     }
     update() {
-        this.frames ++
-        if (this.frames > 8) this.frames =0;
+        // this.frames ++
+        // if (this.frames > 8) this.frames =0;
+       
+        // // Delay between sprite updates
+        //  // Slow down the animation by skipping frames
+        //  if (this.frames % 3 === 0) {
+        //     this.draw();
+        // }
+
         this.draw()
         this.position.y += this.velocity.y
         this.position.x += this.velocity.x
@@ -53,23 +60,6 @@ class Player {
         this.velocity.y += gravity
         
     }
-}
-
-class Goomba {
-  constructor({ x, y, image}) {
-    this.position = {
-      x,
-      y
-    };
-    this.image = image;
-
-   
-  }
-
-  draw() {
-    c.drawImage(this.image, this.position.x, this.position.y);
-  }
- 
 }
 
 class Platform {
@@ -167,8 +157,26 @@ let blockObjects = [
     image: image3
   }),
   new BlockObject({
-    x: 1800, y: 100, image:image3
+    x: 2100, y: 220, image:image3
     }),
+new BlockObject({
+    x: 2600, y: 120, image:image3
+    }),
+
+new BlockObject({
+    x: 3000, y: 340, image:image3
+    }),
+   
+new BlockObject({
+        x: 3600, y: 240, image:image3
+        }),
+
+        new BlockObject({
+            x: 4200, y: 120, image:image3
+            }),
+            new BlockObject({
+                x: 6200, y: 60, image:image3
+                }),
 ]
 
 
@@ -190,10 +198,10 @@ let platforms = [
         x: 540*4, y: 450, image
     }),
     new Platform({
-        x: 540*5+200, y: 450, image
+        x: 540*5+230, y: 450, image
     }),
     new Platform({
-        x: 540*6 + 200, y: 450, image
+        x: 540*6 + 1500, y: 450, image
     }),
     new Platform({
         x: 540*7, y: 450, image
@@ -207,15 +215,11 @@ let platforms = [
     new Platform({
         x: 540*10 +100, y: 450, image
     }),
+
+
     
 
 
-]
-
-let goomba = [
-    new Goomba({
-       x:5, y:450, image: image5 
-    })
 ]
 
 
@@ -271,8 +275,6 @@ function init()
     image4 = new Image()
     image4.src = './images/mariopipe.png'
 
-    let image5 = new Image();
-    image5.src = './images/goomba.png';
     
 
     player = new Player()
@@ -314,7 +316,7 @@ function init()
             x: 540*5+200, y: 450, image
         }),
         new Platform({
-            x: 540*6 + 200, y: 450, image
+            x: 540*6 + 1500, y: 450, image
         }),
         new Platform({
             x: 540*7, y: 450, image
@@ -329,17 +331,9 @@ function init()
             x: 540*10 +100, y: 450, image
         }),
         
-    
-    
-    
+
     ]
 
-    
-    goomba = [
-        new Goomba({
-           x:5, y:450, image: image5 
-        })
-    ]
     
     genericObjects = [
         new GenericObject({
@@ -392,32 +386,27 @@ function animate() {
     platforms.forEach(platform => {
         platform.draw()
     })
-    goomba.forEach(goomba => {
-        goomba.draw()
-    })
     player.update()
     if (keys.right.pressed && player.position.x < 400) {
-        player.velocity.x = 5
+        player.velocity.x = 10
     } 
     else if((keys.left.pressed && player.position.x > 100) || keys.left.pressed && scrollOffset === 0 && player.position.x>0) {
-        player.velocity.x = -5;
+        player.velocity.x = -10;
     } 
     else  {
         player.velocity.x = 0
         if (keys.right.pressed) {
             scrollOffset +=5
             platforms.forEach(platform => {
-                platform.position.x -= 5
+                platform.position.x -= 7
             })
             genericObjects.forEach(genericObject => {
-                genericObject.position.x -=2;
+                genericObject.position.x -=4;
             })
             blockObjects.forEach(blockObject => {
-                blockObject.position.x -=5;
+                blockObject.position.x -=7;
             })
-            goomba.forEach(goomba => {
-                goomba.position.x -=5();
-            })
+
             
 
 
@@ -434,10 +423,7 @@ function animate() {
                 blockObjects.forEach(blockObject => {
                     blockObject.position.x +=5;
                 })
-                goomba.forEach(goomba => {
-                    goomba.position.x +=5();
-                })
-
+        
             }
     }
 
@@ -474,6 +460,7 @@ blockObjects.forEach(blockObject => {
     }
   });
   
+ 
  
 }
 
