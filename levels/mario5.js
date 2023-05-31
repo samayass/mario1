@@ -337,7 +337,8 @@ class Player {
         const frameX = 5;  // X-coordinate of the desired frame in the sprite sheet
         const frameY = 5; // Y-coordinate of the desired frame in the sprite sheet
 
-        c.drawImage(marioImage, 
+        c.drawImage(
+            marioImage, 
             frameX, 
             frameY, 
             frameWidth, 
