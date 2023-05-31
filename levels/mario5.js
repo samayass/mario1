@@ -75,14 +75,6 @@ class Goomba {
         this.image.src = image;
         this.width = width;
         this.height = height;
-        this.image.onload = () => {
-            if (!width) {
-                this.width = this.image.naturalWidth;
-            }
-            if (!height) {
-                this.height = this.image.naturalHeight;
-            }
-        };
     }
 
     draw() {
@@ -524,13 +516,12 @@ function animate() {
         hasJumped = true
     }
 
-
-    // console.log('Tube');
-    // console.log(tubes[0].position.x + 45);
+    // goomba movement
     
-    // console.log('Player');
-    // console.log(player.position.x + player.width);
-    // console.log(player.velocity.x);
+        goombas.forEach(goomba => {
+            goomba.velocity.x = -1;
+          });
+    
 
     if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = player.speed;
@@ -541,9 +532,9 @@ function animate() {
             tube.velocity.x = 0
         })
         barrier.velocity.x = -player.speed
-        goombas.forEach(goomba => {
-            goomba.velocity.x = 0
-        })
+        // goombas.forEach(goomba => {
+        //     goomba.velocity.x = 0
+        // })
     }
     else if (keys.left.pressed && player.position.x > 100) {
         player.velocity.x = -player.speed
@@ -554,9 +545,9 @@ function animate() {
             tube.velocity.x = 0
         })
         barrier.velocity.x = player.speed
-        goombas.forEach(goomba => {
-            goomba.velocity.x = 0
-        })
+        // goombas.forEach(goomba => {
+        //     goomba.velocity.x = 0
+        // })
     }
     else {
         player.velocity.x = 0
@@ -567,9 +558,9 @@ function animate() {
             platform.velocity.x = 0
         })
         barrier.velocity.x = 0
-        goombas.forEach(goomba => {
-            goomba.velocity.x = 0
-        })
+        // goombas.forEach(goomba => {
+        //     goomba.velocity.x = 0
+        // })
 
         if (keys.right.pressed && !keys.left.pressed) {
             scrollOffset += player.speed
@@ -588,7 +579,7 @@ function animate() {
             })
             barrier.velocity.x = -player.speed
             goombas.forEach(goomba => {
-                goomba.velocity.x = -player.speed
+                goomba.velocity.x = -player.speed - 1
             })
             lavas.forEach(lava => {
                 lava.position.x  -= player.speed
@@ -610,7 +601,7 @@ function animate() {
             })
             barrier.velocity.x = player.speed
             goombas.forEach(goomba => {
-                goomba.velocity.x = player.speed
+                goomba.velocity.x = player.speed - 1
             })
             lavas.forEach(lava => {
                 lava.position.x += player.speed
