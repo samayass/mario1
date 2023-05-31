@@ -7,6 +7,10 @@ canvas.height = 576
 
 let gravity = 2
 let hasJumped = true
+
+const marioImage = new Image()
+marioImage.src = 'images/mario_animation.png'
+
 class Player {
     constructor() {
         this.speed = 15
@@ -24,10 +28,22 @@ class Player {
     }
 
     draw() {
-        c.fillStyle = 'red'
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
-    }
+        const frameWidth = 165;  // Width of each frame in the sprite sheet
+        const frameHeight = 250; // Height of each frame in the sprite sheet
+        const frameX = 5;  // X-coordinate of the desired frame in the sprite sheet
+        const frameY = 5; // Y-coordinate of the desired frame in the sprite sheet
 
+        c.drawImage(
+            marioImage, 
+            frameX, 
+            frameY, 
+            frameWidth, 
+            frameHeight, 
+            this.position.x, 
+            this.position.y, 
+            this.width, 
+            this.height);
+    }
     update() {
         this.position.y += this.velocity.y
         this.position.x += this.velocity.x
