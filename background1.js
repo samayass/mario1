@@ -4,7 +4,7 @@ const c = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 576;
 
-let gravity = 1.5;
+let gravity = 2;
 
 class Player {
     constructor() {
@@ -29,6 +29,8 @@ class Player {
                 right: image6
             }
         }
+
+        this.speed = 15
 
         this.currentSprite = this.sprites.stand.right
     }
@@ -423,13 +425,13 @@ function animate() {
         tube.update()
     })
     if (keys.right.pressed && player.position.x < 400) {
-        player.velocity.x = 5
+        player.velocity.x = player.speed
         tubes.forEach(tube => {
             tube.velocity.x = 0
         })
     } 
     else if((keys.left.pressed && player.position.x > 100) || keys.left.pressed && scrollOffset === 0 && player.position.x>0) {
-        player.velocity.x = -5;
+        player.velocity.x = -player.speed
         tubes.forEach(tube => {
             tube.velocity.x = 0
         })
@@ -441,9 +443,9 @@ function animate() {
         })
 
         if (keys.right.pressed) {
-            scrollOffset +=5
+            scrollOffset += player.speed
             platforms.forEach(platform => {
-                platform.position.x -= 5
+                platform.position.x -= player.speed
             })
             genericObjects.forEach(genericObject => {
                 genericObject.position.x -=2;
@@ -473,7 +475,7 @@ function animate() {
                     blockObject.position.x +=5;
                 })
                 tubes.forEach(tube => {
-                    tube.velocity.x +=5
+                    tube.velocity.x += player.speed
                 })
           
 
