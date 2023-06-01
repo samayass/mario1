@@ -53,7 +53,14 @@ tags: [javascript]
   }
 </style>
 
-<p id="mario" class="sprite"></p>
+<p id="mario" class="sprite"></p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <p id="coin" class="sprite1"></p>
 
 <!--- Embedded executable code--->
