@@ -208,15 +208,15 @@ class Floor {
 }
 
 class Lava {
-    constructor ( { x, y, image }){
+    constructor ( { x, y, image, width, height }){
         this.position = {
             x,
             y
         }
         this.image = new Image()
         this.image.src = image
-        this.width = 200
-        this.height = 120
+        this.width = width
+        this.height = height
     }
     draw() {
         c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
@@ -474,12 +474,23 @@ function init() {
         new Lava( {
             x: 1050,
             y: 460,
-            image: 'images/lava.gif'
+            image: 'images/lava.gif',
+            width: 200,
+            height: 120
         }),
         new Lava( {
             x: 2300,
             y: 460,
-            image: 'images/lava.gif'
+            image: 'images/lava.gif',
+            width: 200,
+            height: 120
+        }),
+        new Lava( {
+            x: 3550,
+            y: 460,
+            image: 'images/lava.gif',
+            width: 1000,
+            height: 120
         })  
     ]
 
