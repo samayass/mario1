@@ -13,7 +13,7 @@ marioImage.src = 'images/mario_animationTEMP2.png'
 
 class Player {
     constructor() {
-        this.speed = 15
+        this.speed = 10
         this.position = {
             x: 100, 
             y: 100
@@ -63,13 +63,13 @@ class Player {
 }
 class Goomba {
     constructor({ x, y, image, width = 80, height = 80 }) {
-        this.speed = -1
+        this.speed = -2
         this.position = {
             x,
             y
         };
         this.velocity = {
-            x: -1,
+            x: -2,
             y: 0
         };
         this.image = new Image();
@@ -379,6 +379,76 @@ function init() {
             image: 'images/BrickBlock.png',
             width: 80,
             height: 80
+        } ),
+        new Platform( {
+            x: 2080, 
+            y: 40,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 2160, 
+            y: 120,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 2240, 
+            y: 200,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 2550, 
+            y: 280,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 2630, 
+            y: 280,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 2710, 
+            y: 280,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 3050, 
+            y: 200,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 3130, 
+            y: 280,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 3210, 
+            y: 200,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
+        } ),
+        new Platform( {
+            x: 3290, 
+            y: 200,
+            image: 'images/BrickBlock.png',
+            width: 80,
+            height: 80
         } )]
     coins = [
         new Coin({
@@ -559,11 +629,11 @@ function animate() {
         })
         barrier.velocity.x = -player.speed
         goombas.forEach(goomba => {
-            if (goomba.speed == 1) {
-                goomba.velocity.x = 1
+            if (goomba.speed == 2) {
+                goomba.velocity.x = 2
             }
-            else if (goomba.speed == -1) {
-                goomba.velocity.x = -1
+            else if (goomba.speed == -2) {
+                goomba.velocity.x = -2
             }
         })
     }
@@ -577,11 +647,11 @@ function animate() {
         })
         barrier.velocity.x = player.speed
         goombas.forEach(goomba => {
-            if (goomba.speed == 1) {
-                goomba.velocity.x = 1
+            if (goomba.speed == 2) {
+                goomba.velocity.x = 2
             }
-            else if (goomba.speed == -1) {
-                goomba.velocity.x = -1
+            else if (goomba.speed == -2) {
+                goomba.velocity.x = -2
             }
         })
     }
@@ -595,11 +665,11 @@ function animate() {
         })
         barrier.velocity.x = 0
         goombas.forEach(goomba => {
-            if (goomba.speed == 1) {
-                goomba.velocity.x = 1
+            if (goomba.speed == 2) {
+                goomba.velocity.x = 2
             }
-            else if (goomba.speed == -1) {
-                goomba.velocity.x = -1
+            else if (goomba.speed == -2) {
+                goomba.velocity.x = -2
             }
         })
 
@@ -705,8 +775,8 @@ function animate() {
                 goomba.position.y + goomba.height >= platform.position.y
                 &&
                 goomba.position.y <= platform.position.y + platform.height) {
-                goomba.velocity.x = 1
-                goomba.speed = 1
+                goomba.velocity.x = 2
+                goomba.speed = 2
                 //player.position.x = platform.position.x + platform.width + 5
             }
         })
@@ -719,8 +789,8 @@ function animate() {
                 goomba.position.y + goomba.height >= platform.position.y
                 &&
                 goomba.position.y <= platform.position.y + platform.height) {
-                goomba.velocity.x = -1
-                goomba.speed = -1
+                goomba.velocity.x = -2
+                goomba.speed = -2
                 //player.position.x = platform.position.x - 5 - player.width
             }
         })
@@ -750,8 +820,8 @@ function animate() {
             goomba.position.y + goomba.height >= tube.position.y
             &&
             goomba.position.y <= tube.position.y + tube.height) {
-            goomba.velocity.x = -1
-            goomba.speed = -1
+            goomba.velocity.x = -2
+            goomba.speed = -2
             // player.position.x = tube.position.x + 30 - player.width
             // console.log(tube.position.x + "left")
         }
