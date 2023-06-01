@@ -451,11 +451,11 @@ function animate() {
                 genericObject.position.x -=2;
             })
             blockObjects.forEach(blockObject => {
-                blockObject.position.x -=5;
+                blockObject.position.x -=player.speed;
             })
             tubes.forEach(tube => {
                 //tube.position.x  -= player.speed
-                tube.velocity.x -=5
+                tube.velocity.x -=player.speed
             })
         
             
