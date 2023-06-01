@@ -31,8 +31,16 @@ tags: [javascript]
 
 <!--- HTML for page contains <p> tag named "mario" and class properties for a "sprite"  -->
 <p id="mario" class="sprite"></p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 <p id="coin" class="sprite1"></p>
-<p id="coin" class="sprite2"></p>
 
 <!--- Embedded Cascading Style Sheet (CSS) rules, defines how HTML elements look --->
 <style>
@@ -656,9 +664,9 @@ tags: [javascript]
     </style>
 </head>
 <body>
-        <div class="cloud" style="--delay:3s;--top100%"></div>
-        <div class="cloud" style="--delay:5s;--top:100%"></div>
-        <div class="cloud" style="--delay:5.5s;--top:100%"></div>
+        <div class="cloud" style="--delay:3s;--top70%"></div>
+        <div class="cloud" style="--delay:5s;--top:80%"></div>
+        <div class="cloud" style="--delay:5.5s;--top:60%"></div>
         <div class="bricks" style="--delay:5.5s;--top:100%"></div>
         <!-- <div class="bush1" style="--delay:5.5s;--top:10vmin"></div> -->
         <!-- <div class="bricks" img src="images/Bricks.png" alt="bricks" width="500" height="333" style="--delay:0.0s;--top:10vmin"></div> -->
