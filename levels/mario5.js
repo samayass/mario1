@@ -6,7 +6,7 @@ canvas.width = 1024
 canvas.height = 576
 
 let gravity = 2
-let hasJumped = true
+let canJump = true
 
 const marioImage = new Image()
 marioImage.src = 'images/mario_animationTEMP2.png'
@@ -609,7 +609,7 @@ function animate() {
     })
     
     if (player.velocity.y == 0) {
-        hasJumped = true
+        // hasJumped = true
     }
 
     // goomba movement
@@ -999,11 +999,11 @@ window.addEventListener('keydown', ({keyCode}) => {
             keys.right.pressed = true
         break 
         case 87:
-            if (hasJumped) {
+            if(canJump) {
                 //console.log('up')
                 player.velocity.y -= 30
-                hasJumped = false
-                setTimeout("hasJumped = true", 1000);
+                canJump = false
+                setTimeout("canJump = true", 1000);
             }
         break 
     }
