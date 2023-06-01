@@ -63,12 +63,13 @@ class Player {
 }
 class Goomba {
     constructor({ x, y, image, width = 80, height = 80 }) {
+        this.speed = -1
         this.position = {
             x,
             y
         };
         this.velocity = {
-            x: 0,
+            x: -1,
             y: 0
         };
         this.image = new Image();
@@ -454,6 +455,20 @@ function init() {
             image: 'images/goomba2.png',
             width: 80,
             height: 80
+        } ),
+        new Goomba( {
+            x: 900,
+            y: 420,
+            image: 'images/goomba2.png',
+            width: 80,
+            height: 80
+        } ),
+        new Goomba( {
+            x: 3300,
+            y: 420,
+            image: 'images/goomba2.png',
+            width: 80,
+            height: 80
         } )]
     lavas = [
         new Lava( {
@@ -518,9 +533,9 @@ function animate() {
 
     // goomba movement
     
-        goombas.forEach(goomba => {
-            goomba.velocity.x = -1;
-          });
+        // goombas.forEach(goomba => {
+        //     goomba.velocity.x = -1;
+        //   });
     
 
     if (keys.right.pressed && player.position.x < 400) {
@@ -532,9 +547,14 @@ function animate() {
             tube.velocity.x = 0
         })
         barrier.velocity.x = -player.speed
-        // goombas.forEach(goomba => {
-        //     goomba.velocity.x = 0
-        // })
+        goombas.forEach(goomba => {
+            if (goomba.speed == 1) {
+                goomba.velocity.x = 1
+            }
+            else if (goomba.speed == -1) {
+                goomba.velocity.x = -1
+            }
+        })
     }
     else if (keys.left.pressed && player.position.x > 100) {
         player.velocity.x = -player.speed
@@ -545,9 +565,14 @@ function animate() {
             tube.velocity.x = 0
         })
         barrier.velocity.x = player.speed
-        // goombas.forEach(goomba => {
-        //     goomba.velocity.x = 0
-        // })
+        goombas.forEach(goomba => {
+            if (goomba.speed == 1) {
+                goomba.velocity.x = 1
+            }
+            else if (goomba.speed == -1) {
+                goomba.velocity.x = -1
+            }
+        })
     }
     else {
         player.velocity.x = 0
@@ -558,9 +583,14 @@ function animate() {
             platform.velocity.x = 0
         })
         barrier.velocity.x = 0
-        // goombas.forEach(goomba => {
-        //     goomba.velocity.x = 0
-        // })
+        goombas.forEach(goomba => {
+            if (goomba.speed == 1) {
+                goomba.velocity.x = 1
+            }
+            else if (goomba.speed == -1) {
+                goomba.velocity.x = -1
+            }
+        })
 
         if (keys.right.pressed && !keys.left.pressed) {
             scrollOffset += player.speed
@@ -579,7 +609,7 @@ function animate() {
             })
             barrier.velocity.x = -player.speed
             goombas.forEach(goomba => {
-                goomba.velocity.x = -player.speed - 1
+                goomba.velocity.x = -player.speed + goomba.speed
             })
             lavas.forEach(lava => {
                 lava.position.x  -= player.speed
@@ -601,7 +631,7 @@ function animate() {
             })
             barrier.velocity.x = player.speed
             goombas.forEach(goomba => {
-                goomba.velocity.x = player.speed - 1
+                goomba.velocity.x = player.speed + goomba.speed
             })
             lavas.forEach(lava => {
                 lava.position.x += player.speed
@@ -655,13 +685,41 @@ function animate() {
             player.velocity.x = 0
             player.position.x = platform.position.x + platform.width + 5
         }
+        //goomba from right
+        goombas.forEach(goomba => {
+            if (goomba.position.x >= platform.position.x + platform.width - 10
+                && 
+                goomba.position.x + goomba.velocity.x <= platform.position.x + platform.width + platform.velocity.x - 10
+                &&
+                goomba.position.y + goomba.height >= platform.position.y
+                &&
+                goomba.position.y <= platform.position.y + platform.height) {
+                goomba.velocity.x = 1
+                goomba.speed = 1
+                //player.position.x = platform.position.x + platform.width + 5
+            }
+        })
+        //goomba from left
+        goombas.forEach(goomba => {
+            if (goomba.position.x + goomba.width <= platform.position.x + 10 // the '+ 10' is an arbitrary value to fix the hitbox
+                && 
+                goomba.position.x + goomba.width + goomba.velocity.x >= platform.position.x + platform.velocity.x + 10
+                &&
+                goomba.position.y + goomba.height >= platform.position.y
+                &&
+                goomba.position.y <= platform.position.y + platform.height) {
+                goomba.velocity.x = -1
+                goomba.speed = -1
+                //player.position.x = platform.position.x - 5 - player.width
+            }
+        })
 
     })
     //tube collision detection
     tubes.forEach(tube => {
         
         //from left
-        if (player.position.x + player.width <= tube.position.x + 45// the '+ 10' is an arbitrary value to fix the hitbox
+        if (player.position.x + player.width <= tube.position.x + 45// the '+ 45' is an arbitrary value to fix the hitbox
             && 
             player.position.x + player.width + player.velocity.x >= tube.position.x + tube.velocity.x + 45
             &&
@@ -672,6 +730,21 @@ function animate() {
             player.position.x = tube.position.x + 30 - player.width
             console.log(tube.position.x + "left")
         }
+        //goomba from left 
+        goombas.forEach(goomba => {
+            if (goomba.position.x + goomba.width <= tube.position.x + 45
+            && 
+            goomba.position.x + goomba.width + goomba.velocity.x >= tube.position.x + tube.velocity.x + 45
+            &&
+            goomba.position.y + goomba.height >= tube.position.y
+            &&
+            goomba.position.y <= tube.position.y + tube.height) {
+            goomba.velocity.x = -1
+            goomba.speed = -1
+            // player.position.x = tube.position.x + 30 - player.width
+            // console.log(tube.position.x + "left")
+        }
+        })
         //from right
         if (player.position.x >= tube.position.x + tube.width - 45
             && 
