@@ -3,7 +3,7 @@ title: Mario in Motion OOP
 comments: true
 layout: default
 description: Use JavaScript without external libararies to animate Mario moving across screen, OOP style.
-permalink: /mario
+permalink: /mario2
 image: /images/mario_animation.png
 categories: []
 tags: [javascript]
