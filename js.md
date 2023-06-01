@@ -14,15 +14,8 @@ tags: [javascript]
 
 <br>
 
-
-<head>
-    <!-- load jQuery and DataTables scripts -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>var define = null;</script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-</head>
-
+<!DOCTYPE html>
+<html>
 <head>
   <title>User Input Form</title>
 </head>
@@ -30,17 +23,28 @@ tags: [javascript]
   <h1>User Input Form</h1>
 
   <form id="userForm">
+
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required><br>
 
-    <label for="dob">Hours:</label>
-    <input type="number" id="dob" name="dob" required><br>
+    <label for="hours">Hours:</label>
+    <input type="number" id="hours" name="hours" required><br>
 
-    <label for="age">Task:</label>
-    <input type="text" id="age" name="age" required><br>
+    <label for="task">Task:</label>
+    <input type="text" id="task" name="task" required><br>
 
     <input type="submit" value="Submit">
   </form>
+
+  <h2>Submitted Data</h2>
+
+  <table id="dataTable" border="1">
+    <tr>
+      <th>Name</th>
+      <th>Hours</th>
+      <th>Task</th>
+    </tr>
+  </table>
 
   <script>
     // Handle form submission
@@ -49,67 +53,41 @@ tags: [javascript]
 
       // Retrieve form values
       var name = document.getElementById('name').value;
-      var dob = document.getElementById('dob').value;
-      var age = document.getElementById('age').value;
+      var hours = document.getElementById('hours').value;
+      var task = document.getElementById('task').value;
 
-      // Perform any desired actions with the form data
-      console.log('Name:', name);
-      console.log('Hours:', dob);
-      console.log('Task:', age);
+      // Create a JavaScript object with the form data
+      var formData = {
+        name: name,
+        hours: hours,
+        task: task
+      };
 
-      // Using Fetch API to send the data to a server
-      
-      fetch('https://samayass.github.io/mario1/submit', {
-        method: 'POST',
-        body: JSON.stringify({ name, dob, age }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(response => response.json())
-        .then(data => {
-          // Handle the server's response
-          console.log('Server Response:', data);
-        })
-        .catch(error => {
-          // Handle any errors
-          console.error('Error:', error);
-        });
+      // Convert the JavaScript object to a JSON string
+      var jsonData = JSON.stringify(formData);
+
+      // Perform any desired actions with the JSON data
+      console.log('JSON Data:', jsonData);
+
+      // Parse the JSON data back into a JavaScript object
+      var parsedData = JSON.parse(jsonData);
+
+      // Add the parsed data to the table
+      var table = document.getElementById('dataTable');
+      var row = table.insertRow();
+
+      var nameCell = row.insertCell();
+      nameCell.innerHTML = parsedData.name;
+
+      var hoursCell = row.insertCell();
+      hoursCell.innerHTML = parsedData.hours;
+
+      var taskCell = row.insertCell();
+      taskCell.innerHTML = parsedData.task;
+
+      // Clear the form after submission
+      document.getElementById('userForm').reset();
     });
   </script>
-
-<table id="flaskTable" class="table" style="width:100%">
-    <thead id="flaskHead">
-        <tr>
-            <th>Name</th>
-            <th>Hours</th>
-            <th>Task</th>
-        </tr>
-    </thead>
-    <tbody id="flaskBody"></tbody>
-</table>
-
-<script>
-  $(document).ready(function() {
-    fetch('https://samayass.github.io/mario1/submit', { mode: 'cors' })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('API response failed');
-      }
-      return response.json();
-    })
-    .then(data => {
-      for (const row of data) {
-        $('#flaskBody').append('<tr><td>' + 
-            row.name + '</td><td>' + 
-            row.hours + '</td><td>' + 
-            row.task + '</td></tr>');
-      }
-      // BUG warning - Jupyter does not show Datatable controls, works on deployed GitHub pages
-      $("#flaskTable").DataTable();
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-  });
-</script>
+</body>
+</html>
