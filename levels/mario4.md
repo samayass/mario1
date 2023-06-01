@@ -1,5 +1,5 @@
 ---
-title: Mario Game (test1)
+title: Mario Game with Background and Coins
 comments: true
 layout: default
 description: Animating Mario games with starts of interacting objects

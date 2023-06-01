@@ -1,3 +1,15 @@
+---
+title: Mario Game
+comments: true
+layout: default
+description: Animating Mario games with starts of interacting objects
+permalink: /mario5
+image: /levels/images/mario_animation.png
+image2: /images/coin.png
+categories: []
+tags: [javascript]
+---
+
 {% include home.html %}
 
 <style>
