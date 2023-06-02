@@ -1,5 +1,5 @@
 ---
-title: Mario Game with Background and Coins
+title: Mario Coin Animate
 comments: true
 layout: default
 description: Animating Mario games with starts of interacting objects
@@ -33,6 +33,7 @@ tags: [javascript]
   <script>
     document.getElementById('spawnButton').addEventListener('click', function() {
       var coin = document.createElement('div');
+      var sound = new Audio('/sounds/coin.mp3');
       coin.classList.add('coin');
 
       // Generate random position on the page
@@ -43,11 +44,13 @@ tags: [javascript]
       coin.style.top = posY + 'px';
 
       document.body.appendChild(coin);
+      sound.play();
 
       var frameIndex = 0;
       var frameWidth = 200; // increment between the frames using this
       var numFrames = 12;
       var interval = 100; // Time between each frame (in milliseconds)
+      
 
       var animationInterval = setInterval(function() {
         coin.style.backgroundPositionX = -frameIndex * frameWidth + 'px'; // moves the sprite sheet to the right by incrementing the image by how long each frame is in pixels
