@@ -20,7 +20,8 @@ tags: [javascript]
   </style>
 </head>
 <body>
-  <h1>Tic Tac Toe</h1>
+  <h1>Tic Tac Toe Game</h1>
+  <h2>X goes first</h2>
   <div id="board">
     <div class="row">
       <div class="cell" id="cell-0-0" data-row="0" data-col="0"></div>
@@ -138,11 +139,21 @@ function resetGame() {
 }
 
 // Attach event listener to the game board
+// Get the game board element by its ID
 let boardElement = document.getElementById('board');
-boardElement.addEventListener('click', function(event) { // adds the current player after a click
+
+// Add a click event listener to the game board element
+boardElement.addEventListener('click', function(event) {
+  // When a click event occurs on the game board
+
+  // Get the clicked cell element
   let cell = event.target;
+
+  // Retrieve the row and column values from the data attributes of the cell
   let row = parseInt(cell.getAttribute('data-row'));
   let col = parseInt(cell.getAttribute('data-col'));
+
+  // Call the makeMove function with the obtained row and column values
   makeMove(row, col);
 });
 
