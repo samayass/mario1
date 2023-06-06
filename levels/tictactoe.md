@@ -39,16 +39,14 @@ tags: [javascript]
       <div class="cell" id="cell-2-2" data-row="2" data-col="2"></div>
     </div>
   </div>
-  <script>
-    // Paste the JavaScript code here
-  </script>
+  
 </body>
 </html>
 
 <script>
 // Tic Tac Toe Game
 
-// Initialize the game board
+// Initialize the game board with a 2D array
 let board = [
   ['', '', ''],
   ['', '', ''],
