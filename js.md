@@ -33,7 +33,7 @@ tags: [javascript]
   <script>
     document.getElementById('spawnButton').addEventListener('click', function() {
       var coin = document.createElement('div');
-      var sound = new Audio('/sounds/coin.mp3');
+      var sound = new Audio('/sounds/coin.mp3'); // sound
       coin.classList.add('coin');
 
       // Generate random position on the page
@@ -64,3 +64,98 @@ tags: [javascript]
     });
   </script>
 </body>
+<!-- 
+<head>
+  <title>User Input Form</title>
+</head>
+<body>
+  <h1>User Input Form</h1>
+
+  <form id="userForm">
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="hours">Hours:</label>
+    <input type="number" id="hours" name="hours" required><br>
+
+    <label for="work">Work:</label>
+    <input type="text" id="work" name="work" required><br>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <h2>Submitted Data</h2>
+
+  <table id="dataTable" border="1">
+    <tr>
+      <th>Name</th>
+      <th>Hours</th>
+      <th>Work</th>
+    </tr>
+  </table>
+
+  <script>
+    var submittedData = []; // store data locally (NOT DATABASE)
+
+    // adds data to table
+    function addDataToTable(data) {
+      var table = document.getElementById('dataTable');
+      var row = table.insertRow();
+
+      var nameCell = row.insertCell();
+      nameCell.innerHTML = data.name;
+
+      var hoursCell = row.insertCell();
+      hoursCell.innerHTML = data.hours;
+
+      var workCell = row.insertCell();
+      workCell.innerHTML = data.work;
+    }
+
+    // updates
+    function updateTable() {
+      var table = document.getElementById('dataTable');
+      table.innerHTML = `
+        <tr>
+          <th>Name</th>
+          <th>Date of Birth</th>
+          <th>Work</th>
+        </tr>
+      `;
+
+      submittedData.forEach(function(data) {
+        addDataToTable(data);
+      });
+    }
+
+    // on click, submits the form and creates a new row
+    document.getElementById('userForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form from submitting
+
+      // getter
+      var name = document.getElementById('name').value;
+      var hours = document.getElementById('hours').value;
+      var work = document.getElementById('work').value;
+
+      // setter
+      var formData = {
+        name: name,
+        hours: hours,
+        work: work
+      };
+
+      // pushes data to table
+      submittedData.push(formData);
+
+      // adds to the table
+      addDataToTable(formData);
+
+      // makes form submittable again
+      document.getElementById('userForm').reset();
+    });
+
+    // Initially populate the table with existing data (if any)
+updateTable();
+  </script>
+</body> -->

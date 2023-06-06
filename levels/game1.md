@@ -132,8 +132,8 @@ tags: [javascript]
 
         this.positionX += speed;
         frame = (frame + 1) % obj.frames;
-        if (((this.positionX + (this.pixels/2) - 75) >= (coin.positionX)) && (this.positionX <= coin.positionX)){
-          coin.disappear();
+        if (((this.positionX + (this.pixels/2) - 75) >= (coin.positionX)) && (this.positionX <= coin.positionX)){ // check when right of sprite is equal to left of coin
+          coin.disappear(); // coin gone bye bye
         }
 
         const viewportWidth = window.innerWidth;
@@ -155,8 +155,8 @@ tags: [javascript]
 
         this.positionX -= speed;
         frame = (frame + 1) % obj.frames;
-        if (((this.positionX + (this.pixels/2) - 75) >= (coin.positionX)) && (this.positionX <= coin.positionX)){
-          coin.disappear();
+        if (((this.positionX + (this.pixels/2) - 75) >= (coin.positionX)) && (this.positionX <= coin.positionX)){ // check when left of sprite is equal to right of coin
+          coin.disappear(); // coin gone bye bye
         }
 
         const viewportWidth = window.innerWidth;
@@ -285,25 +285,25 @@ tags: [javascript]
     }
 
     coinJump(){
-      if(this.positionY <= 0){
+      if(this.positionY <= 0){ // animates the coin while moving up the screen and playing the sound
         // Play the beat
-        this.beat.play();
-        this.interval = 10;
-        this.positionY += 5;
+        this.beat.play(); // sound
+        this.interval = 10; // animate
+        this.positionY += 5; // y pos
       }
     }
 
     disappear(){
       setInterval(this.coinJump(), 10);
       if(this.positionY >= -5){
-        this.stopAnimate();
-        document.getElementById('coin').style.display = 'none';
+        this.stopAnimate(); // stop animate
+        document.getElementById('coin').style.display = 'none'; // get rid of the coin
       }
     }
   }
 
-  const mario = new Mario(mario_metadata);
-  const coin = new Coin(coin_metadata);
+  const mario = new Mario(mario_metadata); // creates mario obj
+  const coin = new Coin(coin_metadata); // creats coin obj
 
   ////////// event control /////////
 
@@ -316,12 +316,12 @@ tags: [javascript]
       event.preventDefault();
       direction = "right";
       if (event.repeat) {
-        if (mario.currentSpeed === 3 && rightspd == 1) {
+        if (mario.currentSpeed === 3 && rightspd == 1) { // check if already walking, then start running
           mario.startRunningRight();
           rightspd = 0;
         }
       } else {
-        if (mario.currentSpeed === 0 && leftspd == 0) {
+        if (mario.currentSpeed === 0 && leftspd == 0) { // check if not doing anything, or going another direction
           mario.startWalkingRight();
           leftspd = 0;
           rightspd = 1;
@@ -333,12 +333,12 @@ tags: [javascript]
       event.preventDefault();
       direction = "left";
       if (event.repeat) {
-        if (mario.currentSpeed === 3 && leftspd == 1) {
+        if (mario.currentSpeed === 3 && leftspd == 1) { // check if already walking, then start running
           mario.startRunningLeft();
           leftspd = 0;
         }
       } else {
-        if (mario.currentSpeed === 0 && rightspd == 0) {
+        if (mario.currentSpeed === 0 && rightspd == 0) {  // check if not doing anything, or going another direction
           mario.startWalkingLeft();
           rightspd = 0;
           leftspd = 1;
@@ -346,20 +346,20 @@ tags: [javascript]
       }
     } 
 
-    if (event.key === " ") {
+    if (event.key === " ") { // spacebar for jump
       event.preventDefault();
       mario.jump();
     }
 
-    if (event.key === "s") {
+    if (event.key === "s") { // walk/run stopper
       event.preventDefault();
       rightspd = 0;
       leftspd = 0;
       if (event.repeat) {
         mario.startFlipping();
-      } else if (direction == "right"){
+      } else if (direction == "right"){  // directions of puffs
         mario.startPuffing();
-      } else if (direction == "left"){
+      } else if (direction == "left"){  // directions of puffs
         mario.startPuffingLeft();
       }
     }
@@ -425,9 +425,9 @@ tags: [javascript]
   //start animation on window focus
   window.addEventListener("focus", () => {
      mario.stopAnimate();
-     rightspd = 0;
-     leftspd = 0;
-     direction = "none";
+     rightspd = 0; // initialize vars
+     leftspd = 0; // initialize vars
+     direction = "none"; // initialize vars
   });
 
   //start animation on page load or page refresh
@@ -438,8 +438,8 @@ tags: [javascript]
     const sprite1 = document.querySelector(".sprite1");
     sprite.style.transform = `scale(${0.2 * scale})`;
     sprite1.style.transform = `scale(${0.1 * scale})`;
-    mario.startResting();
-    coin.startAnimate();
+    mario.startResting(); // starts animation on load
+    coin.startAnimate(); // starts animation on load
   });
   
 
