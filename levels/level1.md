@@ -158,8 +158,6 @@ tags: [javascript]
     function handleKeyPress(event) {
     if (event.key === ' ') {
         jump();
-    } else if (event.key === 'ArrowDown') {
-        currentTop += stepSize;
     } else if (event.key === 'ArrowLeft') {
         blockLeft += blockStepSize;
         currentLeft -= stepSize;
