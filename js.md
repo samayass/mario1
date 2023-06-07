@@ -29,11 +29,13 @@ tags: [javascript]
   <h1>Sprite Animation</h1>
 
   <button id="spawnButton">Spawn Coin</button>
+  <audio src="/sounds/coin.mp3" id="my-audio"></audio>
 
   <script>
     document.getElementById('spawnButton').addEventListener('click', function() {
       var coin = document.createElement('div');
-      var sound = new Audio('/sounds/coin.mp3'); // sound
+      var sound = document.getElementById('my-audio'); //get working on deployed
+    //   var sound = new Audio('/sounds/coin.mp3') ;
       coin.classList.add('coin');
 
       // Generate random position on the page
