@@ -1,5 +1,7 @@
 # Mario Game
 
+{% include home.html %}
+
 - [Runtime](https://samayass.github.io/mario1/)
 - [Game](https://samayass.github.io/mario1/background1)
 
