@@ -34,8 +34,8 @@ tags: [javascript]
   <script>
     document.getElementById('spawnButton').addEventListener('click', function() {
       var coin = document.createElement('div');
-      var sound = document.getElementById('my-audio'); //get working on deployed
-    //   var sound = new Audio('/sounds/coin.mp3') ;
+      import sound1 from '../sounds/coin.mp3'
+      const sound = new Audio(sound1)
       coin.classList.add('coin');
 
       // Generate random position on the page
