@@ -32,11 +32,9 @@ tags: [javascript]
   <audio src="/sounds/coin.mp3" id="my-audio"></audio>
 
   <script>
-    import sound1 from '../sounds/coin.mp3'
-
     document.getElementById('spawnButton').addEventListener('click', function() {
       var coin = document.createElement('div');
-      const sound = new Audio(sound1)
+      var sound = new Audio('../sounds/coin.mp3')
       coin.classList.add('coin');
 
       // Generate random position on the page
