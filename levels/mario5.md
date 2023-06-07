@@ -40,7 +40,11 @@ tags: [javascript]
   }
 </style>
 <br>
+<h1>Mario and Luigi Game</h1>
+<h2>Use WASD to control the character</h2>
+<h3>Watch out for the Goombas and don't fall in the holes or lava! Have Fun!</h3>
 <canvas style="top: 500px; left: 0%"></canvas>
+
 <br>
 
 <script src = "mario5.js"></script>
