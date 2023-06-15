@@ -171,20 +171,20 @@ function animate() {
 animate();
 function handleKeyDown(event) {
   const speed = 10;
-  if (event.key === 'ArrowUp') {
+  if (event.key === 'w') {
     player.jump(); // Call the jump method instead of directly setting velocity
-  } else if (event.key === 'ArrowDown') {
+  } else if (event.key === 'w') {
     player.velocity.y = speed;
-  } else if (event.key === 'ArrowLeft') {
+  } else if (event.key === 'a') {
     player.velocity.x = -speed;
-  } else if (event.key === 'ArrowRight') {
+  } else if (event.key === 'd') {
     player.velocity.x = speed;
   }
 }
 function handleKeyUp(event) {
   if (
-    event.key === 'ArrowLeft' ||
-    event.key === 'ArrowRight'
+    event.key === 'a' ||
+    event.key === 'd'
   ) {
     player.velocity.x = 0;
   }
